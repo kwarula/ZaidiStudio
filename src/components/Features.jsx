@@ -15,13 +15,16 @@ const Features = () => {
       <h2 className="text-3xl font-bold mb-12 text-center text-blue-900">What We Can Automate for You</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {features.map((feature, index) => (
-          <Card key={index}>
+          <Card 
+            key={index} 
+            className="transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-blue-50"
+          >
             <CardHeader>
-              <feature.icon className="w-12 h-12 text-blue-600 mb-4" />
-              <CardTitle>{feature.title}</CardTitle>
+              <feature.icon className="w-12 h-12 text-blue-600 mb-4 transition-colors duration-300 ease-in-out group-hover:text-blue-700" />
+              <CardTitle className="transition-colors duration-300 ease-in-out group-hover:text-blue-800">{feature.title}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">{feature.description}</p>
+              <p className="text-gray-600 transition-colors duration-300 ease-in-out group-hover:text-gray-700">{feature.description}</p>
             </CardContent>
           </Card>
         ))}
