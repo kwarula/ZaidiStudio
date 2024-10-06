@@ -9,6 +9,13 @@ import Footer from '../components/Footer';
 const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <svg width="0" height="0" className="hidden">
+        <defs>
+          <pattern id="hero-pattern" patternUnits="userSpaceOnUse" width="100" height="100">
+            <image href="/hero-pattern.svg" x="0" y="0" width="100" height="100" />
+          </pattern>
+        </defs>
+      </svg>
       <Header />
       <main>
         <Hero />
