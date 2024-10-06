@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
+import { useToast } from './ui/use-toast';
 
 const businessTypes = [
   'E-commerce',
@@ -27,6 +28,7 @@ const AIContentGenerator = () => {
   });
   const [generatedStrategy, setGeneratedStrategy] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -49,14 +51,27 @@ const AIContentGenerator = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to generate strategy');
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
-      setGeneratedStrategy(data.strategy); // Assuming the response contains a 'strategy' field
+      if (data.strategy) {
+        setGeneratedStrategy(data.strategy);
+        toast({
+          title: "Strategy Generated",
+          description: "Your AI strategy has been successfully generated.",
+        });
+      } else {
+        throw new Error('No strategy in response');
+      }
     } catch (error) {
       console.error('Error generating strategy:', error);
-      setGeneratedStrategy('Failed to generate strategy. Please try again.');
+      setGeneratedStrategy('');
+      toast({
+        title: "Error",
+        description: "Failed to generate strategy. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }
