@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from './ui/card';
 import { MessageSquare, Share2, Package, Users } from 'lucide-react';
+import { Button } from './ui/button';
 
 const features = [
   { title: 'Customer Service', description: 'Automate replies, inquiries, and follow-ups', icon: MessageSquare },
@@ -17,7 +18,7 @@ const Features = () => {
         {features.map((feature, index) => (
           <Card 
             key={index} 
-            className="transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-blue-50"
+            className="transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:bg-blue-50 flex flex-col"
           >
             <CardHeader>
               <feature.icon className="w-12 h-12 text-blue-600 mb-4 transition-colors duration-300 ease-in-out group-hover:text-blue-700" />
@@ -26,6 +27,11 @@ const Features = () => {
             <CardContent>
               <p className="text-gray-600 transition-colors duration-300 ease-in-out group-hover:text-gray-700">{feature.description}</p>
             </CardContent>
+            <CardFooter className="mt-auto">
+              <Button variant="outline" className="w-full mt-4">
+                See More Services
+              </Button>
+            </CardFooter>
           </Card>
         ))}
       </div>
