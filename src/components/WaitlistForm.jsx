@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from './ui/dialog';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -21,7 +21,7 @@ const steps = [
   },
 ];
 
-const WaitlistForm = ({ open, onOpenChange }) => {
+const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState({
     businessType: '',
@@ -31,6 +31,13 @@ const WaitlistForm = ({ open, onOpenChange }) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    const hasJoined = localStorage.getItem('hasJoinedWaitlist') === 'true';
+    if (hasJoined) {
+      onWaitlistJoined();
+    }
+  }, [onWaitlistJoined]);
 
   const handleOptionSelect = (value) => {
     setFormData({ ...formData, [Object.keys(formData)[step]]: value });
@@ -59,6 +66,8 @@ const WaitlistForm = ({ open, onOpenChange }) => {
         throw new Error('Failed to submit form');
       }
 
+      localStorage.setItem('hasJoinedWaitlist', 'true');
+      onWaitlistJoined();
       toast({
         title: "Success!",
         description: "You've been added to the waitlist.",
