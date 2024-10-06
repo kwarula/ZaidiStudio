@@ -20,6 +20,25 @@ const businessTypes = [
   'Other'
 ];
 
+const formatStrategy = (strategy) => {
+  // Split the strategy into sections
+  const sections = strategy.split('\n\n');
+  
+  return sections.map((section, index) => {
+    const [title, ...content] = section.split('\n');
+    return (
+      <div key={index} className="mb-4">
+        <h4 className="text-lg font-semibold text-blue-700 mb-2">{title}</h4>
+        <ul className="list-disc pl-5 space-y-1">
+          {content.map((item, itemIndex) => (
+            <li key={itemIndex} className="text-sm text-blue-800">{item.trim()}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  });
+};
+
 const AIContentGenerator = () => {
   const [formData, setFormData] = useState({
     businessName: '',
@@ -146,8 +165,8 @@ const AIContentGenerator = () => {
         )}
         {generatedStrategy && (
           <div className="mt-6 p-4 bg-blue-50 rounded-md">
-            <h3 className="text-lg font-semibold mb-2">Your AI-Generated Business Strategy:</h3>
-            <p className="text-sm text-blue-800 whitespace-pre-wrap">{generatedStrategy}</p>
+            <h3 className="text-xl font-semibold mb-4 text-blue-900">Your AI-Generated Business Strategy:</h3>
+            {formatStrategy(generatedStrategy)}
           </div>
         )}
       </CardContent>
