@@ -1,50 +1,127 @@
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
+import { Label } from './ui/label';
+import { Textarea } from './ui/textarea';
+
+const businessTypes = [
+  'E-commerce',
+  'Service-based',
+  'SaaS',
+  'Manufacturing',
+  'Retail',
+  'Healthcare',
+  'Education',
+  'Finance',
+  'Other'
+];
 
 const AIContentGenerator = () => {
-  const [topic, setTopic] = useState('');
-  const [generatedContent, setGeneratedContent] = useState('');
+  const [formData, setFormData] = useState({
+    businessName: '',
+    businessType: '',
+    location: '',
+    additionalInfo: ''
+  });
+  const [generatedStrategy, setGeneratedStrategy] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const generateContent = async () => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSelectChange = (value) => {
+    setFormData(prevData => ({ ...prevData, businessType: value }));
+  };
+
+  const generateStrategy = async () => {
     setIsLoading(true);
-    // In a real implementation, this would be an API call to an AI service
-    // For demo purposes, we'll use a timeout and predefined responses
-    setTimeout(() => {
-      const demoResponses = [
-        `Check out our latest ${topic} collection! 🚀 Elevate your style with cutting-edge designs. #TrendAlert #MustHave`,
-        `Introducing our game-changing ${topic} solution! 💡 Boost productivity and streamline your workflow. #InnovationAtWork`,
-        `Experience the future of ${topic} with our AI-powered platform. 🤖 Smarter decisions, better results. #AIRevolution`,
-      ];
-      setGeneratedContent(demoResponses[Math.floor(Math.random() * demoResponses.length)]);
+    try {
+      const response = await fetch('https://hook.eu2.make.com/il6jftigdhlxasptd8hbya5aspc19rmm', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate strategy');
+      }
+
+      const data = await response.json();
+      setGeneratedStrategy(data.strategy); // Assuming the response contains a 'strategy' field
+    } catch (error) {
+      console.error('Error generating strategy:', error);
+      setGeneratedStrategy('Failed to generate strategy. Please try again.');
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-xl font-bold text-center">AI Content Generator</CardTitle>
+        <CardTitle className="text-2xl font-bold text-center">Business AI Strategy Generator</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Input
-          type="text"
-          placeholder="Enter a topic (e.g., fashion, productivity, technology)"
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
-        />
+        <div className="space-y-2">
+          <Label htmlFor="businessName">Business Name</Label>
+          <Input
+            id="businessName"
+            name="businessName"
+            placeholder="Enter your business name"
+            value={formData.businessName}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="businessType">Business Type</Label>
+          <Select onValueChange={handleSelectChange} value={formData.businessType}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select business type" />
+            </SelectTrigger>
+            <SelectContent>
+              {businessTypes.map((type) => (
+                <SelectItem key={type} value={type.toLowerCase()}>{type}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="location">Location</Label>
+          <Input
+            id="location"
+            name="location"
+            placeholder="Enter your business location"
+            value={formData.location}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="additionalInfo">Additional Information</Label>
+          <Textarea
+            id="additionalInfo"
+            name="additionalInfo"
+            placeholder="Enter any additional information about your business goals or challenges"
+            value={formData.additionalInfo}
+            onChange={handleInputChange}
+          />
+        </div>
         <Button 
-          onClick={generateContent} 
-          disabled={!topic || isLoading} 
+          onClick={generateStrategy} 
+          disabled={isLoading || !formData.businessName || !formData.businessType} 
           className="w-full"
         >
-          {isLoading ? 'Generating...' : 'Generate Content'}
+          {isLoading ? 'Generating Strategy...' : 'Generate AI Strategy'}
         </Button>
-        {generatedContent && (
-          <div className="mt-4 p-3 bg-blue-50 rounded-md">
-            <p className="text-sm text-blue-800">{generatedContent}</p>
+        {generatedStrategy && (
+          <div className="mt-6 p-4 bg-blue-50 rounded-md">
+            <h3 className="text-lg font-semibold mb-2">Your AI-Generated Business Strategy:</h3>
+            <p className="text-sm text-blue-800 whitespace-pre-wrap">{generatedStrategy}</p>
           </div>
         )}
       </CardContent>
