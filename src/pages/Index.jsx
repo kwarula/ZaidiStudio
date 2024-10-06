@@ -18,7 +18,7 @@ const Index = () => {
         </defs>
       </svg>
       <Header />
-      <main>
+      <main className="pt-16"> {/* Added padding-top to account for fixed header */}
         <Hero />
         <Features />
         <Testimonial />
