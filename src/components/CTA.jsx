@@ -30,7 +30,7 @@ const CTA = () => {
         onClick={() => setIsFormOpen(true)}
         disabled={hasJoinedWaitlist}
       >
-        {hasJoinedWaitlist ? 'You're on the Waitlist!' : 'Secure Your Spot on the Waitlist'}
+        {hasJoinedWaitlist ? "You're on the Waitlist!" : "Secure Your Spot on the Waitlist"}
       </Button>
       {!hasJoinedWaitlist && (
         <p className="mt-6 text-sm">

@@ -35,7 +35,7 @@ const Hero = () => {
           onClick={() => setIsFormOpen(true)}
           disabled={hasJoinedWaitlist}
         >
-          {hasJoinedWaitlist ? 'You're on the Waitlist!' : 'Join the Waitlist'}
+          {hasJoinedWaitlist ? "You're on the Waitlist!" : "Join the Waitlist"}
         </Button>
       </div>
       <WaitlistForm open={isFormOpen} onOpenChange={setIsFormOpen} onWaitlistJoined={handleWaitlistJoined} />
