@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from './ui/button';
+import WaitlistForm from './WaitlistForm';
 
 const Hero = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
   return (
     <section className="relative text-center py-20 px-6 md:px-12 overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -16,10 +19,11 @@ const Hero = () => {
         <p className="text-xl md:text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">
           ZaidiStudio empowers your business with tailor-made AI & automation solutions—so you can focus on what truly matters: growing your brand and making an impact.
         </p>
-        <Button size="lg" className="text-lg px-8 py-6">
+        <Button size="lg" className="text-lg px-8 py-6" onClick={() => setIsFormOpen(true)}>
           Join the Waitlist
         </Button>
       </div>
+      <WaitlistForm open={isFormOpen} onOpenChange={setIsFormOpen} />
     </section>
   );
 };
