@@ -47,7 +47,7 @@ const WaitlistForm = ({ open, onOpenChange }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('http://localhost:5678/webhook/ac13b724-c8ad-4424-888c-c6981c9646a2', {
+      const response = await fetch('https://hook.eu2.make.com/3pwel2fcasdyhenfbw17tqapi6r3bkmi', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
