@@ -15,7 +15,7 @@ const steps = [
     options: ['1-5', '6-20', '21-50', '50+'],
   },
   {
-    title: 'What's your primary goal?',
+    title: "What's your primary goal?",
     options: ['Increase sales', 'Improve customer service', 'Streamline operations', 'Other'],
   },
 ];
