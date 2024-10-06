@@ -29,6 +29,7 @@ const AIContentGenerator = () => {
   });
   const [generatedStrategy, setGeneratedStrategy] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [hasGeneratedStrategy, setHasGeneratedStrategy] = useState(false);
   const { toast } = useToast();
 
   const handleInputChange = (e) => {
@@ -41,6 +42,15 @@ const AIContentGenerator = () => {
   };
 
   const generateStrategy = async () => {
+    if (hasGeneratedStrategy) {
+      toast({
+        title: "Strategy Already Generated",
+        description: "You can only generate one strategy. Please refresh the page to start over.",
+        variant: "warning",
+      });
+      return;
+    }
+
     setIsLoading(true);
     setGeneratedStrategy('');
     try {
@@ -58,6 +68,7 @@ const AIContentGenerator = () => {
 
       const data = await response.text();
       setGeneratedStrategy(data);
+      setHasGeneratedStrategy(true);
       toast({
         title: "Strategy Generated",
         description: "Your AI strategy has been successfully generated.",
@@ -125,7 +136,7 @@ const AIContentGenerator = () => {
         </div>
         <Button 
           onClick={generateStrategy} 
-          disabled={isLoading || !formData.businessName || !formData.businessType} 
+          disabled={isLoading || !formData.businessName || !formData.businessType || hasGeneratedStrategy} 
           className="w-full"
         >
           {isLoading ? (
@@ -133,7 +144,7 @@ const AIContentGenerator = () => {
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Generating Strategy...
             </>
-          ) : 'Generate AI Strategy'}
+          ) : hasGeneratedStrategy ? 'Strategy Generated' : 'Generate AI Strategy'}
         </Button>
         {isLoading && (
           <div className="flex justify-center items-center mt-4">
