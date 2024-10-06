@@ -24,10 +24,12 @@ const steps = [
 const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState({
+    businessName: '',
     businessType: '',
     employeeCount: '',
     primaryGoal: '',
     email: '',
+    website: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -40,7 +42,12 @@ const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
   }, [onWaitlistJoined]);
 
   const handleOptionSelect = (value) => {
-    setFormData({ ...formData, [Object.keys(formData)[step]]: value });
+    setFormData({ ...formData, [Object.keys(formData)[step + 1]]: value });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleNext = () => {
@@ -76,10 +83,12 @@ const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
       // Reset form state
       setStep(0);
       setFormData({
+        businessName: '',
         businessType: '',
         employeeCount: '',
         primaryGoal: '',
         email: '',
+        website: '',
       });
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -103,11 +112,24 @@ const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
+          {step === 0 && (
+            <div className="grid gap-4 py-4">
+              <Label htmlFor="businessName">Business Name</Label>
+              <Input
+                id="businessName"
+                name="businessName"
+                value={formData.businessName}
+                onChange={handleInputChange}
+                placeholder="Enter your business name"
+                required
+              />
+            </div>
+          )}
           {step < steps.length ? (
             <>
               <div className="grid gap-4 py-4">
                 <Label>{steps[step].title}</Label>
-                <RadioGroup onValueChange={handleOptionSelect} value={formData[Object.keys(formData)[step]]}>
+                <RadioGroup onValueChange={handleOptionSelect} value={formData[Object.keys(formData)[step + 1]]}>
                   {steps[step].options.map((option) => (
                     <div key={option} className="flex items-center space-x-2">
                       <RadioGroupItem value={option} id={option} />
@@ -126,10 +148,19 @@ const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
+                  name="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={handleInputChange}
                   placeholder="you@example.com"
                   required
+                />
+                <Label htmlFor="website">Website (Optional)</Label>
+                <Input
+                  id="website"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleInputChange}
+                  placeholder="https://yourwebsite.com"
                 />
               </div>
               <DialogFooter>
