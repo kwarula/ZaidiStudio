@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
+import { useToast } from './ui/use-toast';
 
 const steps = [
   {
@@ -28,6 +29,8 @@ const WaitlistForm = ({ open, onOpenChange }) => {
     primaryGoal: '',
     email: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   const handleOptionSelect = (value) => {
     setFormData({ ...formData, [Object.keys(formData)[step]]: value });
@@ -39,19 +42,46 @@ const WaitlistForm = ({ open, onOpenChange }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically send the formData to your backend
-    console.log('Form submitted:', formData);
-    onOpenChange(false);
-    // Reset form state
-    setStep(0);
-    setFormData({
-      businessType: '',
-      employeeCount: '',
-      primaryGoal: '',
-      email: '',
-    });
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('http://localhost:5678/webhook/ac13b724-c8ad-4424-888c-c6981c9646a2', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      toast({
+        title: "Success!",
+        description: "You've been added to the waitlist.",
+      });
+      onOpenChange(false);
+      // Reset form state
+      setStep(0);
+      setFormData({
+        businessType: '',
+        employeeCount: '',
+        primaryGoal: '',
+        email: '',
+      });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Error",
+        description: "Failed to join the waitlist. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -94,7 +124,9 @@ const WaitlistForm = ({ open, onOpenChange }) => {
                 />
               </div>
               <DialogFooter>
-                <Button type="submit">Join Waitlist</Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? 'Joining...' : 'Join Waitlist'}
+                </Button>
               </DialogFooter>
             </>
           )}
