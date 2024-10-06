@@ -2,35 +2,66 @@ import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from './ui/card';
 import { MessageSquare, Share2, Package, Users } from 'lucide-react';
 import { Button } from './ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
 
 const features = [
   { 
     title: 'Customer Service Magic', 
     description: 'Never miss a customer query again! Our AI responds instantly, 24/7, keeping your customers happy while you sleep.',
     benefit: 'Happier customers, less stress for you',
-    icon: MessageSquare 
+    icon: MessageSquare,
+    howItWorks: [
+      "Our AI analyzes incoming customer queries in real-time.",
+      "It categorizes the query and retrieves relevant information from your knowledge base.",
+      "The AI crafts a personalized response, maintaining your brand voice.",
+      "Responses are sent instantly, 24/7, ensuring no customer is left waiting.",
+      "Complex queries are flagged for human review, ensuring quality control."
+    ]
   },
   { 
     title: 'Social Media Superstar', 
     description: 'Post engaging content at the perfect times, automatically. Watch your followers grow without lifting a finger!',
     benefit: 'Boost your online presence effortlessly',
-    icon: Share2 
+    icon: Share2,
+    howItWorks: [
+      "Our AI studies your audience engagement patterns across platforms.",
+      "It generates content ideas based on trending topics in your industry.",
+      "The system creates posts tailored to each social media platform.",
+      "Content is automatically scheduled for optimal posting times.",
+      "Performance analytics are provided to continuously improve your strategy."
+    ]
   },
   { 
     title: 'Inventory & Orders Zen', 
     description: 'Say goodbye to stockouts and overstock! Our system predicts what you need before you even know it.',
     benefit: 'Save money and delight customers with perfect inventory',
-    icon: Package 
+    icon: Package,
+    howItWorks: [
+      "Our AI analyzes historical sales data and market trends.",
+      "It predicts future demand for each product in your inventory.",
+      "The system automatically adjusts stock levels based on predictions.",
+      "Low stock alerts are sent before you run out of popular items.",
+      "Integration with your suppliers ensures timely restocking."
+    ]
   },
   { 
     title: 'Lead Generation on Autopilot', 
     description: 'Turn visitors into leads while you focus on closing deals. Our AI nurtures prospects 24/7.',
     benefit: 'Fill your sales pipeline without the hustle',
-    icon: Users 
+    icon: Users,
+    howItWorks: [
+      "AI-powered chatbots engage website visitors in real-time.",
+      "Visitor behavior is analyzed to identify high-potential leads.",
+      "Personalized content is delivered based on visitor interests.",
+      "Automated email sequences nurture leads through the sales funnel.",
+      "Qualified leads are automatically routed to your sales team."
+    ]
   },
 ];
 
 const Features = () => {
+  const [openDialog, setOpenDialog] = React.useState(null);
+
   return (
     <section className="py-20 px-6 md:px-12 bg-white">
       <h2 className="text-3xl font-bold mb-4 text-center text-blue-900">Automation Magic at Your Fingertips</h2>
@@ -52,7 +83,7 @@ const Features = () => {
               <p className="font-semibold text-blue-600">🚀 {feature.benefit}</p>
             </CardContent>
             <CardFooter className="mt-auto">
-              <Button variant="outline" className="w-full mt-4">
+              <Button variant="outline" className="w-full mt-4" onClick={() => setOpenDialog(index)}>
                 Learn How It Works
               </Button>
             </CardFooter>
@@ -65,6 +96,25 @@ const Features = () => {
           Get Your Free Demo
         </Button>
       </div>
+
+      {features.map((feature, index) => (
+        <Dialog key={index} open={openDialog === index} onOpenChange={() => setOpenDialog(null)}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{feature.title}</DialogTitle>
+              <DialogDescription>{feature.description}</DialogDescription>
+            </DialogHeader>
+            <div className="mt-4">
+              <h4 className="font-semibold mb-2">How It Works:</h4>
+              <ol className="list-decimal pl-5 space-y-2">
+                {feature.howItWorks.map((step, stepIndex) => (
+                  <li key={stepIndex}>{step}</li>
+                ))}
+              </ol>
+            </div>
+          </DialogContent>
+        </Dialog>
+      ))}
     </section>
   );
 };
