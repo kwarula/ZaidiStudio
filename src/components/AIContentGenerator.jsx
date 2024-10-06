@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
 import { useToast } from './ui/use-toast';
+import { Loader2 } from 'lucide-react';
 
 const businessTypes = [
   'E-commerce',
@@ -41,6 +42,7 @@ const AIContentGenerator = () => {
 
   const generateStrategy = async () => {
     setIsLoading(true);
+    setGeneratedStrategy('');
     try {
       const response = await fetch('https://hook.eu2.make.com/il6jftigdhlxasptd8hbya5aspc19rmm', {
         method: 'POST',
@@ -54,19 +56,14 @@ const AIContentGenerator = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
-      if (data.strategy) {
-        setGeneratedStrategy(data.strategy);
-        toast({
-          title: "Strategy Generated",
-          description: "Your AI strategy has been successfully generated.",
-        });
-      } else {
-        throw new Error('No strategy in response');
-      }
+      const data = await response.text();
+      setGeneratedStrategy(data);
+      toast({
+        title: "Strategy Generated",
+        description: "Your AI strategy has been successfully generated.",
+      });
     } catch (error) {
       console.error('Error generating strategy:', error);
-      setGeneratedStrategy('');
       toast({
         title: "Error",
         description: "Failed to generate strategy. Please try again.",
@@ -131,8 +128,22 @@ const AIContentGenerator = () => {
           disabled={isLoading || !formData.businessName || !formData.businessType} 
           className="w-full"
         >
-          {isLoading ? 'Generating Strategy...' : 'Generate AI Strategy'}
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Generating Strategy...
+            </>
+          ) : 'Generate AI Strategy'}
         </Button>
+        {isLoading && (
+          <div className="flex justify-center items-center mt-4">
+            <div className="animate-pulse flex space-x-4">
+              <div className="rounded-full bg-blue-400 h-3 w-3"></div>
+              <div className="rounded-full bg-blue-400 h-3 w-3"></div>
+              <div className="rounded-full bg-blue-400 h-3 w-3"></div>
+            </div>
+          </div>
+        )}
         {generatedStrategy && (
           <div className="mt-6 p-4 bg-blue-50 rounded-md">
             <h3 className="text-lg font-semibold mb-2">Your AI-Generated Business Strategy:</h3>
