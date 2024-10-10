@@ -56,11 +56,11 @@ const PricingPlans = () => {
   };
 
   return (
-    <div className="mt-16">
-      <div className="flex justify-center items-center mb-8">
-        <span className="mr-4 text-gray-600">Monthly</span>
+    <div className="mt-8">
+      <div className="flex justify-center items-center mb-12">
+        <span className="mr-4 text-lg font-medium text-gray-600">Monthly</span>
         <Toggle enabled={isAnnual} setEnabled={setIsAnnual} />
-        <span className="ml-4 text-gray-600">Annual</span>
+        <span className="ml-4 text-lg font-medium text-gray-600">Annual</span>
       </div>
       <div className="grid gap-8 lg:grid-cols-3">
         {plans.map((plan) => (
@@ -81,19 +81,19 @@ const PricingPlans = () => {
               <p className="mt-1 text-sm text-gray-500">
                 {plan.monthlyPrice === null ? 'Contact us for pricing' : 'per month'}
               </p>
-              <Button className="mt-6 w-full">
+              <Button className="mt-6 w-full text-lg py-2">
                 {plan.monthlyPrice === null ? 'Contact Sales' : 'Get Started'}
               </Button>
             </div>
-            <div className="px-6 pt-6 pb-8">
-              <h4 className="text-sm font-semibold text-gray-900 tracking-wide uppercase">
+            <div className="px-6 pt-6 pb-8 bg-gray-50">
+              <h4 className="text-sm font-semibold text-gray-900 tracking-wide uppercase mb-4">
                 What's included
               </h4>
-              <ul className="mt-6 space-y-4">
+              <ul className="space-y-4">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start">
                     <div className="flex-shrink-0">
-                      <Check className="h-6 w-6 text-green-500" />
+                      <Check className="h-5 w-5 text-green-500" />
                     </div>
                     <p className="ml-3 text-base text-gray-700">{feature}</p>
                   </li>
