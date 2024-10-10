@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Calendar } from './ui/calendar';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { useToast } from './ui/use-toast';
-import { format, isWeekend, isBefore, startOfToday } from 'date-fns';
+import { format } from 'date-fns';
 import { Textarea } from './ui/textarea';
+import { Label } from './ui/label';
+import DatePicker from './DatePicker';
+import TimePicker from './TimePicker';
 
 const DemoBookingForm = ({ open, onOpenChange }) => {
   const [step, setStep] = useState(1);
@@ -34,9 +35,9 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
     setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
   };
 
-  const handleDateSelect = (date) => {
-    setFormData(prevData => ({ ...prevData, date }));
-    setErrors(prevErrors => ({ ...prevErrors, date: '' }));
+  const handleSelectChange = (name, value) => {
+    setFormData(prevData => ({ ...prevData, [name]: value }));
+    setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
   };
 
   const validateStep = (currentStep) => {
@@ -79,10 +80,6 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
     }
   };
 
-  const isDateDisabled = (date) => {
-    return isWeekend(date) || isBefore(date, startOfToday());
-  };
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px] max-w-[90vw] bg-white overflow-y-auto max-h-[90vh]">
@@ -122,40 +119,17 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
           )}
           {step === 2 && (
             <>
-              <div className="space-y-2">
-                <Label>Select Date</Label>
-                <Calendar
-                  mode="single"
-                  selected={formData.date}
-                  onSelect={handleDateSelect}
-                  disabled={isDateDisabled}
-                  className="rounded-md border w-full"
-                />
-                {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="time">Select Time</Label>
-                <Select
-                  name="time"
-                  value={formData.time}
-                  onValueChange={(value) => {
-                    setFormData(prevData => ({ ...prevData, time: value }));
-                    setErrors(prevErrors => ({ ...prevErrors, time: '' }));
-                  }}
-                >
-                  <SelectTrigger className={`w-full ${errors.time ? 'border-red-500' : ''}`}>
-                    <SelectValue placeholder="Select a time slot" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {availableTimes.map((time) => (
-                      <SelectItem key={time} value={time} className={formData.time === time ? 'bg-blue-100' : ''}>
-                        {time}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {errors.time && <p className="text-red-500 text-sm">{errors.time}</p>}
-              </div>
+              <DatePicker
+                selected={formData.date}
+                onSelect={(date) => handleSelectChange('date', date)}
+                error={errors.date}
+              />
+              <TimePicker
+                availableTimes={availableTimes}
+                value={formData.time}
+                onChange={(value) => handleSelectChange('time', value)}
+                error={errors.time}
+              />
             </>
           )}
           {step === 3 && (
@@ -176,17 +150,14 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
                 <Select
                   name="businessType"
                   value={formData.businessType}
-                  onValueChange={(value) => {
-                    setFormData(prevData => ({ ...prevData, businessType: value }));
-                    setErrors(prevErrors => ({ ...prevErrors, businessType: '' }));
-                  }}
+                  onValueChange={(value) => handleSelectChange('businessType', value)}
                 >
                   <SelectTrigger className={`w-full ${errors.businessType ? 'border-red-500' : ''}`}>
                     <SelectValue placeholder="Select business type" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white">
                     {businessTypes.map((type) => (
-                      <SelectItem key={type} value={type}>
+                      <SelectItem key={type} value={type} className="hover:bg-blue-50">
                         {type}
                       </SelectItem>
                     ))}
@@ -199,17 +170,14 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
                 <Select
                   name="employeeCount"
                   value={formData.employeeCount}
-                  onValueChange={(value) => {
-                    setFormData(prevData => ({ ...prevData, employeeCount: value }));
-                    setErrors(prevErrors => ({ ...prevErrors, employeeCount: '' }));
-                  }}
+                  onValueChange={(value) => handleSelectChange('employeeCount', value)}
                 >
                   <SelectTrigger className={`w-full ${errors.employeeCount ? 'border-red-500' : ''}`}>
                     <SelectValue placeholder="Select employee count" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white">
                     {employeeCounts.map((count) => (
-                      <SelectItem key={count} value={count}>
+                      <SelectItem key={count} value={count} className="hover:bg-blue-50">
                         {count}
                       </SelectItem>
                     ))}
