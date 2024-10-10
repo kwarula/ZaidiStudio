@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Send } from 'lucide-react';
 import OpenAI from 'openai';
 
+// Use Vite's import.meta.env to access environment variables
+const apiKey = import.meta.env.VITE_OPENAI_API_KEY || 'YOUR_FALLBACK_API_KEY';
+
 const openai = new OpenAI({
-  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+  apiKey: apiKey,
   dangerouslyAllowBrowser: true // Note: This is not recommended for production
 });
 
