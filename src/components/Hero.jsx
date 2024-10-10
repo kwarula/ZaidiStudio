@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import WaitlistForm from './WaitlistForm';
+import { Star } from 'lucide-react';
 
 const Hero = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -39,11 +40,16 @@ const Hero = () => {
         </Button>
         <div className="mt-12">
           <p className="text-lg font-semibold mb-4">Trusted by 500+ satisfied clients</p>
-          <div className="flex justify-center space-x-8">
+          <div className="flex justify-center space-x-8 mb-4">
             {/* Replace with actual client logos */}
             <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
             <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
             <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
+          </div>
+          <div className="flex justify-center">
+            {[...Array(5)].map((_, index) => (
+              <Star key={index} className="w-6 h-6 text-yellow-400 fill-current" />
+            ))}
           </div>
         </div>
       </div>
