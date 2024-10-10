@@ -48,51 +48,51 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] bg-white">
+      <DialogContent className="sm:max-w-[425px] max-w-[90vw] bg-white overflow-y-auto max-h-[90vh]">
         <DialogHeader>
-          <DialogTitle>Book Your Free Demo</DialogTitle>
+          <DialogTitle className="text-2xl font-bold">Book Your Free Demo</DialogTitle>
           <DialogDescription>
             Fill out the form below to schedule your personalized demo.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
+        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+          <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
             <Input id="name" name="name" value={formData.name} onChange={handleInputChange} required />
           </div>
-          <div>
+          <div className="space-y-2">
             <Label htmlFor="businessName">Business Name</Label>
             <Input id="businessName" name="businessName" value={formData.businessName} onChange={handleInputChange} required />
           </div>
-          <div>
+          <div className="space-y-2">
             <Label htmlFor="position">Position</Label>
             <Input id="position" name="position" value={formData.position} onChange={handleInputChange} required />
           </div>
-          <div>
+          <div className="space-y-2">
             <Label htmlFor="website">Website (Optional)</Label>
             <Input id="website" name="website" value={formData.website} onChange={handleInputChange} />
           </div>
-          <div>
+          <div className="space-y-2">
             <Label htmlFor="phoneNumber">Phone Number</Label>
             <Input id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleInputChange} required />
           </div>
-          <div>
+          <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} required />
           </div>
-          <div>
+          <div className="space-y-2">
             <Label>Select Date</Label>
             <Calendar
               mode="single"
               selected={formData.date}
               onSelect={handleDateSelect}
-              className="rounded-md border"
+              className="rounded-md border w-full"
             />
           </div>
-          <div>
+          <div className="space-y-2">
             <Label htmlFor="time">Select Time</Label>
             <Select name="time" value={formData.time} onValueChange={(value) => setFormData(prevData => ({ ...prevData, time: value }))}>
-              <SelectTrigger>
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a time slot" />
               </SelectTrigger>
               <SelectContent>
@@ -102,7 +102,7 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
               </SelectContent>
             </Select>
           </div>
-          <Button type="submit" className="w-full">Book Demo</Button>
+          <Button type="submit" className="w-full mt-6">Book Demo</Button>
         </form>
       </DialogContent>
     </Dialog>
