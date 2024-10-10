@@ -99,14 +99,14 @@ const Features = () => {
 
       {features.map((feature, index) => (
         <Dialog key={index} open={openDialog === index} onOpenChange={() => setOpenDialog(null)}>
-          <DialogContent>
+          <DialogContent className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-auto">
             <DialogHeader>
-              <DialogTitle>{feature.title}</DialogTitle>
-              <DialogDescription>{feature.description}</DialogDescription>
+              <DialogTitle className="text-2xl font-bold text-blue-900 mb-2">{feature.title}</DialogTitle>
+              <DialogDescription className="text-gray-600">{feature.description}</DialogDescription>
             </DialogHeader>
             <div className="mt-4">
-              <h4 className="font-semibold mb-2">How It Works:</h4>
-              <ol className="list-decimal pl-5 space-y-2">
+              <h4 className="font-semibold mb-2 text-blue-700">How It Works:</h4>
+              <ol className="list-decimal pl-5 space-y-2 text-gray-700">
                 {feature.howItWorks.map((step, stepIndex) => (
                   <li key={stepIndex}>{step}</li>
                 ))}
