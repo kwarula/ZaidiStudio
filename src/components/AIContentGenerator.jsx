@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from './ui/card';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
 import { useToast } from './ui/use-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Wand2 } from 'lucide-react';
 
 const businessTypes = [
   'E-commerce',
@@ -71,13 +71,13 @@ const AIContentGenerator = () => {
       setHasGeneratedStrategy(true);
       toast({
         title: "Strategy Generated",
-        description: "Your AI strategy has been successfully generated.",
+        description: "Your AI-powered business strategy is ready!",
       });
     } catch (error) {
       console.error('Error generating strategy:', error);
       toast({
         title: "Error",
-        description: "Failed to generate strategy. Please try again.",
+        description: "Oops! We couldn't generate your strategy. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -88,11 +88,15 @@ const AIContentGenerator = () => {
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-center">Business AI Strategy Generator</CardTitle>
+        <CardTitle className="text-2xl font-bold text-center">AI Business Strategy Wizard</CardTitle>
+        <CardDescription className="text-center">
+          Unlock your business potential with our AI-powered strategy generator. 
+          Just fill in a few details, and we'll craft a custom strategy for your success!
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="businessName">Business Name</Label>
+          <Label htmlFor="businessName">What's your business called?</Label>
           <Input
             id="businessName"
             name="businessName"
@@ -102,10 +106,10 @@ const AIContentGenerator = () => {
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="businessType">Business Type</Label>
+          <Label htmlFor="businessType">What type of business are you running?</Label>
           <Select onValueChange={handleSelectChange} value={formData.businessType}>
             <SelectTrigger>
-              <SelectValue placeholder="Select business type" />
+              <SelectValue placeholder="Select your business type" />
             </SelectTrigger>
             <SelectContent>
               {businessTypes.map((type) => (
@@ -115,7 +119,7 @@ const AIContentGenerator = () => {
           </Select>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="location">Location</Label>
+          <Label htmlFor="location">Where are you based?</Label>
           <Input
             id="location"
             name="location"
@@ -125,11 +129,11 @@ const AIContentGenerator = () => {
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="additionalInfo">Additional Information</Label>
+          <Label htmlFor="additionalInfo">Any specific goals or challenges?</Label>
           <Textarea
             id="additionalInfo"
             name="additionalInfo"
-            placeholder="Enter any additional information about your business goals or challenges"
+            placeholder="Tell us about your business goals or challenges"
             value={formData.additionalInfo}
             onChange={handleInputChange}
           />
@@ -142,9 +146,16 @@ const AIContentGenerator = () => {
           {isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Generating Strategy...
+              Crafting Your Strategy...
             </>
-          ) : hasGeneratedStrategy ? 'Strategy Generated' : 'Generate AI Strategy'}
+          ) : hasGeneratedStrategy ? (
+            'Strategy Generated!'
+          ) : (
+            <>
+              <Wand2 className="mr-2 h-4 w-4" />
+              Generate My AI Strategy
+            </>
+          )}
         </Button>
         {isLoading && (
           <div className="flex justify-center items-center mt-4">
