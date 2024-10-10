@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from './ui/card';
 import { MessageSquare, Share2, Package, Users } from 'lucide-react';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
+import DemoBookingForm from './DemoBookingForm';
 
 const features = [
   { 
@@ -60,7 +61,8 @@ const features = [
 ];
 
 const Features = () => {
-  const [openDialog, setOpenDialog] = React.useState(null);
+  const [openDialog, setOpenDialog] = useState(null);
+  const [isDemoFormOpen, setIsDemoFormOpen] = useState(false);
 
   return (
     <section className="py-20 px-6 md:px-12 bg-white">
@@ -92,7 +94,7 @@ const Features = () => {
       </div>
       <div className="text-center mt-12">
         <p className="text-xl font-semibold mb-4">Ready to see the magic in action?</p>
-        <Button size="lg" className="text-lg px-8 py-4">
+        <Button size="lg" className="text-lg px-8 py-4" onClick={() => setIsDemoFormOpen(true)}>
           Get Your Free Demo
         </Button>
       </div>
@@ -115,6 +117,8 @@ const Features = () => {
           </DialogContent>
         </Dialog>
       ))}
+
+      <DemoBookingForm open={isDemoFormOpen} onOpenChange={setIsDemoFormOpen} />
     </section>
   );
 };
