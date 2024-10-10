@@ -24,7 +24,7 @@ const Header = () => {
         <Link to="/services" className="text-gray-600 hover:text-blue-600">Services</Link>
         <Link to="/pricing" className="text-gray-600 hover:text-blue-600">Pricing</Link>
         <Link to="/about" className="text-gray-600 hover:text-blue-600">About</Link>
-        <Link to="/faq" className="text-gray-600 hover:text-blue-600">FAQs</Link>
+        <Link to="/#faq" className="text-gray-600 hover:text-blue-600">FAQs</Link>
         <Button 
           variant={hasJoinedWaitlist ? "secondary" : "default"} 
           onClick={() => setIsFormOpen(true)}

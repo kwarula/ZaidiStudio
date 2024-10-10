@@ -46,7 +46,7 @@ const faqData = [
 
 const FAQ = () => {
   return (
-    <section className="py-20 px-6 md:px-12 bg-gray-50">
+    <section id="faq" className="py-20 px-6 md:px-12 bg-gray-50">
       <h2 className="text-3xl font-bold mb-12 text-center text-blue-900">Frequently Asked Questions</h2>
       <Accordion type="single" collapsible className="max-w-3xl mx-auto">
         {faqData.map((item, index) => (
