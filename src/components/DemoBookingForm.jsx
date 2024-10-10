@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { useToast } from './ui/use-toast';
 import { format, isWeekend, isBefore, startOfToday } from 'date-fns';
+import { Textarea } from './ui/textarea';
 
 const DemoBookingForm = ({ open, onOpenChange }) => {
   const [step, setStep] = useState(1);
@@ -15,11 +16,17 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
     email: '',
     date: null,
     time: '',
+    businessName: '',
+    businessType: '',
+    employeeCount: '',
+    currentChallenges: '',
   });
   const [errors, setErrors] = useState({});
   const { toast } = useToast();
 
   const availableTimes = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00'];
+  const businessTypes = ['E-commerce', 'SaaS', 'Service-based', 'Manufacturing', 'Retail', 'Other'];
+  const employeeCounts = ['1-10', '11-50', '51-200', '201-500', '500+'];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,6 +48,10 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
     } else if (currentStep === 2) {
       if (!formData.date) newErrors.date = 'Date is required';
       if (!formData.time) newErrors.time = 'Time is required';
+    } else if (currentStep === 3) {
+      if (!formData.businessName.trim()) newErrors.businessName = 'Business name is required';
+      if (!formData.businessType) newErrors.businessType = 'Business type is required';
+      if (!formData.employeeCount) newErrors.employeeCount = 'Employee count is required';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -58,7 +69,7 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateStep(2)) {
+    if (validateStep(3)) {
       console.log('Booking submitted:', formData);
       toast({
         title: "Demo Booked!",
@@ -78,7 +89,7 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">Book Your Free Demo</DialogTitle>
           <DialogDescription>
-            {step === 1 ? 'Step 1: Your Information' : 'Step 2: Choose Date and Time'}
+            {step === 1 ? 'Step 1: Your Information' : step === 2 ? 'Step 2: Choose Date and Time' : 'Step 3: Business Details'}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
@@ -137,11 +148,85 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
                   </SelectTrigger>
                   <SelectContent>
                     {availableTimes.map((time) => (
-                      <SelectItem key={time} value={time}>{time}</SelectItem>
+                      <SelectItem key={time} value={time} className={formData.time === time ? 'bg-blue-100' : ''}>
+                        {time}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
                 {errors.time && <p className="text-red-500 text-sm">{errors.time}</p>}
+              </div>
+            </>
+          )}
+          {step === 3 && (
+            <>
+              <div className="space-y-2">
+                <Label htmlFor="businessName">Business Name</Label>
+                <Input
+                  id="businessName"
+                  name="businessName"
+                  value={formData.businessName}
+                  onChange={handleInputChange}
+                  className={errors.businessName ? 'border-red-500' : ''}
+                />
+                {errors.businessName && <p className="text-red-500 text-sm">{errors.businessName}</p>}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="businessType">Business Type</Label>
+                <Select
+                  name="businessType"
+                  value={formData.businessType}
+                  onValueChange={(value) => {
+                    setFormData(prevData => ({ ...prevData, businessType: value }));
+                    setErrors(prevErrors => ({ ...prevErrors, businessType: '' }));
+                  }}
+                >
+                  <SelectTrigger className={`w-full ${errors.businessType ? 'border-red-500' : ''}`}>
+                    <SelectValue placeholder="Select business type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {businessTypes.map((type) => (
+                      <SelectItem key={type} value={type}>
+                        {type}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.businessType && <p className="text-red-500 text-sm">{errors.businessType}</p>}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="employeeCount">Number of Employees</Label>
+                <Select
+                  name="employeeCount"
+                  value={formData.employeeCount}
+                  onValueChange={(value) => {
+                    setFormData(prevData => ({ ...prevData, employeeCount: value }));
+                    setErrors(prevErrors => ({ ...prevErrors, employeeCount: '' }));
+                  }}
+                >
+                  <SelectTrigger className={`w-full ${errors.employeeCount ? 'border-red-500' : ''}`}>
+                    <SelectValue placeholder="Select employee count" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {employeeCounts.map((count) => (
+                      <SelectItem key={count} value={count}>
+                        {count}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {errors.employeeCount && <p className="text-red-500 text-sm">{errors.employeeCount}</p>}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="currentChallenges">Current Business Challenges (Optional)</Label>
+                <Textarea
+                  id="currentChallenges"
+                  name="currentChallenges"
+                  value={formData.currentChallenges}
+                  onChange={handleInputChange}
+                  placeholder="Tell us about any specific challenges you're facing"
+                  className="h-24"
+                />
               </div>
             </>
           )}
@@ -151,7 +236,7 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
                 Previous
               </Button>
             )}
-            {step < 2 ? (
+            {step < 3 ? (
               <Button type="button" onClick={handleNextStep} className="ml-auto">
                 Next
               </Button>
