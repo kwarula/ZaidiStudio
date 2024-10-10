@@ -5,7 +5,7 @@ import { Check } from 'lucide-react';
 const plans = [
   {
     name: 'Starter',
-    price: '$49',
+    price: 'KES 5,000',
     features: [
       'Up to 1,000 customers',
       'Basic automation workflows',
@@ -15,7 +15,7 @@ const plans = [
   },
   {
     name: 'Professional',
-    price: '$99',
+    price: 'KES 10,000',
     features: [
       'Up to 10,000 customers',
       'Advanced automation workflows',
