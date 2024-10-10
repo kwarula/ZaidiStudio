@@ -108,12 +108,14 @@ const AIContentGenerator = () => {
         <div className="space-y-2">
           <Label htmlFor="businessType">What type of business are you running?</Label>
           <Select onValueChange={handleSelectChange} value={formData.businessType}>
-            <SelectTrigger>
+            <SelectTrigger className="w-full">
               <SelectValue placeholder="Select your business type" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white border border-gray-300 shadow-lg">
               {businessTypes.map((type) => (
-                <SelectItem key={type} value={type.toLowerCase()}>{type}</SelectItem>
+                <SelectItem key={type} value={type.toLowerCase()} className="text-gray-800 hover:bg-gray-100">
+                  {type}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
