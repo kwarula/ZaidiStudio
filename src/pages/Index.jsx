@@ -11,6 +11,7 @@ import Testimonial from '../components/Testimonial';
 import FAQ from '../components/FAQ';
 import CTA from '../components/CTA';
 import Footer from '../components/Footer';
+import LiveChat from '../components/LiveChat/LiveChat';
 
 const Index = () => {
   const location = useLocation();
@@ -50,6 +51,7 @@ const Index = () => {
         <CTA />
       </main>
       <Footer />
+      <LiveChat />
     </div>
   );
 };
