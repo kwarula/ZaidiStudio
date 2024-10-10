@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Robot, Workflow, Database, Brain, BarChart3, Search, MessageSquare, Shield } from 'lucide-react';
+import { Cpu, Workflow, Database, Brain, BarChart3, Search, MessageSquare, Shield } from 'lucide-react';
 
 const ServiceCategory = ({ title, services }) => (
   <div className="mb-12">
@@ -93,7 +93,7 @@ const Services = () => {
         {
           title: "Model Tuning",
           description: "Optimize chatbots for your specific use case, ensuring peak performance and relevant interactions.",
-          icon: Robot
+          icon: Cpu
         }
       ]
     }
