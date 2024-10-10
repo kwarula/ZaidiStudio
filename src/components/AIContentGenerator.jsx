@@ -86,29 +86,30 @@ const AIContentGenerator = () => {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
-      <CardHeader>
+    <Card className="w-full max-w-2xl mx-auto shadow-lg">
+      <CardHeader className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <CardTitle className="text-2xl font-bold text-center">AI Business Strategy Wizard</CardTitle>
-        <CardDescription className="text-center">
+        <CardDescription className="text-center text-blue-100">
           Unlock your business potential with our AI-powered strategy generator. 
           Just fill in a few details, and we'll craft a custom strategy for your success!
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 p-6">
         <div className="space-y-2">
-          <Label htmlFor="businessName">What's your business called?</Label>
+          <Label htmlFor="businessName" className="text-sm font-medium text-gray-700">What's your business called?</Label>
           <Input
             id="businessName"
             name="businessName"
             placeholder="Enter your business name"
             value={formData.businessName}
             onChange={handleInputChange}
+            className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="businessType">What type of business are you running?</Label>
+          <Label htmlFor="businessType" className="text-sm font-medium text-gray-700">What type of business are you running?</Label>
           <Select onValueChange={handleSelectChange} value={formData.businessType}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
               <SelectValue placeholder="Select your business type" />
             </SelectTrigger>
             <SelectContent className="bg-white border border-gray-300 shadow-lg">
@@ -121,29 +122,31 @@ const AIContentGenerator = () => {
           </Select>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="location">Where are you based?</Label>
+          <Label htmlFor="location" className="text-sm font-medium text-gray-700">Where are you based?</Label>
           <Input
             id="location"
             name="location"
             placeholder="Enter your business location"
             value={formData.location}
             onChange={handleInputChange}
+            className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="additionalInfo">Any specific goals or challenges?</Label>
+          <Label htmlFor="additionalInfo" className="text-sm font-medium text-gray-700">Any specific goals or challenges?</Label>
           <Textarea
             id="additionalInfo"
             name="additionalInfo"
             placeholder="Tell us about your business goals or challenges"
             value={formData.additionalInfo}
             onChange={handleInputChange}
+            className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
           />
         </div>
         <Button 
           onClick={generateStrategy} 
           disabled={isLoading || !formData.businessName || !formData.businessType || hasGeneratedStrategy} 
-          className="w-full"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
         >
           {isLoading ? (
             <>
@@ -169,7 +172,7 @@ const AIContentGenerator = () => {
           </div>
         )}
         {generatedStrategy && (
-          <div className="mt-6 p-4 bg-blue-50 rounded-md">
+          <div className="mt-6 p-4 bg-blue-50 rounded-md border border-blue-200">
             <h3 className="text-xl font-semibold mb-4 text-blue-900">Your AI-Generated Business Strategy:</h3>
             <div 
               className="prose prose-blue max-w-none" 
