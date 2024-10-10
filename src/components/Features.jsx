@@ -94,7 +94,11 @@ const Features = () => {
       </div>
       <div className="text-center mt-12">
         <p className="text-xl font-semibold mb-4">Ready to see the magic in action?</p>
-        <Button size="lg" className="text-lg px-8 py-4" onClick={() => setIsDemoFormOpen(true)}>
+        <Button 
+          size="lg" 
+          className="text-lg px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white" 
+          onClick={() => setIsDemoFormOpen(true)}
+        >
           Get Your Free Demo
         </Button>
       </div>
