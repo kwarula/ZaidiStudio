@@ -22,12 +22,12 @@ const Hero = () => {
           <rect width="100%" height="100%" fill="url(#hero-pattern)" />
         </svg>
       </div>
-      <div className="relative z-10">
+      <div className="relative z-10 max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-bold mb-6 text-blue-900">
-          Unlock Effortless Growth for Your Business with Smart Automation!
+          Double Your Conversion Rate in 30 Days
         </h1>
-        <p className="text-xl md:text-2xl mb-8 text-gray-600 max-w-3xl mx-auto">
-          ZaidiStudio empowers your business with tailor-made AI & automation solutions—so you can focus on what truly matters: growing your brand and making an impact.
+        <p className="text-xl md:text-2xl mb-8 text-gray-600">
+          Through customized AI-powered automation solutions tailored for your business
         </p>
         <Button 
           size="lg" 
@@ -35,8 +35,17 @@ const Hero = () => {
           onClick={() => setIsFormOpen(true)}
           disabled={hasJoinedWaitlist}
         >
-          {hasJoinedWaitlist ? "You're on the Waitlist!" : "Join the Waitlist"}
+          {hasJoinedWaitlist ? "You're on the Waitlist!" : "Book My Free Consultation"}
         </Button>
+        <div className="mt-12">
+          <p className="text-lg font-semibold mb-4">Trusted by 500+ satisfied clients</p>
+          <div className="flex justify-center space-x-8">
+            {/* Replace with actual client logos */}
+            <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
+            <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
+            <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
+          </div>
+        </div>
       </div>
       <WaitlistForm open={isFormOpen} onOpenChange={setIsFormOpen} onWaitlistJoined={handleWaitlistJoined} />
     </section>

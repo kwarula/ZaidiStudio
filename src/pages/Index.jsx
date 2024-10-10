@@ -1,8 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
+import Problem from '../components/Problem';
+import Solution from '../components/Solution';
+import Benefits from '../components/Benefits';
 import Features from '../components/Features';
-import AIContentGenerator from '../components/AIContentGenerator';
 import Testimonial from '../components/Testimonial';
 import FAQ from '../components/FAQ';
 import CTA from '../components/CTA';
@@ -21,11 +23,10 @@ const Index = () => {
       <Header />
       <main className="pt-16">
         <Hero />
+        <Problem />
+        <Solution />
+        <Benefits />
         <Features />
-        <section className="py-20 px-6 md:px-12 bg-white">
-          <h2 className="text-3xl font-bold mb-12 text-center text-blue-900">Experience AI in Action: Business Strategy Generator</h2>
-          <AIContentGenerator />
-        </section>
         <Testimonial />
         <FAQ />
         <CTA />
