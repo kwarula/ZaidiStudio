@@ -21,7 +21,7 @@ const Solution = () => {
               At ZaidiStudio, we specialize in creating custom AI-powered automation solutions that transform your business operations. Our team of experts has helped hundreds of businesses like yours overcome challenges and achieve remarkable growth.
             </p>
             <p className="text-lg mb-8 text-center lg:text-left">
-              With over a decade of experience in AI and automation, we've developed a unique approach that combines cutting-edge technology with deep industry insights.
+              With over 3 years of experience in AI and automation, we've developed a unique approach that combines cutting-edge technology with deep industry insights.
             </p>
             <div className="flex justify-center lg:justify-start">
               <ul className="space-y-4 inline-block text-left">
