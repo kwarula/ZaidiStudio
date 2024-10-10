@@ -27,8 +27,8 @@ const Index = () => {
         <Problem />
         <Solution />
         <Benefits />
-        <section className="py-20 px-6 md:px-12 bg-white">
-          <h2 className="text-3xl font-bold mb-12 text-center text-blue-900">Experience AI in Action: Business Strategy Generator</h2>
+        <section className="py-12 px-4 md:px-8 bg-white">
+          <h2 className="text-3xl font-bold mb-8 text-center text-blue-900">Experience AI in Action: Business Strategy Generator</h2>
           <AIContentGenerator />
         </section>
         <Features />
