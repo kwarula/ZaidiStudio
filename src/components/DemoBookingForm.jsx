@@ -89,7 +89,7 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
             {step === 1 ? 'Step 1: Your Information' : step === 2 ? 'Step 2: Choose Date and Time' : 'Step 3: Business Details'}
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+        <form onSubmit={handleSubmit} className="space-y-4 mt-4 bg-gray-100 p-4 rounded-md">
           {step === 1 && (
             <>
               <div className="space-y-2">

@@ -104,14 +104,14 @@ const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] bg-white">
         <DialogHeader>
           <DialogTitle>Join Our Waitlist</DialogTitle>
           <DialogDescription>
             Help us understand your business better to provide tailored solutions.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="bg-gray-100 p-4 rounded-md">
           {step === 0 && (
             <div className="grid gap-4 py-4">
               <Label htmlFor="businessName">Business Name</Label>
