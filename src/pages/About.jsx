@@ -39,10 +39,10 @@ const About = () => {
   ];
 
   const teamMembers = [
-    { name: "Juma Nasoro", role: "CEO & Cofounder", imageUrl: "/placeholder.svg" },
-    { name: "Vincent Omondi", role: "CTO & Cofounder", imageUrl: "/placeholder.svg" },
-    { name: "Mercy Mwaniki", role: "Business Development", imageUrl: "/placeholder.svg" },
-    { name: "Zaeeyd Sana", role: "Lead AI Engineer", imageUrl: "/placeholder.svg" }
+    { name: "Juma Nasoro", role: "CEO & Cofounder", imageUrl: "/juma.png" },
+    { name: "Vincent Omondi", role: "CTO & Cofounder", imageUrl: "/vince.png" },
+    { name: "Mercy Mwaniki", role: "Business Development", imageUrl: "/mercy.png" },
+    { name: "Zaeeyd Sana", role: "Lead AI Engineer", imageUrl: "/sana.png" }
   ];
 
   return (
