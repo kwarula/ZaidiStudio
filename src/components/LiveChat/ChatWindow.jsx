@@ -3,16 +3,12 @@ import { Send } from 'lucide-react';
 import OpenAI from 'openai';
 
 // Use Vite's import.meta.env to access environment variables
-const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+const apiKey = import.meta.env.VITE_OPENAI_API_KEY || 'YOUR_FALLBACK_API_KEY';
 
-let openai;
-
-if (apiKey) {
-  openai = new OpenAI({
-    apiKey: apiKey,
-    dangerouslyAllowBrowser: true // Note: This is not recommended for production
-  });
-}
+const openai = new OpenAI({
+  apiKey: apiKey,
+  dangerouslyAllowBrowser: true // Note: This is not recommended for production
+});
 
 const ChatWindow = ({ onClose }) => {
   const [messages, setMessages] = useState([
@@ -20,7 +16,6 @@ const ChatWindow = ({ onClose }) => {
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [error, setError] = useState('');
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -29,13 +24,6 @@ const ChatWindow = ({ onClose }) => {
       setMessages(prev => [...prev, userMessage]);
       setInput('');
       setIsTyping(true);
-      setError('');
-
-      if (!apiKey) {
-        setError('OpenAI API key is not set. Please add your API key to the .env file.');
-        setIsTyping(false);
-        return;
-      }
 
       try {
         const response = await openai.chat.completions.create({
@@ -51,7 +39,7 @@ const ChatWindow = ({ onClose }) => {
         setMessages(prev => [...prev, { text: botReply, sender: "bot" }]);
       } catch (error) {
         console.error('Error calling OpenAI:', error);
-        setError('Error: ' + (error.message || 'Failed to connect to OpenAI. Please check your API key and try again.'));
+        setMessages(prev => [...prev, { text: "Sorry, I'm having trouble connecting. Please try again later.", sender: "bot" }]);
       } finally {
         setIsTyping(false);
       }
@@ -78,9 +66,6 @@ const ChatWindow = ({ onClose }) => {
         ))}
         {isTyping && (
           <div className="text-gray-500 italic">Assistant is typing...</div>
-        )}
-        {error && (
-          <div className="text-red-500 mt-2">{error}</div>
         )}
       </div>
       <form onSubmit={handleSend} className="p-4 border-t">
