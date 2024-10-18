@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CustomDialog from '../components/CustomDialog';
+import TemplateCard from '../components/TemplateCard';
 
 const templates = [
   {
@@ -115,7 +115,6 @@ const Templates = () => {
       return;
     }
     
-    // Here you would typically verify the Mpesa code with your backend
     console.log("User info:", userInfo);
     console.log("Downloading template:", selectedTemplate);
     console.log("Mpesa code:", mpesaCode);
@@ -125,7 +124,6 @@ const Templates = () => {
       description: `Payment verified. ${selectedTemplate.name} is being downloaded.`,
     });
 
-    // Reset states
     setUserInfo({ name: '', email: '', phone: '' });
     setSelectedTemplate(null);
     setShowPaymentInstructions(false);
@@ -133,29 +131,20 @@ const Templates = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6 text-center text-blue-900">Download Templates</h1>
+        <h1 className="text-4xl font-bold mb-6 text-center text-blue-900">Download Templates</h1>
+        
+        {/* Custom Workflow Banner */}
+        <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-8 rounded-r-lg shadow-md">
+          <p className="font-bold">Need a custom workflow?</p>
+          <p>We can create custom templates tailored to your specific needs. Contact us for more information!</p>
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {templates.map((template) => (
-            <Card key={template.id} className="flex flex-col">
-              <CardHeader>
-                <CardTitle>{template.name}</CardTitle>
-                <CardDescription>{template.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600">{template.useCase}</p>
-              </CardContent>
-              <CardFooter className="mt-auto">
-                <Button 
-                  className="w-full" 
-                  onClick={() => handleDownload(template)}
-                >
-                  Download
-                </Button>
-              </CardFooter>
-            </Card>
+            <TemplateCard key={template.id} template={template} onDownload={handleDownload} />
           ))}
         </div>
 
