@@ -8,7 +8,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TemplateCard from '../components/TemplateCard';
 import PaymentDialog from '../components/PaymentDialog';
-import WaitlistForm from '../components/WaitlistForm';
+import ConsultationForm from '../components/ConsultationForm';
 import { templates } from '../data/templates';
 
 const Templates = () => {
@@ -137,10 +137,10 @@ const Templates = () => {
           onPaymentVerified={handlePaymentVerified}
         />
 
-        <WaitlistForm 
+        <ConsultationForm 
           open={isConsultationFormOpen} 
           onOpenChange={setIsConsultationFormOpen}
-          onWaitlistJoined={() => {
+          onConsultationRequested={() => {
             toast({
               title: "Success!",
               description: "Your consultation request has been submitted. We'll be in touch soon!",

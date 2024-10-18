@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, Code, PieChart, Layers, Users, Headphones } from 'lucide-react';
-import WaitlistForm from '../components/WaitlistForm';
+import ConsultationForm from '../components/ConsultationForm';
 import { useToast } from "@/components/ui/use-toast";
 
 const Services = () => {
@@ -84,10 +84,10 @@ const Services = () => {
         </div>
       </main>
       <Footer />
-      <WaitlistForm 
+      <ConsultationForm 
         open={isConsultationFormOpen} 
         onOpenChange={setIsConsultationFormOpen}
-        onWaitlistJoined={() => {
+        onConsultationRequested={() => {
           toast({
             title: "Success!",
             description: "Your consultation request has been submitted. We'll be in touch soon!",
