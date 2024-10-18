@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet';
 
 const AboutSection = ({ title, description, icon: Icon }) => (
   <div className="flex flex-col items-center p-6 bg-white rounded-lg shadow-md">
-    <Icon className="w-12 h-12 text-blue-600 mb-4" />
+    <Icon className="w-12 h-12 text-blue-600 mb-4" aria-hidden="true" />
     <h3 className="text-xl font-semibold mb-2">{title}</h3>
     <p className="text-gray-600 text-center">{description}</p>
   </div>
@@ -14,13 +14,12 @@ const AboutSection = ({ title, description, icon: Icon }) => (
 
 const TeamMember = ({ name, role, imageUrl }) => (
   <div className="flex flex-col items-center">
-    <img src={imageUrl} alt={name} className="w-32 h-32 rounded-full mb-4 mx-auto object-cover" />
+    <img src={imageUrl} alt={`${name}, ${role} at ZaidiStudio`} className="w-32 h-32 rounded-full mb-4 mx-auto object-cover" />
     <h3 className="text-lg font-semibold">{name}</h3>
     <p className="text-gray-600">{role}</p>
   </div>
 );
 
-const About = () => {
   const aboutSections = [
     {
       title: "Our Mission",
@@ -46,6 +45,7 @@ const About = () => {
     { name: "Zaeeyd Sana", role: "Lead AI Engineer", imageUrl: "/sana.png" }
   ];
 
+const About = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "AboutPage",

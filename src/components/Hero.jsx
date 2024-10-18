@@ -20,7 +20,7 @@ const Hero = () => {
   return (
     <section className="relative text-center py-12 px-4 md:px-8 overflow-hidden bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
       <div className="absolute inset-0 z-0 opacity-20">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect width="100%" height="100%" fill="url(#hero-pattern)" />
         </svg>
       </div>
@@ -43,11 +43,11 @@ const Hero = () => {
         <div className="mt-16">
           <p className="text-xl font-semibold mb-6 text-gray-800">Trusted by 500+ satisfied clients</p>
           <div className="flex flex-wrap justify-center items-center gap-6 mb-6">
-            <Hotel className="w-10 h-10 text-blue-600" aria-label="Hospitality industry" />
-            <Banknote className="w-10 h-10 text-green-600" aria-label="Banking industry" />
-            <Briefcase className="w-10 h-10 text-gray-600" aria-label="Business services" />
-            <CreditCard className="w-10 h-10 text-purple-600" aria-label="Financial services" />
-            <Users className="w-10 h-10 text-orange-600" aria-label="Client representation" />
+            <Hotel className="w-10 h-10 text-blue-600" aria-label="Hospitality industry icon" />
+            <Banknote className="w-10 h-10 text-green-600" aria-label="Banking industry icon" />
+            <Briefcase className="w-10 h-10 text-gray-600" aria-label="Business services icon" />
+            <CreditCard className="w-10 h-10 text-purple-600" aria-label="Financial services icon" />
+            <Users className="w-10 h-10 text-orange-600" aria-label="Client representation icon" />
           </div>
         </div>
       </div>
