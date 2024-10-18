@@ -18,7 +18,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative text-center py-24 px-4 md:px-8 overflow-hidden bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
+    <section className="relative text-center py-12 px-4 md:px-8 overflow-hidden bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
       <div className="absolute inset-0 z-0 opacity-20">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <rect width="100%" height="100%" fill="url(#hero-pattern)" />
