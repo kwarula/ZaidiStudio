@@ -35,6 +35,7 @@ const Hero = () => {
           className="text-lg px-6 py-3" 
           onClick={() => setIsFormOpen(true)}
           disabled={hasJoinedWaitlist}
+          aria-label={hasJoinedWaitlist ? "You're already on the waitlist" : "Book your free consultation"}
         >
           {hasJoinedWaitlist ? "You're on the Waitlist!" : "Book My Free Consultation"}
         </Button>
@@ -42,11 +43,11 @@ const Hero = () => {
           <p className="text-lg font-semibold mb-3">Trusted by 500+ satisfied clients</p>
           <div className="flex justify-center space-x-6 mb-3">
             {/* Replace with actual client logos */}
-            <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
-            <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
-            <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
+            <div className="w-12 h-12 bg-gray-300 rounded-full" aria-label="Client logo"></div>
+            <div className="w-12 h-12 bg-gray-300 rounded-full" aria-label="Client logo"></div>
+            <div className="w-12 h-12 bg-gray-300 rounded-full" aria-label="Client logo"></div>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center" aria-label="5 star rating">
             {[...Array(5)].map((_, index) => (
               <Star key={index} className="w-5 h-5 text-yellow-400 fill-current" />
             ))}
