@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, Code, PieChart, Layers, Users, Headphones } from 'lucide-react';
 import ConsultationForm from '../components/ConsultationForm';
 import { useToast } from "@/components/ui/use-toast";
+import { Helmet } from 'react-helmet';
 
 const Services = () => {
   const [isConsultationFormOpen, setIsConsultationFormOpen] = useState(false);
@@ -45,6 +46,10 @@ const Services = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
+      <Helmet>
+        <title>ZaidiStudio Services - AI Solutions for Your Business</title>
+        <meta name="description" content="Explore ZaidiStudio's range of AI-powered services including AI Strategy Consulting, Custom AI Solutions, AI Integration, Analytics, Training, and Support. Transform your business with cutting-edge AI technology." />
+      </Helmet>
       <Header />
       <main className="flex-grow py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

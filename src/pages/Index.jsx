@@ -12,6 +12,7 @@ import FAQ from '../components/FAQ';
 import CTA from '../components/CTA';
 import Footer from '../components/Footer';
 import LiveChat from '../components/LiveChat/LiveChat';
+import { Helmet } from 'react-helmet';
 
 const Index = () => {
   const location = useLocation();
@@ -28,6 +29,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <Helmet>
+        <title>ZaidiStudio - AI-Powered Business Automation</title>
+        <meta name="description" content="ZaidiStudio offers AI-powered business automation solutions to double your conversion rate in 30 days. Streamline operations and boost efficiency with our customized AI strategies." />
+      </Helmet>
       <svg width="0" height="0" className="hidden">
         <defs>
           <pattern id="hero-pattern" patternUnits="userSpaceOnUse" width="100" height="100">
@@ -36,7 +41,7 @@ const Index = () => {
         </defs>
       </svg>
       <Header />
-      <main className="pt-24"> {/* Increased padding-top */}
+      <main className="pt-12">
         <Hero />
         <Problem />
         <Solution />

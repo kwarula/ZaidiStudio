@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Users, Lightbulb, Target } from 'lucide-react';
+import { Helmet } from 'react-helmet';
 
 const AboutSection = ({ title, description, icon: Icon }) => (
   <div className="flex flex-col items-center p-6 bg-white rounded-lg shadow-md">
@@ -47,8 +48,12 @@ const About = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Helmet>
+        <title>About ZaidiStudio - Our Mission and Team</title>
+        <meta name="description" content="Learn about ZaidiStudio's mission to empower businesses with AI solutions. Meet our diverse team of AI experts, developers, and business strategists committed to your success." />
+      </Helmet>
       <Header />
-      <main className="flex-grow bg-gray-50 py-24 px-4 sm:px-6 lg:px-8"> {/* Increased padding-top */}
+      <main className="flex-grow bg-gray-50 py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-4xl font-extrabold text-center text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl mb-12">
             About ZaidiStudio

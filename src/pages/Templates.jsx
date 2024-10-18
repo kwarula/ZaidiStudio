@@ -10,6 +10,7 @@ import TemplateCard from '../components/TemplateCard';
 import PaymentDialog from '../components/PaymentDialog';
 import ConsultationForm from '../components/ConsultationForm';
 import { templates } from '../data/templates';
+import { Helmet } from 'react-helmet';
 
 const Templates = () => {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
@@ -52,6 +53,10 @@ const Templates = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
+      <Helmet>
+        <title>ZaidiStudio Templates - AI Automation Templates</title>
+        <meta name="description" content="Browse and download ZaidiStudio's collection of AI automation templates. Streamline your business processes with our ready-to-use, customizable AI-powered workflow templates." />
+      </Helmet>
       <Header />
       <main className="flex-grow container mx-auto px-4 py-24">
         <h1 className="text-5xl font-bold mb-12 text-center text-blue-900">Automation Templates</h1>
@@ -84,7 +89,8 @@ const Templates = () => {
             </div>
           ))}
         </div>
-
+      </main>
+      <Footer />
         <Dialog open={isUserInfoDialogOpen} onOpenChange={setIsUserInfoDialogOpen}>
           <DialogContent className="sm:max-w-[425px] bg-white">
             <DialogHeader>
@@ -147,8 +153,6 @@ const Templates = () => {
             });
           }}
         />
-      </main>
-      <Footer />
     </div>
   );
 };
