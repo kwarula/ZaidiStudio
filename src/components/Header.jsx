@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
-import WaitlistForm from './WaitlistForm';
+import ConsultationForm from './ConsultationForm';
 import { Link } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import MobileMenu from './MobileMenu';
 
 const Header = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [hasJoinedWaitlist, setHasJoinedWaitlist] = useState(false);
+  const [hasRequestedConsultation, setHasRequestedConsultation] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const joined = localStorage.getItem('hasJoinedWaitlist') === 'true';
-    setHasJoinedWaitlist(joined);
+    const requested = localStorage.getItem('hasRequestedConsultation') === 'true';
+    setHasRequestedConsultation(requested);
   }, []);
 
-  const handleWaitlistJoined = () => {
-    setHasJoinedWaitlist(true);
+  const handleConsultationRequested = () => {
+    setHasRequestedConsultation(true);
+    localStorage.setItem('hasRequestedConsultation', 'true');
   };
 
   return (
@@ -29,12 +30,12 @@ const Header = () => {
         <Link to="/templates" className="text-gray-600 hover:text-blue-600" aria-label="Templates">Templates</Link>
         <Link to="/#faq" className="text-gray-600 hover:text-blue-600" aria-label="FAQs">FAQs</Link>
         <Button 
-          variant={hasJoinedWaitlist ? "secondary" : "default"} 
+          variant={hasRequestedConsultation ? "secondary" : "default"} 
           onClick={() => setIsFormOpen(true)}
-          disabled={hasJoinedWaitlist}
-          aria-label={hasJoinedWaitlist ? "Already joined waitlist" : "Book free consultation"}
+          disabled={hasRequestedConsultation}
+          aria-label={hasRequestedConsultation ? "Consultation requested" : "Request a consultation"}
         >
-          {hasJoinedWaitlist ? 'Joined Waitlist' : 'Book Free Consultation'}
+          {hasRequestedConsultation ? 'Consultation Requested' : 'Request Consultation'}
         </Button>
       </nav>
       <Button
@@ -49,10 +50,10 @@ const Header = () => {
       <MobileMenu
         open={isMobileMenuOpen}
         onOpenChange={setIsMobileMenuOpen}
-        hasJoinedWaitlist={hasJoinedWaitlist}
-        onOpenWaitlistForm={() => setIsFormOpen(true)}
+        hasRequestedConsultation={hasRequestedConsultation}
+        onOpenConsultationForm={() => setIsFormOpen(true)}
       />
-      <WaitlistForm open={isFormOpen} onOpenChange={setIsFormOpen} onWaitlistJoined={handleWaitlistJoined} />
+      <ConsultationForm open={isFormOpen} onOpenChange={setIsFormOpen} onConsultationRequested={handleConsultationRequested} />
     </header>
   );
 };

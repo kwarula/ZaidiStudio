@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
-import WaitlistForm from './WaitlistForm';
-import { Star, Lightbulb, Heart, Palette, Hotel, Banknote, Briefcase, CreditCard, Users } from 'lucide-react';
+import ConsultationForm from './ConsultationForm';
+import { Hotel, Banknote, Briefcase, CreditCard, Users } from 'lucide-react';
 
 const Hero = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [hasJoinedWaitlist, setHasJoinedWaitlist] = useState(false);
+  const [hasRequestedConsultation, setHasRequestedConsultation] = useState(false);
 
   useEffect(() => {
-    const joined = localStorage.getItem('hasJoinedWaitlist') === 'true';
-    setHasJoinedWaitlist(joined);
+    const requested = localStorage.getItem('hasRequestedConsultation') === 'true';
+    setHasRequestedConsultation(requested);
   }, []);
 
-  const handleWaitlistJoined = () => {
-    setHasJoinedWaitlist(true);
+  const handleConsultationRequested = () => {
+    setHasRequestedConsultation(true);
+    localStorage.setItem('hasRequestedConsultation', 'true');
   };
 
   return (
@@ -34,10 +35,10 @@ const Hero = () => {
           size="lg" 
           className="text-lg px-8 py-4 bg-blue-600 hover:bg-blue-700 transition-colors duration-300" 
           onClick={() => setIsFormOpen(true)}
-          disabled={hasJoinedWaitlist}
-          aria-label={hasJoinedWaitlist ? "You're already on the waitlist" : "Book your free consultation"}
+          disabled={hasRequestedConsultation}
+          aria-label={hasRequestedConsultation ? "You've already requested a consultation" : "Request your free consultation"}
         >
-          {hasJoinedWaitlist ? "You're on the Waitlist!" : "Book My Free Consultation"}
+          {hasRequestedConsultation ? "Consultation Requested" : "Request Free Consultation"}
         </Button>
         <div className="mt-16">
           <p className="text-xl font-semibold mb-6 text-gray-800">Trusted by 500+ satisfied clients</p>
@@ -48,14 +49,9 @@ const Hero = () => {
             <CreditCard className="w-16 h-16 text-purple-600" aria-label="Financial services" />
             <Users className="w-16 h-16 text-orange-600" aria-label="Client representation" />
           </div>
-          <div className="flex justify-center" aria-label="5 star rating">
-            {[...Array(5)].map((_, index) => (
-              <Star key={index} className="w-8 h-8 text-yellow-400 fill-current" />
-            ))}
-          </div>
         </div>
       </div>
-      <WaitlistForm open={isFormOpen} onOpenChange={setIsFormOpen} onWaitlistJoined={handleWaitlistJoined} />
+      <ConsultationForm open={isFormOpen} onOpenChange={setIsFormOpen} onConsultationRequested={handleConsultationRequested} />
     </section>
   );
 };
