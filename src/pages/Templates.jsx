@@ -54,22 +54,34 @@ const Templates = () => {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-24">
-        <h1 className="text-5xl font-bold mb-8 text-center text-blue-900">Download Templates</h1>
+        <h1 className="text-5xl font-bold mb-12 text-center text-blue-900">Automation Templates</h1>
         
-        <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-6 mb-12 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-4">Need a custom workflow?</h2>
-          <p className="mb-4">We can create custom templates tailored to your specific needs.</p>
+        <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-8 mb-16 rounded-lg shadow-md">
+          <h2 className="text-3xl font-bold mb-4">Need a Custom Workflow?</h2>
+          <p className="text-lg mb-6">We can create bespoke templates tailored to your specific business needs.</p>
           <Button 
             onClick={() => setIsConsultationFormOpen(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105"
           >
             Book Free Consultation
           </Button>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {templates.map((template) => (
-            <TemplateCard key={template.id} template={template} onDownload={handleDownload} />
+            <div key={template.id} className="bg-white rounded-lg shadow-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
+              <div className="p-6">
+                <h3 className="text-2xl font-semibold mb-3 text-blue-900">{template.name}</h3>
+                <p className="text-gray-600 mb-4">{template.description}</p>
+                <p className="text-sm text-gray-500 mb-6">{template.useCase}</p>
+                <Button 
+                  onClick={() => handleDownload(template)}
+                  className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                >
+                  Download Template
+                </Button>
+              </div>
+            </div>
           ))}
         </div>
 
