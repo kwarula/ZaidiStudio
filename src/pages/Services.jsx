@@ -1,54 +1,76 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Zap, Code, PieChart, Layers, Users, Headphones } from 'lucide-react';
 
 const Services = () => {
+  const services = [
+    {
+      title: "AI Strategy Consulting",
+      description: "We help businesses develop comprehensive AI strategies tailored to their specific needs and goals.",
+      icon: Zap,
+    },
+    {
+      title: "Custom AI Solutions",
+      description: "Our team of experts designs and implements bespoke AI solutions to address your unique challenges.",
+      icon: Code,
+    },
+    {
+      title: "AI Integration",
+      description: "We seamlessly integrate AI technologies into your existing systems and workflows for maximum efficiency.",
+      icon: Layers,
+    },
+    {
+      title: "AI-Powered Analytics",
+      description: "Leverage the power of AI to gain deeper insights from your data and make data-driven decisions.",
+      icon: PieChart,
+    },
+    {
+      title: "AI Training and Workshops",
+      description: "We offer comprehensive training programs to help your team understand and utilize AI technologies effectively.",
+      icon: Users,
+    },
+    {
+      title: "AI Maintenance and Support",
+      description: "Our ongoing support ensures your AI systems continue to perform optimally and evolve with your business needs.",
+      icon: Headphones,
+    },
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <Header />
-      <main className="flex-grow bg-gray-50 py-24 px-4 sm:px-6 lg:px-8">
+      <main className="flex-grow py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-extrabold text-center text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl mb-12">
+          <h1 className="text-4xl font-extrabold text-center text-blue-900 sm:text-5xl sm:tracking-tight lg:text-6xl mb-8">
             Our Services
           </h1>
+          <p className="text-xl text-center text-gray-600 mb-16 max-w-3xl mx-auto">
+            Empower your business with cutting-edge AI solutions tailored to your unique needs.
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <ServiceCard
-              title="AI Strategy Consulting"
-              description="We help businesses develop comprehensive AI strategies tailored to their specific needs and goals."
-            />
-            <ServiceCard
-              title="Custom AI Solutions"
-              description="Our team of experts designs and implements bespoke AI solutions to address your unique challenges."
-            />
-            <ServiceCard
-              title="AI Integration"
-              description="We seamlessly integrate AI technologies into your existing systems and workflows for maximum efficiency."
-            />
-            <ServiceCard
-              title="AI-Powered Analytics"
-              description="Leverage the power of AI to gain deeper insights from your data and make data-driven decisions."
-            />
-            <ServiceCard
-              title="AI Training and Workshops"
-              description="We offer comprehensive training programs to help your team understand and utilize AI technologies effectively."
-            />
-            <ServiceCard
-              title="AI Maintenance and Support"
-              description="Our ongoing support ensures your AI systems continue to perform optimally and evolve with your business needs."
-            />
+            {services.map((service, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                <service.icon className="w-12 h-12 text-blue-600 mb-4" />
+                <h2 className="text-xl font-semibold mb-4 text-blue-900">{service.title}</h2>
+                <p className="text-gray-600 mb-6">{service.description}</p>
+                <Button variant="outline" className="group">
+                  Learn More
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </div>
+            ))}
+          </div>
+          <div className="mt-20 text-center">
+            <h2 className="text-3xl font-bold text-blue-900 mb-6">Ready to transform your business with AI?</h2>
+            <Button size="lg" className="text-lg px-8 py-4">
+              Get Started
+            </Button>
           </div>
         </div>
       </main>
       <Footer />
-    </div>
-  );
-};
-
-const ServiceCard = ({ title, description }) => {
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4 text-blue-600">{title}</h2>
-      <p className="text-gray-600">{description}</p>
     </div>
   );
 };
