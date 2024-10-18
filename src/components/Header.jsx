@@ -23,6 +23,7 @@ const Header = () => {
         <Link to="/" className="text-gray-600 hover:text-blue-600" aria-label="Home">Home</Link>
         <Link to="/services" className="text-gray-600 hover:text-blue-600" aria-label="Services">Services</Link>
         <Link to="/about" className="text-gray-600 hover:text-blue-600" aria-label="About">About</Link>
+        <Link to="/templates" className="text-gray-600 hover:text-blue-600" aria-label="Templates">Templates</Link>
         <Link to="/#faq" className="text-gray-600 hover:text-blue-600" aria-label="FAQs">FAQs</Link>
         <Button 
           variant={hasJoinedWaitlist ? "secondary" : "default"} 

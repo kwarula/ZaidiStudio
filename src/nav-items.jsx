@@ -1,8 +1,9 @@
-import { HomeIcon, CreditCardIcon, LayoutListIcon, InfoIcon } from "lucide-react";
+import { HomeIcon, CreditCardIcon, LayoutListIcon, InfoIcon, FileJsonIcon } from "lucide-react";
 import Index from "./pages/Index.jsx";
 import Pricing from "./pages/Pricing.jsx";
 import Services from "./pages/Services.jsx";
 import About from "./pages/About.jsx";
+import Templates from "./pages/Templates.jsx";
 
 /**
  * Central place for defining the navigation items. Used for navigation components and routing.
@@ -31,5 +32,11 @@ export const navItems = [
     to: "/about",
     icon: <InfoIcon className="h-4 w-4" />,
     page: <About />,
+  },
+  {
+    title: "Templates",
+    to: "/templates",
+    icon: <FileJsonIcon className="h-4 w-4" />,
+    page: <Templates />,
   },
 ];
