@@ -48,7 +48,7 @@ const About = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
+      <main className="flex-grow bg-gray-50 py-24 px-4 sm:px-6 lg:px-8"> {/* Increased padding-top */}
         <div className="max-w-7xl mx-auto">
           <h1 className="text-4xl font-extrabold text-center text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl mb-12">
             About ZaidiStudio

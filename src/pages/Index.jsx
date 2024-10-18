@@ -36,7 +36,7 @@ const Index = () => {
         </defs>
       </svg>
       <Header />
-      <main className="pt-16">
+      <main className="pt-24"> {/* Increased padding-top */}
         <Hero />
         <Problem />
         <Solution />
