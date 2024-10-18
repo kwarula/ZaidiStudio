@@ -7,9 +7,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 
 const PaymentDialog = ({ open, onOpenChange, onPaymentVerified }) => {
   const [mpesaCode, setMpesaCode] = useState('');
+  const [isVerifying, setIsVerifying] = useState(false);
   const { toast } = useToast();
 
-  const handleVerifyPayment = (e) => {
+  const handleVerifyPayment = async (e) => {
     e.preventDefault();
     if (!mpesaCode) {
       toast({
@@ -20,12 +21,30 @@ const PaymentDialog = ({ open, onOpenChange, onPaymentVerified }) => {
       return;
     }
     
+    setIsVerifying(true);
+    
+    // Simulate payment verification
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    setIsVerifying(false);
+    
     // Here you would typically verify the payment with your backend
     console.log("Verifying payment with Mpesa code:", mpesaCode);
 
+    const wittyMessages = [
+      "Great news! Your payment's been accepted faster than an AI can say 'Hello, World!'",
+      "Cha-ching! Your transaction just flew through our digital pipes!",
+      "Success! Your payment went through smoother than a robot's dance moves.",
+      "Bingo! Your payment just got the green light faster than you can say 'artificial intelligence'.",
+      "Woohoo! Your payment just got processed quicker than an AI can solve a Rubik's cube!"
+    ];
+
+    const randomWittyMessage = wittyMessages[Math.floor(Math.random() * wittyMessages.length)];
+
     toast({
-      title: "Success!",
-      description: "Payment verified. Your template is being downloaded.",
+      title: randomWittyMessage,
+      description: "Check your email in the next 5 minutes for your template. It's probably racing through the internet as we speak!",
+      duration: 6000,
     });
 
     onPaymentVerified();
@@ -54,7 +73,9 @@ const PaymentDialog = ({ open, onOpenChange, onPaymentVerified }) => {
             />
           </div>
           <DialogFooter>
-            <Button type="submit">Verify Payment</Button>
+            <Button type="submit" disabled={isVerifying}>
+              {isVerifying ? 'Verifying...' : 'Verify Payment'}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
