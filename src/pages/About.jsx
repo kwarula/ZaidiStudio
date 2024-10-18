@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Helmet } from 'react-helmet';
-import { Users, Target, Lightbulb, CheckCircle, Info, Star, User } from 'lucide-react';
+import { Users, Target, Lightbulb, CheckCircle, Info, Star } from 'lucide-react';
 
 const TeamMember = ({ name, role, imageUrl, description }) => (
   <Card className="overflow-hidden h-full">
@@ -69,35 +69,14 @@ const About = () => {
           </p>
         </section>
 
-        <section className="mb-12">
-          <div className="flex items-center mb-6">
-            <Target className="w-8 h-8 text-blue-600 mr-3" />
-            <h2 className="text-2xl md:text-3xl font-semibold text-blue-800">Our Mission</h2>
+        <section className="mb-12 bg-blue-100 p-6 md:p-8 rounded-lg">
+          <div className="flex items-center mb-4">
+            <Target className="w-6 h-6 text-blue-600 mr-2" />
+            <h2 className="text-2xl font-semibold text-blue-800">Our Mission</h2>
           </div>
-          <p className="text-base md:text-lg max-w-3xl mx-auto">
+          <p className="text-base md:text-lg">
             To empower businesses of all sizes with advanced, cutting-edge AI solutions that simplify processes, drive growth, and unlock new opportunities. We believe that by democratizing AI, we can help companies thrive in a rapidly changing business landscape.
           </p>
-        </section>
-
-        <section className="mb-12 bg-blue-100 p-6 md:p-8 rounded-lg">
-          <div className="flex items-center mb-6">
-            <Lightbulb className="w-8 h-8 text-blue-600 mr-3" />
-            <h2 className="text-2xl md:text-3xl font-semibold text-blue-800">Our Approach</h2>
-          </div>
-          <p className="text-base md:text-lg mb-6">
-            At ZaidiStudio, we understand that every business is unique. That's why we take a tailored approach, blending our deep industry expertise with the latest AI technology to deliver solutions that fit your specific needs.
-          </p>
-          <h3 className="text-xl font-semibold mb-4">Our process includes:</h3>
-          <ul className="list-none space-y-3">
-            {['Comprehensive Consultation: Understanding your business challenges and goals.',
-              'Custom AI Solutions: Crafting AI-driven tools to meet your unique requirements.',
-              'End-to-End Support: Offering continuous support, monitoring, and improvement to maximize results.'].map((item, index) => (
-              <li key={index} className="flex items-start">
-                <CheckCircle className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1" />
-                <span className="text-base">{item}</span>
-              </li>
-            ))}
-          </ul>
         </section>
 
         <section className="mb-12">
@@ -106,10 +85,12 @@ const About = () => {
             <h2 className="text-2xl md:text-3xl font-semibold text-blue-800">Why Choose Us?</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {['AI Expertise: With a team of AI engineers and business strategists, we stay at the cutting edge of artificial intelligence.',
+            {[
+              'AI Expertise: With a team of AI engineers and business strategists, we stay at the cutting edge of artificial intelligence.',
               'Results-Driven: Our success is measured by the tangible improvements we bring to your operations and bottom line.',
               'Client-Centric: We prioritize your needs, working closely to create personalized solutions that align with your goals.',
-              'Innovation & Adaptability: Technology moves fast, and so do we. We constantly evolve our services to stay ahead of the curve.'].map((item, index) => (
+              'Innovation & Adaptability: Technology moves fast, and so do we. We constantly evolve our services to stay ahead of the curve.'
+            ].map((item, index) => (
               <div key={index} className="bg-white p-4 rounded-lg shadow-md flex items-start">
                 <CheckCircle className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-1" />
                 <p className="text-base">{item}</p>
