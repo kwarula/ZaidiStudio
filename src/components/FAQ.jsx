@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { motion } from 'framer-motion';
 
 const faqData = [
   {
@@ -33,17 +34,31 @@ const FAQ = () => {
   return (
     <section className="py-16 px-4 md:px-8 bg-gray-50" id="faq">
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8 text-center text-blue-900">Frequently Asked Questions</h2>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl font-bold mb-8 text-center text-blue-900"
+        >
+          Frequently Asked Questions
+        </motion.h2>
         <Accordion type="single" collapsible className="w-full">
           {faqData.map((faq, index) => (
-            <AccordionItem value={`item-${index}`} key={index}>
-              <AccordionTrigger className="text-left">
-                <h3>{faq.question}</h3>
-              </AccordionTrigger>
-              <AccordionContent>
-                <p>{faq.answer}</p>
-              </AccordionContent>
-            </AccordionItem>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * index, duration: 0.6 }}
+            >
+              <AccordionItem value={`item-${index}`}>
+                <AccordionTrigger className="text-left">
+                  <h3>{faq.question}</h3>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <p>{faq.answer}</p>
+                </AccordionContent>
+              </AccordionItem>
+            </motion.div>
           ))}
         </Accordion>
       </div>
