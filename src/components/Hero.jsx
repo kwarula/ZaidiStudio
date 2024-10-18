@@ -42,12 +42,12 @@ const Hero = () => {
         </Button>
         <div className="mt-16">
           <p className="text-xl font-semibold mb-6 text-gray-800">Trusted by 500+ satisfied clients</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 mb-6">
-            <Hotel className="w-16 h-16 text-blue-600" aria-label="Hospitality industry" />
-            <Banknote className="w-16 h-16 text-green-600" aria-label="Banking industry" />
-            <Briefcase className="w-16 h-16 text-gray-600" aria-label="Business services" />
-            <CreditCard className="w-16 h-16 text-purple-600" aria-label="Financial services" />
-            <Users className="w-16 h-16 text-orange-600" aria-label="Client representation" />
+          <div className="flex flex-wrap justify-center items-center gap-6 mb-6">
+            <Hotel className="w-10 h-10 text-blue-600" aria-label="Hospitality industry" />
+            <Banknote className="w-10 h-10 text-green-600" aria-label="Banking industry" />
+            <Briefcase className="w-10 h-10 text-gray-600" aria-label="Business services" />
+            <CreditCard className="w-10 h-10 text-purple-600" aria-label="Financial services" />
+            <Users className="w-10 h-10 text-orange-600" aria-label="Client representation" />
           </div>
         </div>
       </div>
