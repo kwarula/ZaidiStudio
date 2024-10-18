@@ -3,11 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TemplateCard from '../components/TemplateCard';
 import PaymentDialog from '../components/PaymentDialog';
-import { templates } from '../data/templates'; // Assume we've moved the templates data to a separate file
+import { templates } from '../data/templates';
 
 const Templates = () => {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
@@ -50,10 +51,9 @@ const Templates = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-24"> {/* Increased padding-top */}
+      <main className="flex-grow container mx-auto px-4 py-24">
         <h1 className="text-4xl font-bold mb-6 text-center text-blue-900">Download Templates</h1>
         
-        {/* Custom Workflow Banner */}
         <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-8 rounded-r-lg shadow-md">
           <p className="font-bold">Need a custom workflow?</p>
           <p>We can create custom templates tailored to your specific needs. Contact us for more information!</p>
