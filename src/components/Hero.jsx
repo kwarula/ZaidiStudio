@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import WaitlistForm from './WaitlistForm';
-import { Star } from 'lucide-react';
+import { Star, Hotel, Banknote, Briefcase, CreditCard, Users } from 'lucide-react';
 
 const Hero = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -42,10 +42,11 @@ const Hero = () => {
         <div className="mt-8">
           <p className="text-lg font-semibold mb-3">Trusted by 500+ satisfied clients</p>
           <div className="flex justify-center space-x-6 mb-3">
-            {/* Replace with actual client logos */}
-            <div className="w-12 h-12 bg-gray-300 rounded-full" aria-label="Client logo"></div>
-            <div className="w-12 h-12 bg-gray-300 rounded-full" aria-label="Client logo"></div>
-            <div className="w-12 h-12 bg-gray-300 rounded-full" aria-label="Client logo"></div>
+            <Hotel className="w-12 h-12 text-blue-600" aria-label="Hospitality industry" />
+            <Banknote className="w-12 h-12 text-green-600" aria-label="Banking industry" />
+            <Briefcase className="w-12 h-12 text-gray-600" aria-label="Business services" />
+            <CreditCard className="w-12 h-12 text-purple-600" aria-label="Financial services" />
+            <Users className="w-12 h-12 text-orange-600" aria-label="Client representation" />
           </div>
           <div className="flex justify-center" aria-label="5 star rating">
             {[...Array(5)].map((_, index) => (
