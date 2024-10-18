@@ -98,6 +98,7 @@ const Features = () => {
           size="lg" 
           className="text-lg px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white" 
           onClick={() => setIsDemoFormOpen(true)}
+          aria-label="Book your free demo"
         >
           Get Your Free Demo
         </Button>
