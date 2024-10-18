@@ -21,7 +21,7 @@ const steps = [
   },
 ];
 
-const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
+const ConsultationForm = ({ open, onOpenChange, onConsultationRequested }) => {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState({
     businessName: '',
@@ -35,11 +35,11 @@ const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
   const { toast } = useToast();
 
   useEffect(() => {
-    const hasJoined = localStorage.getItem('hasJoinedWaitlist') === 'true';
-    if (hasJoined) {
-      onWaitlistJoined();
+    const hasRequested = localStorage.getItem('hasRequestedConsultation') === 'true';
+    if (hasRequested) {
+      onConsultationRequested();
     }
-  }, [onWaitlistJoined]);
+  }, [onConsultationRequested]);
 
   const handleOptionSelect = (value) => {
     setFormData({ ...formData, [Object.keys(formData)[step + 1]]: value });
@@ -73,11 +73,11 @@ const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
         throw new Error('Failed to submit form');
       }
 
-      localStorage.setItem('hasJoinedWaitlist', 'true');
-      onWaitlistJoined();
+      localStorage.setItem('hasRequestedConsultation', 'true');
+      onConsultationRequested();
       toast({
         title: "Success!",
-        description: "You've been added to the waitlist.",
+        description: "Your consultation request has been submitted.",
       });
       onOpenChange(false);
       // Reset form state
@@ -94,7 +94,7 @@ const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
       console.error('Error submitting form:', error);
       toast({
         title: "Error",
-        description: "Failed to join the waitlist. Please try again.",
+        description: "Failed to submit consultation request. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -106,9 +106,9 @@ const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px] bg-white">
         <DialogHeader>
-          <DialogTitle>Join Our Waitlist</DialogTitle>
+          <DialogTitle>Experience Automation</DialogTitle>
           <DialogDescription>
-            Help us understand your business better to provide tailored solutions.
+            Let us understand your business better to provide tailored solutions.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="bg-gray-100 p-4 rounded-md">
@@ -165,7 +165,7 @@ const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
               </div>
               <DialogFooter>
                 <Button type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? 'Joining...' : 'Join Waitlist'}
+                  {isSubmitting ? 'Submitting...' : 'Request Consultation'}
                 </Button>
               </DialogFooter>
             </>
@@ -176,4 +176,4 @@ const WaitlistForm = ({ open, onOpenChange, onWaitlistJoined }) => {
   );
 };
 
-export default WaitlistForm;
+export default ConsultationForm;
