@@ -51,11 +51,28 @@ const Templates = () => {
     setSelectedTemplate(null);
   };
 
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "ZaidiStudio AI Automation Templates",
+    "description": "Browse and download ZaidiStudio's collection of AI automation templates",
+    "itemListElement": templates.map((template, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": template.name,
+      "description": template.description
+    }))
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <Helmet>
         <title>ZaidiStudio Templates - AI Automation Templates</title>
         <meta name="description" content="Browse and download ZaidiStudio's collection of AI automation templates. Streamline your business processes with our ready-to-use, customizable AI-powered workflow templates." />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
       </Helmet>
       <Header />
       <main className="flex-grow container mx-auto px-4 py-24">
@@ -89,6 +106,7 @@ const Templates = () => {
             </div>
           ))}
         </div>
+      </main>
       </main>
       <Footer />
         <Dialog open={isUserInfoDialogOpen} onOpenChange={setIsUserInfoDialogOpen}>

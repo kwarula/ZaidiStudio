@@ -44,11 +44,26 @@ const Services = () => {
     },
   ];
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "ZaidiStudio AI Services",
+    "description": "AI-powered services for business automation and optimization",
+    "provider": {
+      "@type": "Organization",
+      "name": "ZaidiStudio"
+    },
+    "serviceType": services.map(service => service.title)
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <Helmet>
         <title>ZaidiStudio Services - AI Solutions for Your Business</title>
         <meta name="description" content="Explore ZaidiStudio's range of AI-powered services including AI Strategy Consulting, Custom AI Solutions, AI Integration, Analytics, Training, and Support. Transform your business with cutting-edge AI technology." />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
       </Helmet>
       <Header />
       <main className="flex-grow py-24 px-4 sm:px-6 lg:px-8">

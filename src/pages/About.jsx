@@ -46,11 +46,31 @@ const About = () => {
     { name: "Zaeeyd Sana", role: "Lead AI Engineer", imageUrl: "/sana.png" }
   ];
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About ZaidiStudio",
+    "description": "Learn about ZaidiStudio's mission to empower businesses with AI solutions and meet our team of experts.",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "ZaidiStudio",
+      "description": "AI-powered business automation solutions provider",
+      "employee": teamMembers.map(member => ({
+        "@type": "Person",
+        "name": member.name,
+        "jobTitle": member.role
+      }))
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>
         <title>About ZaidiStudio - Our Mission and Team</title>
         <meta name="description" content="Learn about ZaidiStudio's mission to empower businesses with AI solutions. Meet our diverse team of AI experts, developers, and business strategists committed to your success." />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
       </Helmet>
       <Header />
       <main className="flex-grow bg-gray-50 py-24 px-4 sm:px-6 lg:px-8">

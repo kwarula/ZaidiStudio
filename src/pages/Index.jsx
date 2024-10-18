@@ -27,11 +27,28 @@ const Index = () => {
     }
   }, [location]);
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ZaidiStudio",
+    "description": "AI-powered business automation solutions to double your conversion rate in 30 days.",
+    "url": "https://zaidistudio.com",
+    "logo": "https://zaidistudio.com/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/zaidistudio",
+      "https://www.twitter.com/zaidistudio",
+      "https://www.linkedin.com/company/zaidistudio"
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <Helmet>
         <title>ZaidiStudio - AI-Powered Business Automation</title>
         <meta name="description" content="ZaidiStudio offers AI-powered business automation solutions to double your conversion rate in 30 days. Streamline operations and boost efficiency with our customized AI strategies." />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
       </Helmet>
       <svg width="0" height="0" className="hidden">
         <defs>
