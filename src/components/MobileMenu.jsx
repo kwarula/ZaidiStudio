@@ -7,7 +7,7 @@ import { X } from 'lucide-react';
 const MobileMenu = ({ open, onOpenChange, hasJoinedWaitlist, onOpenWaitlistForm }) => {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+      <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-white">
         <SheetHeader>
           <SheetTitle className="text-2xl font-bold text-blue-600">ZaidiStudio</SheetTitle>
           <Button
