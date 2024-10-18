@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TemplateCard from '../components/TemplateCard';
 import PaymentDialog from '../components/PaymentDialog';
+import WaitlistForm from '../components/WaitlistForm';
 import { templates } from '../data/templates';
 
 const Templates = () => {
@@ -15,6 +16,7 @@ const Templates = () => {
   const [userInfo, setUserInfo] = useState({ name: '', email: '', phone: '' });
   const [isUserInfoDialogOpen, setIsUserInfoDialogOpen] = useState(false);
   const [isPaymentDialogOpen, setIsPaymentDialogOpen] = useState(false);
+  const [isConsultationFormOpen, setIsConsultationFormOpen] = useState(false);
   const { toast } = useToast();
 
   const handleInputChange = (e) => {
@@ -49,17 +51,23 @@ const Templates = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-24">
-        <h1 className="text-4xl font-bold mb-6 text-center text-blue-900">Download Templates</h1>
+        <h1 className="text-5xl font-bold mb-8 text-center text-blue-900">Download Templates</h1>
         
-        <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-8 rounded-r-lg shadow-md">
-          <p className="font-bold">Need a custom workflow?</p>
-          <p>We can create custom templates tailored to your specific needs. Contact us for more information!</p>
+        <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-6 mb-12 rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold mb-4">Need a custom workflow?</h2>
+          <p className="mb-4">We can create custom templates tailored to your specific needs.</p>
+          <Button 
+            onClick={() => setIsConsultationFormOpen(true)}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Book Free Consultation
+          </Button>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {templates.map((template) => (
             <TemplateCard key={template.id} template={template} onDownload={handleDownload} />
           ))}
@@ -115,6 +123,17 @@ const Templates = () => {
           open={isPaymentDialogOpen} 
           onOpenChange={setIsPaymentDialogOpen}
           onPaymentVerified={handlePaymentVerified}
+        />
+
+        <WaitlistForm 
+          open={isConsultationFormOpen} 
+          onOpenChange={setIsConsultationFormOpen}
+          onWaitlistJoined={() => {
+            toast({
+              title: "Success!",
+              description: "Your consultation request has been submitted. We'll be in touch soon!",
+            });
+          }}
         />
       </main>
       <Footer />
