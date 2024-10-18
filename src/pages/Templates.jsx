@@ -51,7 +51,6 @@ const Templates = () => {
     setSelectedTemplate(null);
   };
 
-
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -107,70 +106,69 @@ const Templates = () => {
           ))}
         </div>
       </main>
-      </main>
       <Footer />
-        <Dialog open={isUserInfoDialogOpen} onOpenChange={setIsUserInfoDialogOpen}>
-          <DialogContent className="sm:max-w-[425px] bg-white">
-            <DialogHeader>
-              <DialogTitle>Download {selectedTemplate?.name}</DialogTitle>
-              <DialogDescription>Please provide your information to download the template</DialogDescription>
-            </DialogHeader>
-            <form onSubmit={handleSubmitUserInfo} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={userInfo.name}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={userInfo.email}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone">Phone</Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={userInfo.phone}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <DialogFooter>
-                <Button type="submit">Submit</Button>
-              </DialogFooter>
-            </form>
-          </DialogContent>
-        </Dialog>
+      <Dialog open={isUserInfoDialogOpen} onOpenChange={setIsUserInfoDialogOpen}>
+        <DialogContent className="sm:max-w-[425px] bg-white">
+          <DialogHeader>
+            <DialogTitle>Download {selectedTemplate?.name}</DialogTitle>
+            <DialogDescription>Please provide your information to download the template</DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleSubmitUserInfo} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                name="name"
+                value={userInfo.name}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={userInfo.email}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="phone">Phone</Label>
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                value={userInfo.phone}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <DialogFooter>
+              <Button type="submit">Submit</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
-        <PaymentDialog 
-          open={isPaymentDialogOpen} 
-          onOpenChange={setIsPaymentDialogOpen}
-          onPaymentVerified={handlePaymentVerified}
-        />
+      <PaymentDialog 
+        open={isPaymentDialogOpen} 
+        onOpenChange={setIsPaymentDialogOpen}
+        onPaymentVerified={handlePaymentVerified}
+      />
 
-        <ConsultationForm 
-          open={isConsultationFormOpen} 
-          onOpenChange={setIsConsultationFormOpen}
-          onConsultationRequested={() => {
-            toast({
-              title: "Success!",
-              description: "Your consultation request has been submitted. We'll be in touch soon!",
-            });
-          }}
-        />
+      <ConsultationForm 
+        open={isConsultationFormOpen} 
+        onOpenChange={setIsConsultationFormOpen}
+        onConsultationRequested={() => {
+          toast({
+            title: "Success!",
+            description: "Your consultation request has been submitted. We'll be in touch soon!",
+          });
+        }}
+      />
     </div>
   );
 };
