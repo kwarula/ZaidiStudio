@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, Code, PieChart, Layers, Users, Headphones } from 'lucide-react';
+import WaitlistForm from '../components/WaitlistForm';
+import { useToast } from "@/components/ui/use-toast";
 
 const Services = () => {
+  const [isConsultationFormOpen, setIsConsultationFormOpen] = useState(false);
+  const { toast } = useToast();
+
   const services = [
     {
       title: "AI Strategy Consulting",
@@ -55,7 +60,11 @@ const Services = () => {
                 <service.icon className="w-12 h-12 text-blue-600 mb-4" />
                 <h2 className="text-xl font-semibold mb-4 text-blue-900">{service.title}</h2>
                 <p className="text-gray-600 mb-6">{service.description}</p>
-                <Button variant="outline" className="group">
+                <Button 
+                  variant="outline" 
+                  className="group"
+                  onClick={() => setIsConsultationFormOpen(true)}
+                >
                   Learn More
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
@@ -64,13 +73,27 @@ const Services = () => {
           </div>
           <div className="mt-20 text-center">
             <h2 className="text-3xl font-bold text-blue-900 mb-6">Ready to transform your business with AI?</h2>
-            <Button size="lg" className="text-lg px-8 py-4">
+            <Button 
+              size="lg" 
+              className="text-lg px-8 py-4"
+              onClick={() => setIsConsultationFormOpen(true)}
+            >
               Get Started
             </Button>
           </div>
         </div>
       </main>
       <Footer />
+      <WaitlistForm 
+        open={isConsultationFormOpen} 
+        onOpenChange={setIsConsultationFormOpen}
+        onWaitlistJoined={() => {
+          toast({
+            title: "Success!",
+            description: "Your consultation request has been submitted. We'll be in touch soon!",
+          });
+        }}
+      />
     </div>
   );
 };
