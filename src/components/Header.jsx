@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import WaitlistForm from './WaitlistForm';
 import { Link } from 'react-router-dom';
+import { Menu } from 'lucide-react';
+import MobileMenu from './MobileMenu';
 
 const Header = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [hasJoinedWaitlist, setHasJoinedWaitlist] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const joined = localStorage.getItem('hasJoinedWaitlist') === 'true';
@@ -34,6 +37,21 @@ const Header = () => {
           {hasJoinedWaitlist ? 'Joined Waitlist' : 'Book Free Consultation'}
         </Button>
       </nav>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="md:hidden"
+        onClick={() => setIsMobileMenuOpen(true)}
+        aria-label="Open mobile menu"
+      >
+        <Menu className="h-6 w-6" />
+      </Button>
+      <MobileMenu
+        open={isMobileMenuOpen}
+        onOpenChange={setIsMobileMenuOpen}
+        hasJoinedWaitlist={hasJoinedWaitlist}
+        onOpenWaitlistForm={() => setIsFormOpen(true)}
+      />
       <WaitlistForm open={isFormOpen} onOpenChange={setIsFormOpen} onWaitlistJoined={handleWaitlistJoined} />
     </header>
   );
