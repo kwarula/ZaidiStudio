@@ -24,12 +24,6 @@ const Hero = () => {
         </svg>
       </div>
       <div className="relative z-10 max-w-4xl mx-auto">
-        <div className="flex justify-center space-x-4 mb-8">
-          <Lightbulb className="w-12 h-12 text-yellow-500" />
-          <Heart className="w-12 h-12 text-red-500" />
-          <Star className="w-12 h-12 text-blue-500" />
-          <Palette className="w-12 h-12 text-green-500" />
-        </div>
         <h1 className="text-4xl md:text-6xl font-bold mb-6 text-blue-900 leading-tight">
           Double Your Conversion Rate in 30 Days
         </h1>
