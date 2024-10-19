@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Send } from 'lucide-react';
-import OpenAI from 'openai';
-
-// Use Vite's import.meta.env to access environment variables
-const apiKey = import.meta.env.VITE_OPENAI_API_KEY || 'YOUR_FALLBACK_API_KEY';
-
-const openai = new OpenAI({
-  apiKey: apiKey,
-  dangerouslyAllowBrowser: true // Note: This is not recommended for production
-});
 
 const ChatWindow = ({ onClose }) => {
   const [messages, setMessages] = useState([
@@ -26,23 +17,41 @@ const ChatWindow = ({ onClose }) => {
       setIsTyping(true);
 
       try {
-        const response = await openai.chat.completions.create({
-          model: "gpt-3.5-turbo",
-          messages: [
-            { role: "system", content: "You are a helpful assistant for ZaidiStudio, an AI-powered business automation company." },
-            ...messages.map(msg => ({ role: msg.sender === "user" ? "user" : "assistant", content: msg.text })),
-            { role: "user", content: input }
-          ],
+        const response = await fetch('https://hook.eu2.make.com/60y6rd1wmdxjeao5mog4bef562tg79hg', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: input }),
         });
 
-        const botReply = response.choices[0].message.content;
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        
+        // Parse the response and create a user-friendly message
+        const botReply = parseResponse(data);
         setMessages(prev => [...prev, { text: botReply, sender: "bot" }]);
       } catch (error) {
-        console.error('Error calling OpenAI:', error);
+        console.error('Error calling webhook:', error);
         setMessages(prev => [...prev, { text: "Sorry, I'm having trouble connecting. Please try again later.", sender: "bot" }]);
       } finally {
         setIsTyping(false);
       }
+    }
+  };
+
+  const parseResponse = (data) => {
+    // This function can be customized based on the actual structure of the webhook response
+    if (typeof data === 'string') {
+      return data;
+    } else if (typeof data === 'object') {
+      // Assuming the response has a 'message' field
+      return data.message || JSON.stringify(data);
+    } else {
+      return "Received a response, but I'm not sure how to interpret it.";
     }
   };
 
