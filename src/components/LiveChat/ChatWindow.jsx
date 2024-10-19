@@ -44,15 +44,16 @@ const ChatWindow = ({ onClose }) => {
   };
 
   const parseResponse = (data) => {
-    // This function can be customized based on the actual structure of the webhook response
+    // Check if data is a string
     if (typeof data === 'string') {
       return data;
-    } else if (typeof data === 'object') {
-      // Assuming the response has a 'message' field
-      return data.message || JSON.stringify(data);
-    } else {
-      return "Received a response, but I'm not sure how to interpret it.";
     }
+    // Check if data is an object with a 'message' property
+    if (typeof data === 'object' && data !== null && 'message' in data) {
+      return data.message;
+    }
+    // If the structure is different, stringify the entire object
+    return JSON.stringify(data);
   };
 
   useEffect(() => {
