@@ -18,7 +18,7 @@ const ChatWindow = ({ onClose }) => {
       setIsTyping(true);
 
       try {
-        const response = await fetch('https://hook.eu2.make.com/60y6rd1wmdxjeao5mog4bef562tg79hg', {
+        const response = await fetch('https://hook.eu1.make.com/blu5npwyywsl17i1mqbtfw466nq7ssqu', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -30,10 +30,8 @@ const ChatWindow = ({ onClose }) => {
           throw new Error('Network response was not ok');
         }
 
-        const data = await response.json();
-        
-        const botReply = parseResponse(data);
-        setMessages(prev => [...prev, { text: botReply, sender: "bot" }]);
+        const text = await response.text();
+        setMessages(prev => [...prev, { text, sender: "bot" }]);
       } catch (error) {
         console.error('Error calling webhook:', error);
         setMessages(prev => [...prev, { text: "Sorry, I'm having trouble connecting. Please try again later.", sender: "bot" }]);
@@ -41,19 +39,6 @@ const ChatWindow = ({ onClose }) => {
         setIsTyping(false);
       }
     }
-  };
-
-  const parseResponse = (data) => {
-    // Check if data is a string
-    if (typeof data === 'string') {
-      return data;
-    }
-    // Check if data is an object with a 'message' property
-    if (typeof data === 'object' && data !== null && 'message' in data) {
-      return data.message;
-    }
-    // If the structure is different, stringify the entire object
-    return JSON.stringify(data);
   };
 
   useEffect(() => {
