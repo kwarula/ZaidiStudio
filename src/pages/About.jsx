@@ -53,7 +53,7 @@ const About = () => {
         <meta name="description" content="Learn about ZaidiStudio's mission to empower businesses with cutting-edge AI solutions. Meet our team of experts dedicated to transforming your business through AI innovation." />
       </Helmet>
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-8 md:py-16 max-w-5xl">
+      <main className="flex-grow container mx-auto px-4 py-24 md:py-32 max-w-5xl">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-blue-900 mb-8 md:mb-12">About ZaidiStudio</h1>
         
         <section className="mb-12 bg-white p-6 md:p-8 rounded-lg shadow-lg">
