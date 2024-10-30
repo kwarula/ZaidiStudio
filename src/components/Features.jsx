@@ -3,7 +3,6 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from './ui/card'
 import { MessageSquare, Share2, Package, Users } from 'lucide-react';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
-import DemoBookingForm from './DemoBookingForm';
 
 const features = [
   { 
@@ -62,7 +61,6 @@ const features = [
 
 const Features = () => {
   const [openDialog, setOpenDialog] = useState(null);
-  const [isDemoFormOpen, setIsDemoFormOpen] = useState(false);
 
   return (
     <section className="py-20 px-6 md:px-12 bg-white">
@@ -92,17 +90,6 @@ const Features = () => {
           </Card>
         ))}
       </div>
-      <div className="text-center mt-12">
-        <p className="text-xl font-semibold mb-4">Ready to see the magic in action?</p>
-        <Button 
-          size="lg" 
-          className="text-lg px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white" 
-          onClick={() => setIsDemoFormOpen(true)}
-          aria-label="Book your free demo"
-        >
-          Get Your Free Demo
-        </Button>
-      </div>
 
       {features.map((feature, index) => (
         <Dialog key={index} open={openDialog === index} onOpenChange={() => setOpenDialog(null)}>
@@ -122,8 +109,6 @@ const Features = () => {
           </DialogContent>
         </Dialog>
       ))}
-
-      <DemoBookingForm open={isDemoFormOpen} onOpenChange={setIsDemoFormOpen} />
     </section>
   );
 };
