@@ -54,7 +54,7 @@ const AIContentGenerator = () => {
     setIsLoading(true);
     setGeneratedStrategy('');
     try {
-      const response = await fetch('https://hook.eu2.make.com/il6jftigdhlxasptd8hbya5aspc19rmm', {
+      const response = await fetch('https://hook.eu1.make.com/hhj0k9bmpe1wu8e96cjqqb7u73tjoj66', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
