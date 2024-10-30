@@ -38,7 +38,32 @@ const Index = () => {
       "https://www.facebook.com/zaidistudio",
       "https://www.twitter.com/zaidistudio",
       "https://www.linkedin.com/company/zaidistudio"
-    ]
+    ],
+    "offers": {
+      "@type": "Offer",
+      "description": "AI-powered automation solutions",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://zaidistudio.com"
+    },
+    "potentialAction": {
+      "@type": "ConsultAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://zaidistudio.com/#consultation",
+        "actionPlatform": [
+          "http://schema.org/DesktopWebPlatform",
+          "http://schema.org/MobileWebPlatform"
+        ]
+      },
+      "result": {
+        "@type": "Schedule",
+        "name": "Free Consultation"
+      }
+    }
   };
 
   return (
@@ -46,6 +71,8 @@ const Index = () => {
       <Helmet>
         <title>ZaidiStudio - AI-Powered Business Automation</title>
         <meta name="description" content="ZaidiStudio offers AI-powered business automation solutions to double your conversion rate in 30 days. Streamline operations and boost efficiency with our customized AI strategies." />
+        <meta name="keywords" content="AI automation, business automation, conversion optimization, AI solutions, business efficiency" />
+        <link rel="canonical" href="https://zaidistudio.com" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
@@ -58,7 +85,7 @@ const Index = () => {
         </defs>
       </svg>
       <Header />
-      <main className="pt-12">
+      <main itemScope itemType="https://schema.org/WebPage">
         <Hero />
         <Problem />
         <Solution />
