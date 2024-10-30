@@ -6,55 +6,55 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 
 const features = [
   { 
-    title: 'Customer Service Magic', 
-    description: 'Never miss a customer query again! Our AI responds instantly, 24/7, keeping your customers happy while you sleep.',
-    benefit: 'Happier customers, less stress for you',
+    title: '24/7 Customer Service That Never Sleeps', 
+    description: 'While your competitors sleep, our AI handles customer queries instantly. No more losing sales to slow response times.',
+    benefit: '90% faster response time, 40% more sales',
     icon: MessageSquare,
     howItWorks: [
-      "Our AI analyzes incoming customer queries in real-time.",
-      "It categorizes the query and retrieves relevant information from your knowledge base.",
-      "The AI crafts a personalized response, maintaining your brand voice.",
-      "Responses are sent instantly, 24/7, ensuring no customer is left waiting.",
-      "Complex queries are flagged for human review, ensuring quality control."
+      "AI instantly analyzes customer questions in Swahili or English",
+      "Provides accurate, personalized responses 24/7",
+      "Handles multiple conversations simultaneously",
+      "Learns from every interaction to get smarter",
+      "Seamlessly escalates complex issues to your team"
     ]
   },
   { 
-    title: 'Social Media Superstar', 
-    description: 'Post engaging content at the perfect times, automatically. Watch your followers grow without lifting a finger!',
-    benefit: 'Boost your online presence effortlessly',
+    title: 'Social Media Growth on Autopilot', 
+    description: 'Stop struggling with content creation. Our AI generates and posts engaging content that resonates with your Kenyan audience.',
+    benefit: '3x follower growth in 60 days',
     icon: Share2,
     howItWorks: [
-      "Our AI studies your audience engagement patterns across platforms.",
-      "It generates content ideas based on trending topics in your industry.",
-      "The system creates posts tailored to each social media platform.",
-      "Content is automatically scheduled for optimal posting times.",
-      "Performance analytics are provided to continuously improve your strategy."
+      "Creates content that speaks to local trends and culture",
+      "Posts at peak engagement times for your audience",
+      "Handles multiple platforms simultaneously",
+      "Generates content in both English and Swahili",
+      "Tracks performance and adjusts strategy automatically"
     ]
   },
   { 
-    title: 'Inventory & Orders Zen', 
-    description: 'Say goodbye to stockouts and overstock! Our system predicts what you need before you even know it.',
-    benefit: 'Save money and delight customers with perfect inventory',
+    title: 'Smart Inventory Management', 
+    description: 'Never miss a sale due to stockouts. Our AI predicts what you'll need before you run out.',
+    benefit: 'Reduce stockouts by 85%, cut costs by 30%',
     icon: Package,
     howItWorks: [
-      "Our AI analyzes historical sales data and market trends.",
-      "It predicts future demand for each product in your inventory.",
-      "The system automatically adjusts stock levels based on predictions.",
-      "Low stock alerts are sent before you run out of popular items.",
-      "Integration with your suppliers ensures timely restocking."
+      "Predicts demand based on local market trends",
+      "Automatically adjusts for seasonal changes",
+      "Manages multiple locations efficiently",
+      "Handles supplier relationships automatically",
+      "Optimizes stock levels for maximum profit"
     ]
   },
   { 
-    title: 'Lead Generation on Autopilot', 
-    description: 'Turn visitors into leads while you focus on closing deals. Our AI nurtures prospects 24/7.',
-    benefit: 'Fill your sales pipeline without the hustle',
+    title: 'Lead Generation Machine', 
+    description: 'Turn website visitors into paying customers while you focus on running your business.',
+    benefit: '2x more qualified leads, 50% lower cost',
     icon: Users,
     howItWorks: [
-      "AI-powered chatbots engage website visitors in real-time.",
-      "Visitor behavior is analyzed to identify high-potential leads.",
-      "Personalized content is delivered based on visitor interests.",
-      "Automated email sequences nurture leads through the sales funnel.",
-      "Qualified leads are automatically routed to your sales team."
+      "Engages visitors with culturally relevant conversations",
+      "Qualifies leads based on your criteria",
+      "Nurtures prospects with personalized follow-ups",
+      "Integrates with your existing CRM",
+      "Provides detailed analytics and insights"
     ]
   },
 ];
@@ -64,9 +64,9 @@ const Features = () => {
 
   return (
     <section className="py-20 px-6 md:px-12 bg-white">
-      <h2 className="text-3xl font-bold mb-4 text-center text-blue-900">Automation Magic at Your Fingertips</h2>
+      <h2 className="text-3xl font-bold mb-4 text-center text-blue-900">Stop Losing Money to Manual Tasks</h2>
       <p className="text-xl text-center mb-12 text-gray-600 max-w-3xl mx-auto">
-        Imagine running your business smoothly while you sleep or sip cocktails on the beach. That's the power of our automation!
+        While your competition wastes time on repetitive tasks, you could be focusing on growth. Here's how our AI automation gives you the edge:
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {features.map((feature, index) => (
@@ -80,11 +80,11 @@ const Features = () => {
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 mb-4 transition-colors duration-300 ease-in-out group-hover:text-gray-700">{feature.description}</p>
-              <p className="font-semibold text-blue-600">🚀 {feature.benefit}</p>
+              <p className="font-semibold text-blue-600">💰 {feature.benefit}</p>
             </CardContent>
             <CardFooter className="mt-auto">
               <Button variant="outline" className="w-full mt-4" onClick={() => setOpenDialog(index)}>
-                Learn How It Works
+                See How It Works
               </Button>
             </CardFooter>
           </Card>

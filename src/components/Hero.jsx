@@ -25,29 +25,32 @@ const Hero = () => {
         </svg>
       </div>
       <div className="relative z-10 max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 text-blue-900 leading-tight">
-          Double Your Conversion Rate in 30 Days
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 text-blue-900 leading-tight">
+          Stop Wasting Time.<br />Start Automating Your Business.
         </h1>
+        <p className="text-xl md:text-2xl mb-4 text-blue-900 font-semibold">
+          ZaidiStudio: AI-Powered Solutions for Kenyan Businesses
+        </p>
         <p className="text-xl md:text-2xl mb-8 text-gray-700">
-          Through customized AI-powered automation solutions tailored for your business
+          Double Your Conversion Rate in 30 Days or You Don't Pay
         </p>
         <Button 
           size="lg" 
           className="text-lg px-8 py-4 bg-blue-600 hover:bg-blue-700 transition-colors duration-300" 
           onClick={() => setIsFormOpen(true)}
           disabled={hasRequestedConsultation}
-          aria-label={hasRequestedConsultation ? "You've already requested a consultation" : "Request your free consultation"}
+          aria-label={hasRequestedConsultation ? "You've already requested a consultation" : "Claim Your Free Strategy Session"}
         >
-          {hasRequestedConsultation ? "Consultation Requested" : "Request Free Consultation"}
+          {hasRequestedConsultation ? "Strategy Session Booked" : "Claim Your Free Strategy Session"}
         </Button>
         <div className="mt-16">
-          <p className="text-xl font-semibold mb-6 text-gray-800">Trusted by 500+ satisfied clients</p>
+          <p className="text-xl font-semibold mb-6 text-gray-800">Trusted by 500+ Kenyan Businesses</p>
           <div className="flex flex-wrap justify-center items-center gap-6 mb-6">
-            <Hotel className="w-10 h-10 text-blue-600" aria-label="Hospitality industry icon" />
-            <Banknote className="w-10 h-10 text-green-600" aria-label="Banking industry icon" />
-            <Briefcase className="w-10 h-10 text-gray-600" aria-label="Business services icon" />
-            <CreditCard className="w-10 h-10 text-purple-600" aria-label="Financial services icon" />
-            <Users className="w-10 h-10 text-orange-600" aria-label="Client representation icon" />
+            <Hotel className="w-10 h-10 text-blue-600" aria-label="Hotels and hospitality" />
+            <Banknote className="w-10 h-10 text-green-600" aria-label="Financial services" />
+            <Briefcase className="w-10 h-10 text-gray-600" aria-label="Professional services" />
+            <CreditCard className="w-10 h-10 text-purple-600" aria-label="E-commerce" />
+            <Users className="w-10 h-10 text-orange-600" aria-label="Service businesses" />
           </div>
         </div>
       </div>
