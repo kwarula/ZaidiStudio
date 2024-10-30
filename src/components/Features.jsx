@@ -33,7 +33,7 @@ const features = [
   },
   { 
     title: 'Smart Inventory Management', 
-    description: 'Never miss a sale due to stockouts. Our AI predicts what you'll need before you run out.',
+    description: 'Never miss a sale due to stockouts. Our AI predicts what you\'ll need before you run out.',
     benefit: 'Reduce stockouts by 85%, cut costs by 30%',
     icon: Package,
     howItWorks: [
