@@ -5,11 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Helmet } from 'react-helmet';
 import { Users, Target, Lightbulb, CheckCircle, Info, Star } from 'lucide-react';
 
-const TeamMember = ({ name, role, imageUrl, description }) => (
+const TeamMember = ({ name, role, description }) => (
   <Card className="overflow-hidden h-full">
-    <CardHeader className="p-0">
-      <img src={imageUrl} alt={name} className="w-full h-48 object-cover" />
-    </CardHeader>
     <CardContent className="p-4">
       <CardTitle className="text-lg font-semibold mb-2">{name}</CardTitle>
       <p className="text-sm text-gray-600 mb-2">{role}</p>
@@ -23,25 +20,21 @@ const About = () => {
     {
       name: "Juma Nasoro",
       role: "CEO & Co-founder",
-      imageUrl: "/juma.png",
       description: "With a strong vision and leadership, Juma steers ZaidiStudio toward new heights, ensuring we are at the forefront of AI innovation."
     },
     {
       name: "Vincent Omondi",
       role: "CTO & Co-founder",
-      imageUrl: "/vince.png",
       description: "Vincent brings his extensive knowledge in AI and technology strategy to lead the technical development at ZaidiStudio."
     },
     {
       name: "Mercy Mwaniki",
       role: "Business Development",
-      imageUrl: "/mercy.png",
       description: "Mercy is the bridge between ZaidiStudio and its clients, building strong relationships and identifying opportunities for growth."
     },
     {
       name: "Zaeeyd Sana",
       role: "Lead AI Engineer",
-      imageUrl: "/sana.png",
       description: "As our Lead AI Engineer, Zaeeyd oversees the technical development and implementation of all AI projects."
     }
   ];

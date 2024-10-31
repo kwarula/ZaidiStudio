@@ -44,7 +44,7 @@ const Hero = () => {
           {hasRequestedConsultation ? "Strategy Session Booked" : "Claim Your Free Strategy Session"}
         </Button>
         <div className="mt-16">
-          <p className="text-xl font-semibold mb-6 text-gray-800">Trusted by 500+ Kenyan Businesses</p>
+          <p className="text-xl font-semibold mb-6 text-gray-800">Trusted by 16+ Kenyan Businesses</p>
           <div className="flex flex-wrap justify-center items-center gap-6 mb-6">
             <Hotel className="w-10 h-10 text-blue-600" aria-label="Hotels and hospitality" />
             <Banknote className="w-10 h-10 text-green-600" aria-label="Financial services" />
