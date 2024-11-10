@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
-import Portfolio from '../components/Portfolio';
 import Problem from '../components/Problem';
 import Solution from '../components/Solution';
 import Benefits from '../components/Benefits';
@@ -88,7 +87,6 @@ const Index = () => {
       <Header />
       <main itemScope itemType="https://schema.org/WebPage">
         <Hero />
-        <Portfolio />
         <Problem />
         <Solution />
         <Benefits />
