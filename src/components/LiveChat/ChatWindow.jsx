@@ -18,7 +18,7 @@ const ChatWindow = ({ onClose }) => {
       setIsTyping(true);
 
       try {
-        const response = await fetch('https://hook.eu1.make.com/blu5npwyywsl17i1mqbtfw466nq7ssqu', {
+        const response = await fetch('https://hook.eu2.make.com/7u74c3kmr7esrqsywh8c4bv8f9kmytii', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
