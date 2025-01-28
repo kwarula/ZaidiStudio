@@ -6,17 +6,26 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
-import { LayoutDashboard, FolderPlus, CheckSquare, Plus, ChevronRight, Clock, BarChart } from 'lucide-react';
+import { LayoutDashboard, FolderPlus, CheckSquare, Plus, ChevronRight } from 'lucide-react';
 import ProjectsList from '../components/dashboard/ProjectsList';
 import TasksList from '../components/dashboard/TasksList';
 import DashboardStats from '../components/dashboard/DashboardStats';
 import NewProjectDialog from '../components/dashboard/NewProjectDialog';
 import NewTaskDialog from '../components/dashboard/NewTaskDialog';
+import Terminal from '../components/Terminal';
 
 const Dashboard = () => {
   const [isNewProjectDialogOpen, setIsNewProjectDialogOpen] = React.useState(false);
   const [isNewTaskDialogOpen, setIsNewTaskDialogOpen] = React.useState(false);
   const { toast } = useToast();
+
+  const terminalCommands = [
+    "Initializing dashboard...",
+    "Loading user data...",
+    "Fetching recent projects...",
+    "Checking task status...",
+    "System ready!"
+  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
@@ -48,6 +57,10 @@ const Dashboard = () => {
               Add Task
             </Button>
           </div>
+        </div>
+
+        <div className="grid gap-6 mb-8">
+          <Terminal commands={terminalCommands} />
         </div>
 
         <DashboardStats />
