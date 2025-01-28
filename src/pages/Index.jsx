@@ -12,6 +12,7 @@ import FAQ from '../components/FAQ';
 import CTA from '../components/CTA';
 import Footer from '../components/Footer';
 import LiveChat from '../components/LiveChat/LiveChat';
+import Terminal from '../components/Terminal';
 import { Helmet } from 'react-helmet';
 
 const Index = () => {
@@ -26,6 +27,13 @@ const Index = () => {
       }
     }
   }, [location]);
+
+  const demoCommands = [
+    'npm install @zaidistudio/ai',
+    'Initializing AI components...',
+    'Setting up business automation...',
+    'AI system ready for deployment!'
+  ];
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -87,6 +95,9 @@ const Index = () => {
       <Header />
       <main itemScope itemType="https://schema.org/WebPage">
         <Hero />
+        <div className="container mx-auto px-4 py-8">
+          <Terminal commands={demoCommands} />
+        </div>
         <Problem />
         <Solution />
         <Benefits />
