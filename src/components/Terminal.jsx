@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 
-const Terminal = ({ commands = [] }) => {
+export const Terminal = ({ commands = [] }) => {
   const [displayedCommands, setDisplayedCommands] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
@@ -61,5 +61,3 @@ const Terminal = ({ commands = [] }) => {
     </Card>
   );
 };
-
-export default Terminal;
