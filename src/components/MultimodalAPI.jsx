@@ -4,33 +4,76 @@ import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Mic, Video, Monitor, StopCircle, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
+import { pipeline } from '@huggingface/transformers';
 
 const MultimodalAPI = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [mediaStream, setMediaStream] = useState(null);
   const [logs, setLogs] = useState([]);
   const [activeDemo, setActiveDemo] = useState(null);
+  const [classifier, setClassifier] = useState(null);
   const videoRef = useRef(null);
+  const recognitionRef = useRef(null);
 
-  const demoScenarios = {
-    audio: [
-      "🎤 Initializing voice recognition...",
-      "🤖 AI Model: Processing speech patterns...",
-      "📊 Converting speech to business insights...",
-      "✨ Generated actionable recommendations from voice input!"
-    ],
-    video: [
-      "📸 Analyzing visual content...",
-      "🤖 AI Model: Detecting key business elements...",
-      "🎯 Identifying improvement opportunities...",
-      "✨ Generated visual optimization strategy!"
-    ],
-    screen: [
-      "🖥️ Capturing website interaction patterns...",
-      "🤖 AI Model: Analyzing user journey...",
-      "📊 Processing conversion funnel data...",
-      "✨ Generated website optimization report!"
-    ]
+  useEffect(() => {
+    // Initialize image classification model
+    const initClassifier = async () => {
+      try {
+        const imageClassifier = await pipeline(
+          'image-classification',
+          'onnx-community/mobilenetv4_conv_small.e2400_r224_in1k'
+        );
+        setClassifier(imageClassifier);
+      } catch (error) {
+        console.error('Error initializing classifier:', error);
+      }
+    };
+    initClassifier();
+  }, []);
+
+  const processVideoFrame = async () => {
+    if (!videoRef.current || !classifier || !isRecording) return;
+
+    try {
+      const results = await classifier(videoRef.current);
+      if (results && results.length > 0) {
+        const topResult = results[0];
+        setLogs(prev => [...prev, `🎯 Detected: ${topResult.label} (${Math.round(topResult.score * 100)}% confidence)`]);
+      }
+    } catch (error) {
+      console.error('Error processing video frame:', error);
+    }
+
+    if (isRecording) {
+      requestAnimationFrame(processVideoFrame);
+    }
+  };
+
+  const startSpeechRecognition = () => {
+    if ('webkitSpeechRecognition' in window) {
+      recognitionRef.current = new window.webkitSpeechRecognition();
+      recognitionRef.current.continuous = true;
+      recognitionRef.current.interimResults = true;
+
+      recognitionRef.current.onresult = (event) => {
+        const transcript = Array.from(event.results)
+          .map(result => result[0].transcript)
+          .join('');
+        
+        if (event.results[event.results.length - 1].isFinal) {
+          setLogs(prev => [...prev, `🎤 Transcribed: "${transcript}"`]);
+        }
+      };
+
+      recognitionRef.current.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        toast.error('Speech recognition error: ' + event.error);
+      };
+
+      recognitionRef.current.start();
+    } else {
+      toast.error('Speech recognition is not supported in this browser');
+    }
   };
 
   const startRecording = async (mediaType) => {
@@ -41,11 +84,12 @@ const MultimodalAPI = () => {
       switch (mediaType) {
         case 'audio':
           stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          startSpeechRecognition();
           toast.success("Voice recognition activated");
           break;
         case 'video':
           stream = await navigator.mediaDevices.getUserMedia({ video: true });
-          toast.success("AI visual analysis started");
+          toast.success("Video analysis started");
           break;
         case 'screen':
           stream = await navigator.mediaDevices.getDisplayMedia({ 
@@ -60,18 +104,14 @@ const MultimodalAPI = () => {
       
       if (videoRef.current && mediaType !== 'audio') {
         videoRef.current.srcObject = stream;
+        if (mediaType === 'video') {
+          requestAnimationFrame(processVideoFrame);
+        }
       }
       
       setMediaStream(stream);
       setIsRecording(true);
       setLogs([]);
-      
-      // Simulate AI processing with demo scenario
-      demoScenarios[mediaType].forEach((log, index) => {
-        setTimeout(() => {
-          setLogs(prev => [...prev, log]);
-        }, (index + 1) * 2000);
-      });
       
     } catch (error) {
       console.error('Error accessing media devices:', error);
@@ -85,15 +125,13 @@ const MultimodalAPI = () => {
       if (videoRef.current) {
         videoRef.current.srcObject = null;
       }
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
       setMediaStream(null);
       setIsRecording(false);
       setActiveDemo(null);
-      toast.info('AI analysis completed');
-      
-      // Add final success message
-      setTimeout(() => {
-        toast.success("AI Report Generated! Check your dashboard for insights.");
-      }, 1000);
+      toast.info('Recording stopped');
     }
   };
 
@@ -102,6 +140,9 @@ const MultimodalAPI = () => {
       if (mediaStream) {
         mediaStream.getTracks().forEach(track => track.stop());
       }
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
     };
   }, [mediaStream]);
 
@@ -109,7 +150,7 @@ const MultimodalAPI = () => {
     <div className="space-y-6 p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg">
       <div className="text-center space-y-2">
         <h2 className="text-3xl font-bold text-blue-900">Experience AI in Action</h2>
-        <p className="text-gray-600">Watch our AI analyze your business in real-time through voice, video, or screen sharing</p>
+        <p className="text-gray-600">Watch our AI analyze your input in real-time through voice, video, or screen sharing</p>
       </div>
       
       <Card className="p-6 bg-white/80 backdrop-blur shadow-xl">
@@ -151,7 +192,7 @@ const MultimodalAPI = () => {
               className="flex items-center gap-2 min-w-[160px] animate-pulse"
             >
               <StopCircle className="h-4 w-4" />
-              Stop Analysis
+              Stop Recording
             </Button>
           )}
         </div>
@@ -162,7 +203,7 @@ const MultimodalAPI = () => {
               <div className="absolute inset-0 flex items-center justify-center text-white">
                 <div className="flex items-center gap-2">
                   <Sparkles className="h-6 w-6" />
-                  <span>Start an AI analysis</span>
+                  <span>Start an analysis session</span>
                 </div>
               </div>
             )}
