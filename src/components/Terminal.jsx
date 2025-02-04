@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 
-export const Terminal = ({ commands = [] }) => {
+const Terminal = ({ commands = [] }) => {
   const [displayedCommands, setDisplayedCommands] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
   const [cursorVisible, setCursorVisible] = useState(true);
 
   useEffect(() => {
-    // Cursor blinking effect
     const cursorInterval = setInterval(() => {
       setCursorVisible(prev => !prev);
     }, 500);
@@ -61,3 +60,5 @@ export const Terminal = ({ commands = [] }) => {
     </Card>
   );
 };
+
+export { Terminal };
