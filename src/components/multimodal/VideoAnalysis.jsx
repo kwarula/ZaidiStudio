@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Video } from 'lucide-react';
 import { toast } from 'sonner';
+import { Button } from '../ui/button';
 
 const VideoAnalysis = ({ 
   isRecording, 
