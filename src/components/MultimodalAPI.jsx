@@ -21,27 +21,47 @@ const MultimodalAPI = () => {
       try {
         const imageClassifier = await pipeline(
           'image-classification',
-          'onnx-community/mobilenetv4_conv_small.e2400_r224_in1k'
+          'onnx-community/mobilenetv4_conv_small.e2400_r224_in1k',
+          { device: 'webgpu' }
         );
         setClassifier(imageClassifier);
       } catch (error) {
         console.error('Error initializing classifier:', error);
+        toast.error('Failed to initialize image classifier');
       }
     };
     initClassifier();
   }, []);
 
+  const getVideoFrame = () => {
+    if (!videoRef.current) return null;
+    
+    const canvas = document.createElement('canvas');
+    canvas.width = videoRef.current.videoWidth;
+    canvas.height = videoRef.current.videoHeight;
+    
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(videoRef.current, 0, 0);
+    
+    // Convert to base64 JPEG
+    return canvas.toDataURL('image/jpeg', 0.8);
+  };
+
   const processVideoFrame = async () => {
     if (!videoRef.current || !classifier || !isRecording) return;
 
     try {
-      const results = await classifier(videoRef.current);
+      const frameData = getVideoFrame();
+      if (!frameData) return;
+
+      const results = await classifier(frameData);
       if (results && results.length > 0) {
         const topResult = results[0];
         setLogs(prev => [...prev, `🎯 Detected: ${topResult.label} (${Math.round(topResult.score * 100)}% confidence)`]);
       }
     } catch (error) {
       console.error('Error processing video frame:', error);
+      toast.error('Error processing video frame');
     }
 
     if (isRecording) {
@@ -88,7 +108,12 @@ const MultimodalAPI = () => {
           toast.success("Voice recognition activated");
           break;
         case 'video':
-          stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          stream = await navigator.mediaDevices.getUserMedia({ 
+            video: { 
+              width: { ideal: 640 },
+              height: { ideal: 480 }
+            } 
+          });
           toast.success("Video analysis started");
           break;
         case 'screen':
@@ -104,6 +129,7 @@ const MultimodalAPI = () => {
       
       if (videoRef.current && mediaType !== 'audio') {
         videoRef.current.srcObject = stream;
+        await videoRef.current.play();
         if (mediaType === 'video') {
           requestAnimationFrame(processVideoFrame);
         }
