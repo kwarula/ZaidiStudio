@@ -4,7 +4,11 @@ import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Mic, Video, Monitor, StopCircle, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
-import { pipeline } from '@huggingface/transformers';
+import { pipeline, env } from '@huggingface/transformers';
+
+// Configure transformers.js
+env.allowLocalModels = false;
+env.useBrowserCache = false;
 
 const MultimodalAPI = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -19,11 +23,13 @@ const MultimodalAPI = () => {
     // Initialize image classification model
     const initClassifier = async () => {
       try {
+        console.log('Initializing classifier...');
         const imageClassifier = await pipeline(
           'image-classification',
-          'onnx-community/mobilenetv4_conv_small.e2400_r224_in1k',
+          'Xenova/vit-base-patch16-224',
           { device: 'webgpu' }
         );
+        console.log('Classifier initialized successfully');
         setClassifier(imageClassifier);
       } catch (error) {
         console.error('Error initializing classifier:', error);
@@ -41,20 +47,26 @@ const MultimodalAPI = () => {
     canvas.height = videoRef.current.videoHeight;
     
     const ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+    
     ctx.drawImage(videoRef.current, 0, 0);
     
-    // Convert to base64 JPEG
-    return canvas.toDataURL('image/jpeg', 0.8);
+    // Get image data as Blob
+    return new Promise(resolve => {
+      canvas.toBlob(blob => {
+        resolve(blob);
+      }, 'image/jpeg', 0.8);
+    });
   };
 
   const processVideoFrame = async () => {
     if (!videoRef.current || !classifier || !isRecording) return;
 
     try {
-      const frameData = getVideoFrame();
-      if (!frameData) return;
+      const frameBlob = await getVideoFrame();
+      if (!frameBlob) return;
 
-      const results = await classifier(frameData);
+      const results = await classifier(frameBlob);
       if (results && results.length > 0) {
         const topResult = results[0];
         setLogs(prev => [...prev, `🎯 Detected: ${topResult.label} (${Math.round(topResult.score * 100)}% confidence)`]);
