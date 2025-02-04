@@ -2,9 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Terminal } from './Terminal';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
-import { Mic, Video, Monitor, StopCircle, Sparkles } from 'lucide-react';
+import { StopCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { pipeline, env } from '@huggingface/transformers';
+import VideoAnalysis from './multimodal/VideoAnalysis';
+import VoiceAnalysis from './multimodal/VoiceAnalysis';
+import ScreenAnalysis from './multimodal/ScreenAnalysis';
+import VideoPreview from './multimodal/VideoPreview';
 
 // Configure transformers.js
 env.allowLocalModels = false;
@@ -17,10 +21,8 @@ const MultimodalAPI = () => {
   const [activeDemo, setActiveDemo] = useState(null);
   const [classifier, setClassifier] = useState(null);
   const videoRef = useRef(null);
-  const recognitionRef = useRef(null);
 
   useEffect(() => {
-    // Initialize image classification model
     const initClassifier = async () => {
       try {
         console.log('Initializing classifier...');
@@ -39,75 +41,6 @@ const MultimodalAPI = () => {
     initClassifier();
   }, []);
 
-  const getVideoFrame = () => {
-    if (!videoRef.current) return null;
-    
-    const canvas = document.createElement('canvas');
-    canvas.width = videoRef.current.videoWidth;
-    canvas.height = videoRef.current.videoHeight;
-    
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return null;
-    
-    ctx.drawImage(videoRef.current, 0, 0);
-    
-    // Get image data as Blob
-    return new Promise(resolve => {
-      canvas.toBlob(blob => {
-        resolve(blob);
-      }, 'image/jpeg', 0.8);
-    });
-  };
-
-  const processVideoFrame = async () => {
-    if (!videoRef.current || !classifier || !isRecording) return;
-
-    try {
-      const frameBlob = await getVideoFrame();
-      if (!frameBlob) return;
-
-      const results = await classifier(frameBlob);
-      if (results && results.length > 0) {
-        const topResult = results[0];
-        setLogs(prev => [...prev, `🎯 Detected: ${topResult.label} (${Math.round(topResult.score * 100)}% confidence)`]);
-      }
-    } catch (error) {
-      console.error('Error processing video frame:', error);
-      toast.error('Error processing video frame');
-    }
-
-    if (isRecording) {
-      requestAnimationFrame(processVideoFrame);
-    }
-  };
-
-  const startSpeechRecognition = () => {
-    if ('webkitSpeechRecognition' in window) {
-      recognitionRef.current = new window.webkitSpeechRecognition();
-      recognitionRef.current.continuous = true;
-      recognitionRef.current.interimResults = true;
-
-      recognitionRef.current.onresult = (event) => {
-        const transcript = Array.from(event.results)
-          .map(result => result[0].transcript)
-          .join('');
-        
-        if (event.results[event.results.length - 1].isFinal) {
-          setLogs(prev => [...prev, `🎤 Transcribed: "${transcript}"`]);
-        }
-      };
-
-      recognitionRef.current.onerror = (event) => {
-        console.error('Speech recognition error:', event.error);
-        toast.error('Speech recognition error: ' + event.error);
-      };
-
-      recognitionRef.current.start();
-    } else {
-      toast.error('Speech recognition is not supported in this browser');
-    }
-  };
-
   const startRecording = async (mediaType) => {
     try {
       let stream;
@@ -116,7 +49,6 @@ const MultimodalAPI = () => {
       switch (mediaType) {
         case 'audio':
           stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          startSpeechRecognition();
           toast.success("Voice recognition activated");
           break;
         case 'video':
@@ -142,9 +74,6 @@ const MultimodalAPI = () => {
       if (videoRef.current && mediaType !== 'audio') {
         videoRef.current.srcObject = stream;
         await videoRef.current.play();
-        if (mediaType === 'video') {
-          requestAnimationFrame(processVideoFrame);
-        }
       }
       
       setMediaStream(stream);
@@ -163,9 +92,6 @@ const MultimodalAPI = () => {
       if (videoRef.current) {
         videoRef.current.srcObject = null;
       }
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
       setMediaStream(null);
       setIsRecording(false);
       setActiveDemo(null);
@@ -177,9 +103,6 @@ const MultimodalAPI = () => {
     return () => {
       if (mediaStream) {
         mediaStream.getTracks().forEach(track => track.stop());
-      }
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
       }
     };
   }, [mediaStream]);
@@ -193,35 +116,26 @@ const MultimodalAPI = () => {
       
       <Card className="p-6 bg-white/80 backdrop-blur shadow-xl">
         <div className="flex flex-wrap gap-4 justify-center mb-6">
-          <Button
-            onClick={() => startRecording('audio')}
-            disabled={isRecording}
-            variant={activeDemo === 'audio' ? "default" : "outline"}
-            className="flex items-center gap-2 min-w-[160px] transition-all duration-300 hover:scale-105"
-          >
-            <Mic className="h-4 w-4" />
-            Voice Analysis
-          </Button>
+          <VoiceAnalysis 
+            isRecording={isRecording}
+            startRecording={startRecording}
+            activeDemo={activeDemo}
+          />
           
-          <Button
-            onClick={() => startRecording('video')}
-            disabled={isRecording}
-            variant={activeDemo === 'video' ? "default" : "outline"}
-            className="flex items-center gap-2 min-w-[160px] transition-all duration-300 hover:scale-105"
-          >
-            <Video className="h-4 w-4" />
-            Visual Analysis
-          </Button>
+          <VideoAnalysis 
+            isRecording={isRecording}
+            videoRef={videoRef}
+            classifier={classifier}
+            setLogs={setLogs}
+            startRecording={startRecording}
+            activeDemo={activeDemo}
+          />
           
-          <Button
-            onClick={() => startRecording('screen')}
-            disabled={isRecording}
-            variant={activeDemo === 'screen' ? "default" : "outline"}
-            className="flex items-center gap-2 min-w-[160px] transition-all duration-300 hover:scale-105"
-          >
-            <Monitor className="h-4 w-4" />
-            Website Analysis
-          </Button>
+          <ScreenAnalysis 
+            isRecording={isRecording}
+            startRecording={startRecording}
+            activeDemo={activeDemo}
+          />
           
           {isRecording && (
             <Button
@@ -236,24 +150,7 @@ const MultimodalAPI = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="aspect-video bg-gray-900 rounded-lg overflow-hidden relative">
-            {!isRecording && (
-              <div className="absolute inset-0 flex items-center justify-center text-white">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="h-6 w-6" />
-                  <span>Start an analysis session</span>
-                </div>
-              </div>
-            )}
-            <video
-              ref={videoRef}
-              autoPlay
-              playsInline
-              muted
-              className="w-full h-full object-cover"
-            />
-          </div>
-          
+          <VideoPreview videoRef={videoRef} isRecording={isRecording} />
           <div className="h-[300px] bg-gray-900 rounded-lg overflow-hidden">
             <Terminal commands={logs} />
           </div>
