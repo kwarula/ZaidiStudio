@@ -14,7 +14,6 @@ import Footer from '../components/Footer';
 import LiveChat from '../components/LiveChat/LiveChat';
 import SEOMetadata from '../components/SEOMetadata';
 import DemoTerminal from '../components/DemoTerminal';
-import MultimodalAPI from '../components/MultimodalAPI';
 
 const Index = () => {
   const location = useLocation();
@@ -43,7 +42,6 @@ const Index = () => {
       <main itemScope itemType="https://schema.org/WebPage">
         <Hero />
         <DemoTerminal />
-        <MultimodalAPI />
         <Problem />
         <Solution />
         <Benefits />
