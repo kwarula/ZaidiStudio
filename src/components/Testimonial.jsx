@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent } from './ui/card';
 
@@ -7,9 +8,9 @@ const Testimonial = () => {
       <Card className="max-w-3xl mx-auto">
         <CardContent className="p-8">
           <blockquote className="text-xl italic text-gray-700 mb-4">
-            "ZaidiStudio helped us automate over 50% of our daily tasks. Now we spend more time on strategy and less on managing the nitty-gritty details. We're more productive, more efficient, and more profitable!"
+            "ZaidiStudio's strategy not only streamlined our operations—it supercharged our revenue. It's the best 30 minutes I've ever spent."
           </blockquote>
-          <p className="text-right font-semibold">- Satisfied Client</p>
+          <p className="text-right font-semibold">- CEO, Growth-Driven Company</p>
         </CardContent>
       </Card>
     </section>

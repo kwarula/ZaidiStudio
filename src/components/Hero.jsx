@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import ConsultationForm from './ConsultationForm';
@@ -26,25 +27,25 @@ const Hero = () => {
       </div>
       <div className="relative z-10 max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-bold mb-4 text-blue-900 leading-tight">
-          Stop Wasting Time.<br />Start Automating Your Business.
+          Stop Wasting Time—Scale Your Business with AI & Automation
         </h1>
         <p className="text-xl md:text-2xl mb-4 text-blue-900 font-semibold">
-          ZaidiStudio: AI-Powered Solutions for Kenyan Businesses
+          Get Real Results, Not Excuses.
         </p>
         <p className="text-xl md:text-2xl mb-8 text-gray-700">
-          Double Your Conversion Rate in 30 Days or You Don't Pay
+          If you're still doing things the old way, you're leaving money on the table.
         </p>
         <Button 
           size="lg" 
           className="text-lg px-8 py-4 bg-blue-600 hover:bg-blue-700 transition-colors duration-300" 
           onClick={() => setIsFormOpen(true)}
           disabled={hasRequestedConsultation}
-          aria-label={hasRequestedConsultation ? "You've already requested a consultation" : "Claim Your Free Strategy Session"}
+          aria-label={hasRequestedConsultation ? "You've already requested a consultation" : "Get Your Free Strategy Session"}
         >
-          {hasRequestedConsultation ? "Strategy Session Booked" : "Claim Your Free Strategy Session"}
+          {hasRequestedConsultation ? "Strategy Session Booked" : "Get Your Free Strategy Session"}
         </Button>
         <div className="mt-16">
-          <p className="text-xl font-semibold mb-6 text-gray-800">Trusted by 16+ Kenyan Businesses</p>
+          <p className="text-xl font-semibold mb-6 text-gray-800">Trusted by Growth-Driven Companies</p>
           <div className="flex flex-wrap justify-center items-center gap-6 mb-6">
             <Hotel className="w-10 h-10 text-blue-600" aria-label="Hotels and hospitality" />
             <Banknote className="w-10 h-10 text-green-600" aria-label="Financial services" />
