@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -16,7 +17,15 @@ const Terminal = ({ commands = [] }) => {
   }, []);
 
   useEffect(() => {
-    if (currentIndex >= commands.length) return;
+    if (currentIndex >= commands.length) {
+      // Restart the animation after a delay
+      const restartTimeout = setTimeout(() => {
+        setDisplayedCommands([]);
+        setCurrentIndex(0);
+        setCurrentText('');
+      }, 5000);
+      return () => clearTimeout(restartTimeout);
+    }
 
     const command = commands[currentIndex];
     let charIndex = 0;
@@ -39,17 +48,19 @@ const Terminal = ({ commands = [] }) => {
   }, [currentIndex, commands]);
 
   return (
-    <Card className="bg-black text-green-400 font-mono">
-      <CardContent className="p-4">
+    <Card className="bg-black text-green-400 font-mono shadow-2xl border-2 border-gray-800">
+      <CardContent className="p-6">
         {displayedCommands.map((cmd, index) => (
           <div key={index} className="mb-2">
-            <span className="text-gray-500">$ </span>
-            {cmd}
+            {cmd.startsWith('✓') ? (
+              <span className="text-emerald-400">{cmd}</span>
+            ) : (
+              <span>{cmd}</span>
+            )}
           </div>
         ))}
         {currentIndex < commands.length && (
           <div className="animate-fade-in">
-            <span className="text-gray-500">$ </span>
             {currentText}
             <span className={`${cursorVisible ? 'opacity-100' : 'opacity-0'} transition-opacity`}>
               ▋
