@@ -3,23 +3,23 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
-import { LayoutDashboard, FolderPlus, CheckSquare, Plus, ChevronRight } from 'lucide-react';
-import ProjectsList from '../components/dashboard/ProjectsList';
-import TasksList from '../components/dashboard/TasksList';
-import DashboardStats from '../components/dashboard/DashboardStats';
+import DashboardHeader from '../components/dashboard/DashboardHeader';
+import DashboardContent from '../components/dashboard/DashboardContent';
 import NewProjectDialog from '../components/dashboard/NewProjectDialog';
+import EditProjectDialog from '../components/dashboard/EditProjectDialog';
 import NewTaskDialog from '../components/dashboard/NewTaskDialog';
+import EditTaskDialog from '../components/dashboard/EditTaskDialog';
 
 const Dashboard = () => {
   const [isNewProjectDialogOpen, setIsNewProjectDialogOpen] = useState(false);
+  const [isEditProjectDialogOpen, setIsEditProjectDialogOpen] = useState(false);
   const [isNewTaskDialogOpen, setIsNewTaskDialogOpen] = useState(false);
+  const [isEditTaskDialogOpen, setIsEditTaskDialogOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedTask, setSelectedTask] = useState(null);
   const { toast } = useToast();
 
-  // Shared state for projects and tasks
   const [projects, setProjects] = useState([
     { id: 1, name: "Website Redesign", status: "In Progress", progress: 65, dueDate: "2024-04-15", tasks: 12, completedTasks: 8 },
     { id: 2, name: "Mobile App Development", status: "Planning", progress: 25, dueDate: "2024-05-01", tasks: 20, completedTasks: 5 },
@@ -42,10 +42,31 @@ const Dashboard = () => {
       completedTasks: 0,
     };
     setProjects([...projects, project]);
-    setIsNewProjectDialogOpen(false);
     toast({
       title: "Success",
       description: "Project created successfully",
+    });
+  };
+
+  const handleEditProject = (project) => {
+    setSelectedProject(project);
+    setIsEditProjectDialogOpen(true);
+  };
+
+  const handleUpdateProject = (updatedProject) => {
+    setProjects(projects.map(p => p.id === updatedProject.id ? updatedProject : p));
+    toast({
+      title: "Success",
+      description: "Project updated successfully",
+    });
+  };
+
+  const handleDeleteProject = (projectId) => {
+    setProjects(projects.filter(p => p.id !== projectId));
+    setTasks(tasks.filter(t => t.project !== projects.find(p => p.id === projectId)?.name));
+    toast({
+      title: "Success",
+      description: "Project deleted successfully",
     });
   };
 
@@ -58,7 +79,6 @@ const Dashboard = () => {
     };
     setTasks([...tasks, task]);
     
-    // Update project task count
     const updatedProjects = projects.map(project => {
       if (project.name === newTask.project) {
         return {
@@ -70,10 +90,46 @@ const Dashboard = () => {
     });
     setProjects(updatedProjects);
     
-    setIsNewTaskDialogOpen(false);
     toast({
       title: "Success",
       description: "Task created successfully",
+    });
+  };
+
+  const handleEditTask = (task) => {
+    setSelectedTask(task);
+    setIsEditTaskDialogOpen(true);
+  };
+
+  const handleUpdateTask = (updatedTask) => {
+    setTasks(tasks.map(t => t.id === updatedTask.id ? updatedTask : t));
+    toast({
+      title: "Success",
+      description: "Task updated successfully",
+    });
+  };
+
+  const handleDeleteTask = (taskId) => {
+    const taskToDelete = tasks.find(t => t.id === taskId);
+    setTasks(tasks.filter(t => t.id !== taskId));
+    
+    if (taskToDelete) {
+      const updatedProjects = projects.map(project => {
+        if (project.name === taskToDelete.project) {
+          return {
+            ...project,
+            tasks: project.tasks - 1,
+            completedTasks: taskToDelete.completed ? project.completedTasks - 1 : project.completedTasks,
+          };
+        }
+        return project;
+      });
+      setProjects(updatedProjects);
+    }
+    
+    toast({
+      title: "Success",
+      description: "Task deleted successfully",
     });
   };
 
@@ -86,7 +142,6 @@ const Dashboard = () => {
     });
     setTasks(updatedTasks);
 
-    // Update project completion stats
     const taskToUpdate = tasks.find(t => t.id === taskId);
     if (taskToUpdate) {
       const updatedProjects = projects.map(project => {
@@ -113,94 +168,46 @@ const Dashboard = () => {
       </Helmet>
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-            <p className="text-gray-600 mt-1">Welcome back! Here's what's happening with your projects.</p>
-          </div>
-          <div className="flex gap-4 mt-4 md:mt-0">
-            <Button
-              onClick={() => setIsNewProjectDialogOpen(true)}
-              className="flex items-center gap-2"
-            >
-              <FolderPlus className="h-4 w-4" />
-              New Project
-            </Button>
-            <Button
-              onClick={() => setIsNewTaskDialogOpen(true)}
-              variant="outline"
-              className="flex items-center gap-2"
-            >
-              <Plus className="h-4 w-4" />
-              Add Task
-            </Button>
-          </div>
-        </div>
-
-        <DashboardStats projects={projects} tasks={tasks} />
-
-        <Tabs defaultValue="overview" className="mt-8">
-          <TabsList>
-            <TabsTrigger value="overview" className="flex items-center gap-2">
-              <LayoutDashboard className="h-4 w-4" />
-              Overview
-            </TabsTrigger>
-            <TabsTrigger value="projects" className="flex items-center gap-2">
-              <FolderPlus className="h-4 w-4" />
-              Projects
-            </TabsTrigger>
-            <TabsTrigger value="tasks" className="flex items-center gap-2">
-              <CheckSquare className="h-4 w-4" />
-              Tasks
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="overview">
-            <div className="grid gap-6 md:grid-cols-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    Recent Projects
-                    <Button variant="ghost" size="sm" className="flex items-center gap-1">
-                      View All <ChevronRight className="h-4 w-4" />
-                    </Button>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ProjectsList projects={projects} limit={5} />
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    Upcoming Tasks
-                    <Button variant="ghost" size="sm" className="flex items-center gap-1">
-                      View All <ChevronRight className="h-4 w-4" />
-                    </Button>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TasksList tasks={tasks} onTaskComplete={handleTaskComplete} limit={5} />
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-          <TabsContent value="projects">
-            <ProjectsList projects={projects} />
-          </TabsContent>
-          <TabsContent value="tasks">
-            <TasksList tasks={tasks} onTaskComplete={handleTaskComplete} />
-          </TabsContent>
-        </Tabs>
+        <DashboardHeader 
+          onNewProject={() => setIsNewProjectDialogOpen(true)}
+          onNewTask={() => setIsNewTaskDialogOpen(true)}
+        />
+        
+        <DashboardContent 
+          projects={projects}
+          tasks={tasks}
+          onTaskComplete={handleTaskComplete}
+          onDeleteTask={handleDeleteTask}
+          onEditTask={handleEditTask}
+          onDeleteProject={handleDeleteProject}
+          onEditProject={handleEditProject}
+        />
 
         <NewProjectDialog 
           open={isNewProjectDialogOpen} 
           onOpenChange={setIsNewProjectDialogOpen}
           onSuccess={handleNewProject}
         />
+        
+        <EditProjectDialog 
+          open={isEditProjectDialogOpen}
+          onOpenChange={setIsEditProjectDialogOpen}
+          project={selectedProject}
+          onSuccess={handleUpdateProject}
+        />
+
         <NewTaskDialog 
           open={isNewTaskDialogOpen} 
           onOpenChange={setIsNewTaskDialogOpen}
           onSuccess={handleNewTask}
+          projects={projects.map(p => p.name)}
+        />
+
+        <EditTaskDialog 
+          open={isEditTaskDialogOpen}
+          onOpenChange={setIsEditTaskDialogOpen}
+          task={selectedTask}
+          onSuccess={handleUpdateTask}
           projects={projects.map(p => p.name)}
         />
       </main>
