@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -15,9 +15,95 @@ import NewProjectDialog from '../components/dashboard/NewProjectDialog';
 import NewTaskDialog from '../components/dashboard/NewTaskDialog';
 
 const Dashboard = () => {
-  const [isNewProjectDialogOpen, setIsNewProjectDialogOpen] = React.useState(false);
-  const [isNewTaskDialogOpen, setIsNewTaskDialogOpen] = React.useState(false);
+  const [isNewProjectDialogOpen, setIsNewProjectDialogOpen] = useState(false);
+  const [isNewTaskDialogOpen, setIsNewTaskDialogOpen] = useState(false);
   const { toast } = useToast();
+
+  // Shared state for projects and tasks
+  const [projects, setProjects] = useState([
+    { id: 1, name: "Website Redesign", status: "In Progress", progress: 65, dueDate: "2024-04-15", tasks: 12, completedTasks: 8 },
+    { id: 2, name: "Mobile App Development", status: "Planning", progress: 25, dueDate: "2024-05-01", tasks: 20, completedTasks: 5 },
+  ]);
+
+  const [tasks, setTasks] = useState([
+    { id: 1, title: "Design Homepage Mockup", project: "Website Redesign", priority: "High", dueDate: "2024-03-25", completed: false },
+    { id: 2, title: "Implement User Authentication", project: "Mobile App Development", priority: "Medium", dueDate: "2024-03-28", completed: true },
+    { id: 3, title: "Database Schema Design", project: "Website Redesign", priority: "High", dueDate: "2024-03-20", completed: false },
+    { id: 4, title: "API Documentation", project: "Mobile App Development", priority: "Medium", dueDate: "2024-03-22", completed: true },
+  ]);
+
+  const handleNewProject = (newProject) => {
+    const projectId = projects.length + 1;
+    const project = {
+      id: projectId,
+      ...newProject,
+      progress: 0,
+      tasks: 0,
+      completedTasks: 0,
+    };
+    setProjects([...projects, project]);
+    setIsNewProjectDialogOpen(false);
+    toast({
+      title: "Success",
+      description: "Project created successfully",
+    });
+  };
+
+  const handleNewTask = (newTask) => {
+    const taskId = tasks.length + 1;
+    const task = {
+      id: taskId,
+      ...newTask,
+      completed: false,
+    };
+    setTasks([...tasks, task]);
+    
+    // Update project task count
+    const updatedProjects = projects.map(project => {
+      if (project.name === newTask.project) {
+        return {
+          ...project,
+          tasks: project.tasks + 1,
+        };
+      }
+      return project;
+    });
+    setProjects(updatedProjects);
+    
+    setIsNewTaskDialogOpen(false);
+    toast({
+      title: "Success",
+      description: "Task created successfully",
+    });
+  };
+
+  const handleTaskComplete = (taskId) => {
+    const updatedTasks = tasks.map(task => {
+      if (task.id === taskId) {
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+
+    // Update project completion stats
+    const taskToUpdate = tasks.find(t => t.id === taskId);
+    if (taskToUpdate) {
+      const updatedProjects = projects.map(project => {
+        if (project.name === taskToUpdate.project) {
+          const newCompletedTasks = project.completedTasks + (taskToUpdate.completed ? -1 : 1);
+          const progress = Math.round((newCompletedTasks / project.tasks) * 100);
+          return {
+            ...project,
+            completedTasks: newCompletedTasks,
+            progress,
+          };
+        }
+        return project;
+      });
+      setProjects(updatedProjects);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
@@ -51,7 +137,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <DashboardStats />
+        <DashboardStats projects={projects} tasks={tasks} />
 
         <Tabs defaultValue="overview" className="mt-8">
           <TabsList>
@@ -80,7 +166,7 @@ const Dashboard = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ProjectsList limit={5} />
+                  <ProjectsList projects={projects} limit={5} />
                 </CardContent>
               </Card>
               <Card>
@@ -93,38 +179,29 @@ const Dashboard = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <TasksList limit={5} />
+                  <TasksList tasks={tasks} onTaskComplete={handleTaskComplete} limit={5} />
                 </CardContent>
               </Card>
             </div>
           </TabsContent>
           <TabsContent value="projects">
-            <ProjectsList />
+            <ProjectsList projects={projects} />
           </TabsContent>
           <TabsContent value="tasks">
-            <TasksList />
+            <TasksList tasks={tasks} onTaskComplete={handleTaskComplete} />
           </TabsContent>
         </Tabs>
 
         <NewProjectDialog 
           open={isNewProjectDialogOpen} 
           onOpenChange={setIsNewProjectDialogOpen}
-          onSuccess={() => {
-            toast({
-              title: "Success",
-              description: "Project created successfully",
-            });
-          }}
+          onSuccess={handleNewProject}
         />
         <NewTaskDialog 
           open={isNewTaskDialogOpen} 
           onOpenChange={setIsNewTaskDialogOpen}
-          onSuccess={() => {
-            toast({
-              title: "Success",
-              description: "Task created successfully",
-            });
-          }}
+          onSuccess={handleNewTask}
+          projects={projects.map(p => p.name)}
         />
       </main>
       <Footer />

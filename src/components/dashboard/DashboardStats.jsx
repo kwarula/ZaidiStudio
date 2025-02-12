@@ -3,20 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, CheckCircle, AlertCircle, BarChart } from 'lucide-react';
 
-const DashboardStats = () => {
-  // Calculate real stats based on the data from ProjectsList and TasksList
-  const projects = [
-    { id: 1, name: "Website Redesign", status: "In Progress" },
-    { id: 2, name: "Mobile App Development", status: "Planning" },
-  ];
-
-  const tasks = [
-    { id: 1, title: "Design Homepage Mockup", priority: "High", dueDate: "2024-03-25", completed: false },
-    { id: 2, title: "Implement User Authentication", priority: "Medium", dueDate: "2024-03-28", completed: true },
-    { id: 3, title: "Database Schema Design", priority: "High", dueDate: "2024-03-20", completed: false },
-    { id: 4, title: "API Documentation", priority: "Medium", dueDate: "2024-03-22", completed: true },
-  ];
-
+const DashboardStats = ({ projects, tasks }) => {
   const activeProjects = projects.length;
   const completedTasks = tasks.filter(task => task.completed).length;
   const pendingTasks = tasks.filter(task => !task.completed).length;
