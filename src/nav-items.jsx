@@ -1,9 +1,11 @@
-import { HomeIcon, CreditCardIcon, LayoutListIcon, InfoIcon, FileJsonIcon } from "lucide-react";
+
+import { HomeIcon, CreditCardIcon, LayoutListIcon, InfoIcon, FileJsonIcon, LayoutDashboardIcon } from "lucide-react";
 import Index from "./pages/Index.jsx";
 import Pricing from "./pages/Pricing.jsx";
 import Services from "./pages/Services.jsx";
 import About from "./pages/About.jsx";
 import Templates from "./pages/Templates.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 
 export const navItems = [
   {
@@ -11,6 +13,12 @@ export const navItems = [
     to: "/",
     icon: <HomeIcon className="h-4 w-4" />,
     page: <Index />,
+  },
+  {
+    title: "Dashboard",
+    to: "/dashboard",
+    icon: <LayoutDashboardIcon className="h-4 w-4" />,
+    page: <Dashboard />,
   },
   {
     title: "Pricing",
