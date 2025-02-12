@@ -1,33 +1,54 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, CheckCircle, AlertCircle, BarChart } from 'lucide-react';
 
 const DashboardStats = () => {
+  // Calculate real stats based on the data from ProjectsList and TasksList
+  const projects = [
+    { id: 1, name: "Website Redesign", status: "In Progress" },
+    { id: 2, name: "Mobile App Development", status: "Planning" },
+  ];
+
+  const tasks = [
+    { id: 1, title: "Design Homepage Mockup", priority: "High", dueDate: "2024-03-25", completed: false },
+    { id: 2, title: "Implement User Authentication", priority: "Medium", dueDate: "2024-03-28", completed: true },
+    { id: 3, title: "Database Schema Design", priority: "High", dueDate: "2024-03-20", completed: false },
+    { id: 4, title: "API Documentation", priority: "Medium", dueDate: "2024-03-22", completed: true },
+  ];
+
+  const activeProjects = projects.length;
+  const completedTasks = tasks.filter(task => task.completed).length;
+  const pendingTasks = tasks.filter(task => !task.completed).length;
+  const overdueTasks = tasks.filter(task => {
+    return !task.completed && new Date(task.dueDate) < new Date();
+  }).length;
+
   const stats = [
     {
       title: "Active Projects",
-      value: "12",
+      value: activeProjects.toString(),
       icon: BarChart,
-      description: "2 added this month",
+      description: `${activeProjects} ongoing projects`,
       color: "text-blue-600",
     },
     {
       title: "Pending Tasks",
-      value: "8",
+      value: pendingTasks.toString(),
       icon: Clock,
-      description: "5 due this week",
+      description: `${pendingTasks} tasks to complete`,
       color: "text-yellow-600",
     },
     {
       title: "Completed Tasks",
-      value: "24",
+      value: completedTasks.toString(),
       icon: CheckCircle,
       description: "Last 30 days",
       color: "text-green-600",
     },
     {
       title: "Overdue Tasks",
-      value: "3",
+      value: overdueTasks.toString(),
       icon: AlertCircle,
       description: "Requires attention",
       color: "text-red-600",

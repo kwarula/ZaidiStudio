@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import Header from '../components/Header';
@@ -12,20 +13,11 @@ import TasksList from '../components/dashboard/TasksList';
 import DashboardStats from '../components/dashboard/DashboardStats';
 import NewProjectDialog from '../components/dashboard/NewProjectDialog';
 import NewTaskDialog from '../components/dashboard/NewTaskDialog';
-import Terminal from '../components/Terminal';
 
 const Dashboard = () => {
   const [isNewProjectDialogOpen, setIsNewProjectDialogOpen] = React.useState(false);
   const [isNewTaskDialogOpen, setIsNewTaskDialogOpen] = React.useState(false);
   const { toast } = useToast();
-
-  const terminalCommands = [
-    "Initializing dashboard...",
-    "Loading user data...",
-    "Fetching recent projects...",
-    "Checking task status...",
-    "System ready!"
-  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
@@ -57,10 +49,6 @@ const Dashboard = () => {
               Add Task
             </Button>
           </div>
-        </div>
-
-        <div className="grid gap-6 mb-8">
-          <Terminal commands={terminalCommands} />
         </div>
 
         <DashboardStats />
