@@ -1,32 +1,14 @@
+
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { FolderOpen, Clock } from 'lucide-react';
+import { FolderOpen, Clock, Trash2, Edit2 } from 'lucide-react';
+import { useToast } from "@/components/ui/use-toast";
 
-const ProjectsList = ({ limit }) => {
-  const projects = [
-    {
-      id: 1,
-      name: "Website Redesign",
-      status: "In Progress",
-      progress: 65,
-      dueDate: "2024-04-15",
-      tasks: 12,
-      completedTasks: 8,
-    },
-    {
-      id: 2,
-      name: "Mobile App Development",
-      status: "Planning",
-      progress: 25,
-      dueDate: "2024-05-01",
-      tasks: 20,
-      completedTasks: 5,
-    },
-    // Add more sample projects as needed
-  ];
-
+const ProjectsList = ({ projects, onDeleteProject, onEditProject, limit }) => {
+  const { toast } = useToast();
   const displayProjects = limit ? projects.slice(0, limit) : projects;
 
   const getStatusColor = (status) => {
@@ -40,6 +22,14 @@ const ProjectsList = ({ limit }) => {
       default:
         return 'bg-gray-100 text-gray-800';
     }
+  };
+
+  const handleDelete = (projectId) => {
+    onDeleteProject(projectId);
+    toast({
+      title: "Project deleted",
+      description: "The project has been deleted successfully",
+    });
   };
 
   return (
@@ -64,9 +54,23 @@ const ProjectsList = ({ limit }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center text-sm text-gray-500">
-                <Clock className="h-4 w-4 mr-1" />
-                Due {new Date(project.dueDate).toLocaleDateString()}
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onEditProject(project)}
+                  className="h-8 w-8 p-0"
+                >
+                  <Edit2 className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleDelete(project.id)}
+                  className="h-8 w-8 p-0 text-red-500 hover:text-red-700"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
               </div>
             </div>
             <div className="mt-4">
@@ -76,9 +80,18 @@ const ProjectsList = ({ limit }) => {
               </div>
               <Progress value={project.progress} className="h-2" />
             </div>
+            <div className="flex items-center mt-2 text-sm text-gray-500">
+              <Clock className="h-4 w-4 mr-1" />
+              Due {new Date(project.dueDate).toLocaleDateString()}
+            </div>
           </CardContent>
         </Card>
       ))}
+      {displayProjects.length === 0 && (
+        <div className="text-center py-8 text-gray-500">
+          No projects found. Create a new project to get started.
+        </div>
+      )}
     </div>
   );
 };
