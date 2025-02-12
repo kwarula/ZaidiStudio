@@ -72,4 +72,5 @@ const Terminal = ({ commands = [] }) => {
   );
 };
 
+export { Terminal };
 export default Terminal;
