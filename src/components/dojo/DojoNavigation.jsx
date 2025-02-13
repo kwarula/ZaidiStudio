@@ -1,10 +1,11 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const DojoNavigation = () => {
+  const location = useLocation();
   const navItems = [
-    { label: 'Community', path: '/dojo', active: true },
+    { label: 'Community', path: '/dojo' },
     { label: 'Classroom', path: '/dojo/classroom' },
     { label: 'Calendar', path: '/dojo/calendar' },
     { label: 'Members', path: '/dojo/members' },
@@ -21,7 +22,7 @@ const DojoNavigation = () => {
               key={item.label}
               to={item.path}
               className={`py-4 px-1 border-b-2 ${
-                item.active
+                location.pathname === item.path
                   ? 'border-blue-500 text-blue-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
