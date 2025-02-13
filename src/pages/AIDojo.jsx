@@ -1,13 +1,16 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import CommunityHeader from '../components/dojo/CommunityHeader';
+import DojoNavigation from '../components/dojo/DojoNavigation';
+import PostComposer from '../components/dojo/PostComposer';
+import CategoryTabs from '../components/dojo/CategoryTabs';
+import CommunitySidebar from '../components/dojo/CommunitySidebar';
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Heart, MessageCircle, Share2, Bookmark } from 'lucide-react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 
 const PostCard = ({ post }) => (
   <Card className="mb-4">
@@ -74,29 +77,19 @@ const PostCard = ({ post }) => (
 const AIDojo = () => {
   const posts = [
     {
+      pinned: true,
       author: {
-        name: "Sarah Chen",
-        username: "sarahAI",
+        name: "James Killick",
+        username: "jameskillick",
         avatar: "/placeholder.svg"
       },
-      content: "Just completed training my first GPT model! The results are promising, especially for text summarization tasks. Anyone else working on similar projects? #AI #MachineLearning",
-      timeAgo: "2h",
-      likes: 45,
-      comments: 12,
-      shares: 8,
-      bookmarks: 15,
-      image: "/lovable-uploads/d17cbc8f-cbdc-4fc5-97c8-00d8e587f04e.png",
-      replies: [
-        {
-          author: {
-            name: "Alex Kumar",
-            username: "alexk",
-            avatar: "/placeholder.svg"
-          },
-          content: "Great work! What architecture did you use? I'd love to hear more about your approach.",
-          timeAgo: "1h"
-        }
-      ]
+      content: "For the rest of the quarter, I'm going to be approaching this differently! Last year we did a few live calls and it's hard to cater to all the time zones. Instead, I want you to submit your questions below and I will answer them all!",
+      timeAgo: "2d ago",
+      likes: 11,
+      comments: 5,
+      shares: 2,
+      bookmarks: 3,
+      category: "General Discussion"
     },
     {
       author: {
@@ -125,23 +118,31 @@ const AIDojo = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-100">
       <Helmet>
-        <title>AI Dojo - ZaidiStudio</title>
-        <meta name="description" content="Join the AI Dojo community to discuss and learn about artificial intelligence, machine learning, and more." />
+        <title>AI Community Builders - AI Dojo</title>
+        <meta name="description" content="Join the AI Community Builders to learn and discuss AI-powered business automation." />
       </Helmet>
-      <Header />
-      <main className="flex-grow container mx-auto px-4 py-8">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">AI Dojo</h1>
-          <ScrollArea className="h-[calc(100vh-300px)]">
-            {posts.map((post, index) => (
-              <PostCard key={index} post={post} />
-            ))}
-          </ScrollArea>
+      
+      <CommunityHeader />
+      <DojoNavigation />
+      
+      <main className="flex-grow container mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <PostComposer />
+            <CategoryTabs />
+            <ScrollArea className="h-[calc(100vh-300px)]">
+              {posts.map((post, index) => (
+                <PostCard key={index} post={post} />
+              ))}
+            </ScrollArea>
+          </div>
+          <div className="hidden lg:block">
+            <CommunitySidebar />
+          </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };
