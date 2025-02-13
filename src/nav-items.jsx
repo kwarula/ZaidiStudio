@@ -1,4 +1,3 @@
-
 import { HomeIcon, CreditCardIcon, LayoutListIcon, InfoIcon, FileJsonIcon, LayoutDashboardIcon, BrainCircuitIcon } from "lucide-react";
 import Index from "./pages/Index.jsx";
 import Pricing from "./pages/Pricing.jsx";
@@ -7,6 +6,7 @@ import About from "./pages/About.jsx";
 import Templates from "./pages/Templates.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import AIDojo from "./pages/AIDojo.jsx";
+import Classroom from "./pages/dojo/Classroom.jsx";
 
 export const navItems = [
   {
@@ -26,6 +26,12 @@ export const navItems = [
     to: "/dojo",
     icon: <BrainCircuitIcon className="h-4 w-4" />,
     page: <AIDojo />,
+  },
+  {
+    title: "AI Dojo Classroom",
+    to: "/dojo/classroom",
+    icon: <BrainCircuitIcon className="h-4 w-4" />,
+    page: <Classroom />,
   },
   {
     title: "Pricing",
