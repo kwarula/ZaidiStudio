@@ -13,7 +13,6 @@ import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
 import LiveChat from '../components/LiveChat/LiveChat';
 import SEOMetadata from '../components/SEOMetadata';
-import DemoTerminal from '../components/DemoTerminal';
 
 const Index = () => {
   const location = useLocation();
@@ -145,14 +144,6 @@ const Index = () => {
               </ul>
             </Card>
           </div>
-        </div>
-      </section>
-
-      {/* Demo Section */}
-      <section className="py-16 px-4 md:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">Experience AI in Action</h2>
-          <DemoTerminal />
         </div>
       </section>
 
