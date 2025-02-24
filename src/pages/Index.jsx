@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, ArrowRight, Clock, Target, Zap } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Clock, Target, Zap, Gift } from 'lucide-react';
 import Benefits from '../components/Benefits';
 import AIContentGenerator from '../components/AIContentGenerator';
 import Features from '../components/Features';
@@ -16,6 +16,7 @@ import SEOMetadata from '../components/SEOMetadata';
 
 const Index = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.hash) {
@@ -68,6 +69,15 @@ const Index = () => {
             We Help Kenyan Businesses Slash Costs and Boost Profits with AI Automation
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center mb-12">
+            <Button 
+              size="lg" 
+              variant="secondary"
+              className="text-lg px-8 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white border-0"
+              onClick={() => navigate('/starter-kit')}
+            >
+              <Gift className="mr-2 h-5 w-5" />
+              Get Your Free AI Starter Kit
+            </Button>
             <Button size="lg" className="text-lg px-8" onClick={() => window.location.href = '#audit'}>
               Get Your Free AI Audit
               <ArrowRight className="ml-2 h-5 w-5" />
