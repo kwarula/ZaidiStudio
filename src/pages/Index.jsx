@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import Hero from '../components/Hero';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, ArrowRight, Clock, Target, Zap, Gift, ChevronRight, BarChart2, LineChart, Users, Shield, MessageSquare } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Clock, Target, Zap, Gift, ChevronRight, BarChart2, LineChart, Users, Shield, MessageCircle } from 'lucide-react';
 import Footer from '../components/Footer';
 import LiveChat from '../components/LiveChat/LiveChat';
 import SEOMetadata from '../components/SEOMetadata';
@@ -12,6 +13,7 @@ import CTA from '../components/CTA';
 import Solution from '../components/Solution';
 import FAQ from '../components/FAQ';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+
 const Index = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,6 +25,7 @@ const Index = () => {
   // Dynamic success metrics that will rotate
   const successMetrics = ["Sales cycle time reduced by 72% for a Nairobi real estate firm.", "95% drop in manual errors for top media production company.", "40% increase in customer satisfaction for a local fintech startup.", "60% reduction in operational costs for an e-commerce business."];
   const [currentMetric, setCurrentMetric] = useState(0);
+  
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace('#', '');
@@ -42,6 +45,7 @@ const Index = () => {
       clearInterval(metricInterval);
     };
   }, [location, successMetrics.length]);
+  
   const clientLogos = [{
     name: "iHub",
     logo: "/placeholder.svg"
@@ -138,154 +142,61 @@ const Index = () => {
       <SEOMetadata />
       <Header />
       
-      {/* Hero Section */}
-      <section className="pt-28 pb-20 px-4 md:px-8 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="text-left">
-              <Badge variant="secondary" className="mb-4">
-                Trusted by Leading Kenyan Businesses
-              </Badge>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 leading-tight">
-                Turn Weeks into Minutes. Automate 80% of Your Business with AI — Starting Today.
-              </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                We help ambitious Kenyan businesses cut costs, scale operations, and reclaim time using autonomous AI agents and workflow automation.
-              </p>
-              
-              {/* Success Metric Banner */}
-              <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-4 rounded-lg mb-8 transform transition-all duration-500 hover:scale-102 shadow-lg">
-                <p className="text-lg font-medium">{successMetrics[currentMetric]}</p>
-              </div>
-              
-              {/* Tiered CTA Stack */}
-              <div className="space-y-4 mb-8">
-                <Button size="lg" variant="secondary" className="w-full text-lg px-8 py-6 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white border-0 shadow-lg" onClick={() => navigate('/starter-kit')}>
-                  <Gift className="mr-2 h-5 w-5" />
-                  Get Your Free AI Starter Kit
-                </Button>
-                <Button size="lg" className="w-full text-lg px-8 py-6 shadow-md" onClick={() => window.location.href = '#audit'}>
-                  Get Your Free 90-Day AI Roadmap
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button size="lg" variant="outline" className="w-full text-lg px-8 py-6 border-blue-300 shadow-sm">
-                  Request Done-For-You Demo Agent
-                  <Badge variant="secondary" className="ml-2 bg-red-500 text-white">Only {auditSlotsLeft} Slots Left</Badge>
-                </Button>
-              </div>
-              
-              {/* Countdown Timer */}
-              <div className="bg-gray-100 p-4 rounded-lg text-center mb-6">
-                <p className="text-sm text-gray-600 mb-2">Limited Time Offer Ends In:</p>
-                <div className="flex justify-center gap-4">
-                  <div className="bg-white px-3 py-2 rounded-md shadow">
-                    <p className="text-xl font-bold text-blue-600">{daysLeft}</p>
-                    <p className="text-xs text-gray-500">Days</p>
-                  </div>
-                  <div className="bg-white px-3 py-2 rounded-md shadow">
-                    <p className="text-xl font-bold text-blue-600">{hoursLeft}</p>
-                    <p className="text-xs text-gray-500">Hours</p>
-                  </div>
-                  <div className="bg-white px-3 py-2 rounded-md shadow">
-                    <p className="text-xl font-bold text-blue-600">{minutesLeft}</p>
-                    <p className="text-xs text-gray-500">Minutes</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="rounded-xl overflow-hidden shadow-2xl bg-white p-6 border border-gray-100">
-              <h3 className="text-2xl font-bold text-center mb-6">Get Your Free AI Audit</h3>
-              <p className="text-center text-gray-600 mb-6">Discover how AI can transform your business in the next 90 days</p>
-              <form className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                  <input type="text" id="name" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Your Name" />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                  <input type="email" id="email" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="you@company.com" />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                  <input type="tel" id="phone" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="+254 7XX XXX XXX" />
-                </div>
-                <div>
-                  <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
-                  <input type="text" id="company" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Your Company" />
-                </div>
-                <div>
-                  <label htmlFor="industry" className="block text-sm font-medium text-gray-700 mb-1">Industry</label>
-                  <select id="industry" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Select Your Industry</option>
-                    <option value="real-estate">Real Estate</option>
-                    <option value="e-commerce">E-commerce</option>
-                    <option value="financial-services">Financial Services</option>
-                    <option value="media-marketing">Media & Marketing</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <Button className="w-full py-6 text-lg font-medium">
-                  Book Your Free AI Audit Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </form>
-              <p className="text-xs text-gray-500 text-center mt-4">
-                We respect your privacy. No spam, ever. Unsubscribe anytime.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section - Replaced with Hero component */}
+      <Hero />
 
       {/* Trust Elements: Client Logos */}
-      <section className="py-12 bg-white">
+      <section className="py-8 sm:py-10 md:py-12 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <p className="text-lg font-medium text-gray-700">Trusted By Industry Leaders</p>
+          <div className="text-center mb-6 sm:mb-8">
+            <p className="text-base sm:text-lg font-medium text-gray-700">Trusted By Industry Leaders</p>
           </div>
-          <div className="flex justify-center items-center gap-8 flex-wrap">
-            {clientLogos.map(client => <div key={client.name} className="flex flex-col items-center">
-                <img src={client.logo} alt={client.name} className="h-12 object-contain opacity-70 hover:opacity-100 transition-opacity" />
-                <span className="text-sm text-gray-500 mt-2">{client.name}</span>
+          <div className="flex justify-center items-center gap-4 sm:gap-6 md:gap-8 flex-wrap">
+            {clientLogos.map(client => <div key={client.name} className="flex flex-col items-center p-2">
+                <img src={client.logo} alt={client.name} className="h-8 sm:h-10 md:h-12 object-contain opacity-70 hover:opacity-100 transition-opacity" />
+                <span className="text-xs sm:text-sm text-gray-500 mt-1 sm:mt-2">{client.name}</span>
               </div>)}
           </div>
         </div>
       </section>
 
       {/* Pain Points Section */}
-      <section className="py-16 px-4 md:px-8 bg-red-50">
+      <section className="py-10 sm:py-12 md:py-16 px-4 bg-red-50">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-10 text-gray-800">Without ZaidiStudio, You're Losing:</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {painPoints.map((point, index) => <Card key={index} className="p-6 bg-white border-red-100 shadow-md">
-                <p className="text-red-600 font-medium text-lg">{point}</p>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10 text-gray-800">Without ZaidiStudio, You're Losing:</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+            {painPoints.map((point, index) => <Card key={index} className="p-4 sm:p-6 bg-white border-red-100 shadow-md">
+                <p className="text-red-600 font-medium text-base sm:text-lg">{point}</p>
               </Card>)}
           </div>
         </div>
       </section>
 
       {/* How It Works Timeline */}
-      <section className="py-20 px-4 md:px-8 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 px-4 bg-white">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">How ZaidiStudio Works For You</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-center">How ZaidiStudio Works For You</h2>
           <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-blue-200"></div>
+            {/* Timeline line - hidden on mobile, shown on larger screens */}
+            <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-blue-200 hidden md:block"></div>
             
             {/* Timeline steps */}
-            <div className="space-y-12 relative">
+            <div className="space-y-8 sm:space-y-12 relative">
               {workflowSteps.map((step, index) => <div key={index} className="relative flex flex-col md:flex-row items-center">
-                  <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:order-1 md:pl-12'}`}>
-                    <Card className="p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <div className={`md:w-1/2 w-full ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:order-1 md:pl-12'}`}>
+                    <Card className="p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
                       <div className="flex flex-col items-center md:items-start">
                         {step.icon}
-                        <h3 className="text-xl font-bold mt-4 mb-2 text-blue-900">{step.title}</h3>
+                        <h3 className="text-lg sm:text-xl font-bold mt-3 sm:mt-4 mb-2 text-blue-900">{step.title}</h3>
                         <p className="text-gray-600">{step.description}</p>
                       </div>
                     </Card>
                   </div>
-                  <div className="absolute left-0 md:left-1/2 transform -translate-y-1/2 md:-translate-x-1/2 bg-blue-500 rounded-full h-8 w-8 flex items-center justify-center text-white font-bold z-10">
+                  <div className="absolute left-0 md:left-1/2 transform -translate-y-1/2 md:-translate-x-1/2 bg-blue-500 rounded-full h-6 w-6 sm:h-8 sm:w-8 flex items-center justify-center text-white font-bold z-10 hidden md:flex">
+                    {index + 1}
+                  </div>
+                  {/* Mobile step indicator */}
+                  <div className="md:hidden bg-blue-500 rounded-full h-6 w-6 flex items-center justify-center text-white font-bold mb-2">
                     {index + 1}
                   </div>
                 </div>)}

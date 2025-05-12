@@ -20,6 +20,25 @@
   object-fit: cover;
 }
 
+/* Hero section specific responsive styles */
+@media (max-width: 640px) {
+  .hero-text h1 {
+    font-size: 1.875rem;
+    line-height: 1.2;
+  }
+  
+  .hero-text p {
+    font-size: 1rem;
+  }
+  
+  .hero-cta button,
+  .hero-cta a {
+    width: 100%;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
 /* Additional responsive styles */
 @media (max-width: 640px) {
   .responsive-container {
@@ -185,5 +204,35 @@ html, body {
   .chat-window {
     width: 350px;
     max-width: 100%;
+  }
+}
+
+/* Fix for buttons on small screens */
+@media (max-width: 400px) {
+  .button-container {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  
+  .button-container > * {
+    width: 100% !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .timeslot-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Fix for mobile devices with smaller viewport heights */
+@media (max-height: 700px) {
+  .tall-modal {
+    height: 85vh !important;
+    overflow-y: auto !important;
+  }
+  
+  .modal-body {
+    max-height: 60vh !important;
+    overflow-y: auto !important;
   }
 }
