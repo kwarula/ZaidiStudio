@@ -1,12 +1,8 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
-  return (
-    <footer className="bg-gray-900 text-white py-16 px-6">
+  return <footer className="bg-gray-900 text-white py-16 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div>
@@ -58,8 +54,8 @@ const Footer = () => {
             <h3 className="font-semibold mb-4">Contact</h3>
             <ul className="space-y-2">
               <li className="text-gray-400">Nairobi, Kenya</li>
-              <li className="text-gray-400">info@zaidistudio.com</li>
-              <li className="text-gray-400">+254 700 000 000</li>
+              <li className="text-gray-400">info@zaidilabstudio.com</li>
+              <li className="text-gray-400">+254 722 135 913</li>
             </ul>
           </div>
         </div>
@@ -72,8 +68,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
