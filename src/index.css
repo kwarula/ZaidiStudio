@@ -34,6 +34,48 @@
   .chat-input {
     font-size: 0.875rem;
   }
+  
+  h1 {
+    font-size: 1.75rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  h3 {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* Enhanced mobile responsiveness */
+@media (max-width: 480px) {
+  .hero-cta {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .hero-cta > button, 
+  .hero-cta > a {
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .carousel-item {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .hero-countdown {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 /* Ensure content is visible on all screen sizes */
@@ -42,22 +84,106 @@ html, body {
   max-width: 100%;
 }
 
+/* Form responsiveness */
+@media (max-width: 640px) {
+  input, select, textarea {
+    font-size: 16px !important; /* Prevents iOS zoom on focus */
+    padding: 0.5rem !important;
+  }
+  
+  form {
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
 /* Improve touch targets for mobile */
 @media (max-width: 640px) {
   button, 
   [type="button"],
   [type="reset"],
   [type="submit"] {
-    min-height: 2.5rem;
-    min-width: 2.5rem;
+    min-height: 2.75rem;
+    min-width: 2.75rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
   
-  input,
-  select,
-  textarea {
-    font-size: 16px; /* Prevents iOS zoom on focus */
+  a, button, .clickable {
+    padding: 0.5rem;
+    margin: 0.25rem 0;
+  }
+  
+  .nav-link {
+    padding: 0.75rem 0.5rem;
+  }
+}
+
+/* Responsive spacing adjustments */
+@media (max-width: 640px) {
+  .section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .py-20 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  
+  .py-16 {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+  
+  .py-12 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  .mt-20, .my-20 {
+    margin-top: 3rem !important;
+  }
+  
+  .mb-20, .my-20 {
+    margin-bottom: 3rem !important;
+  }
+  
+  .gap-8 {
+    gap: 1rem !important;
+  }
+  
+  .space-y-12 {
+    margin-top: 2rem !important;
+  }
+}
+
+/* Responsive chat widget */
+.chat-window {
+  width: 90vw;
+  max-width: 350px;
+  max-height: 80vh;
+  right: 1rem;
+  bottom: 5rem;
+}
+
+@media (min-width: 640px) {
+  .chat-window {
+    width: 350px;
+    max-width: 100%;
   }
 }
