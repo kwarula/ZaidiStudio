@@ -1,11 +1,10 @@
-
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, ArrowRight, Clock, Target, Zap, Gift, ChevronRight, BarChart2, LineChart, Users, Shield } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Clock, Target, Zap, Gift, ChevronRight, BarChart2, LineChart, Users, Shield, MessageSquare } from 'lucide-react';
 import Footer from '../components/Footer';
 import LiveChat from '../components/LiveChat/LiveChat';
 import SEOMetadata from '../components/SEOMetadata';
