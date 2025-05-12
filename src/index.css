@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,4 +18,46 @@
   top: 0;
   left: 0;
   object-fit: cover;
+}
+
+/* Additional responsive styles */
+@media (max-width: 640px) {
+  .responsive-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .chat-message {
+    font-size: 0.875rem;
+  }
+  
+  .chat-input {
+    font-size: 0.875rem;
+  }
+}
+
+/* Ensure content is visible on all screen sizes */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 640px) {
+  button, 
+  [type="button"],
+  [type="reset"],
+  [type="submit"] {
+    min-height: 2.5rem;
+    min-width: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  input,
+  select,
+  textarea {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
 }

@@ -62,25 +62,28 @@ const ChatWindow = ({ onClose }) => {
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.9, opacity: 0 }}
       transition={{ duration: 0.2 }}
-      className="bg-white rounded-lg shadow-2xl w-80 sm:w-96 h-[28rem] flex flex-col"
+      className="bg-white rounded-lg shadow-2xl w-full sm:w-80 md:w-96 h-[28rem] flex flex-col max-w-[calc(100vw-2rem)]"
+      style={{ maxHeight: 'calc(100vh - 6rem)' }}
     >
-      <div className="bg-gradient-to-r from-blue-600 to-violet-600 text-white p-4 rounded-t-lg flex justify-between items-center">
+      <div className="bg-gradient-to-r from-blue-600 to-violet-600 text-white p-3 sm:p-4 rounded-t-lg flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-          <h3 className="font-bold text-lg">Live Chat</h3>
+          <h3 className="font-bold text-base sm:text-lg">Live Chat</h3>
         </div>
         <div className="flex items-center space-x-2">
           <button 
             onClick={() => setIsExpanded(!isExpanded)} 
-            className="text-white hover:text-gray-200 transition-colors"
+            className="text-white hover:text-gray-200 transition-colors p-1"
+            aria-label="Toggle chat view"
           >
-            <Image size={20} />
+            <Image size={18} />
           </button>
           <button 
             onClick={onClose} 
-            className="text-white hover:text-gray-200 transition-colors"
+            className="text-white hover:text-gray-200 transition-colors p-1"
+            aria-label="Close chat"
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
       </div>
@@ -91,7 +94,7 @@ const ChatWindow = ({ onClose }) => {
             initial={{ height: 0 }}
             animate={{ height: "auto" }}
             exit={{ height: 0 }}
-            className="flex-grow overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-gray-50 to-white"
+            className="flex-grow overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 bg-gradient-to-b from-gray-50 to-white"
           >
             {messages.map((message, index) => (
               <motion.div
@@ -101,19 +104,19 @@ const ChatWindow = ({ onClose }) => {
                 key={index}
                 className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                <div className={`flex items-start space-x-2 max-w-[80%] ${message.sender === 'user' ? 'flex-row-reverse' : ''}`}>
-                  <div className={`rounded-full p-2 ${
+                <div className={`flex items-start space-x-1 sm:space-x-2 max-w-[85%] ${message.sender === 'user' ? 'flex-row-reverse space-x-reverse sm:space-x-reverse' : ''}`}>
+                  <div className={`rounded-full p-1.5 sm:p-2 ${
                     message.sender === 'user' ? 'bg-blue-100' : 'bg-gray-200'
-                  } transition-all duration-300 hover:scale-110`}>
-                    {message.sender === 'user' ? <User size={16} /> : <Bot size={16} />}
+                  } transition-all duration-300 hover:scale-110 flex-shrink-0`}>
+                    {message.sender === 'user' ? <User size={14} /> : <Bot size={14} />}
                   </div>
                   <div className={`flex flex-col ${message.sender === 'user' ? 'items-end' : 'items-start'}`}>
-                    <div className={`p-3 rounded-lg ${
+                    <div className={`p-2 sm:p-3 rounded-lg ${
                       message.sender === 'user' 
                         ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white' 
                         : 'bg-gray-100 text-gray-800'
                     } shadow-sm`}>
-                      <p className="text-sm">{message.text}</p>
+                      <p className="text-xs sm:text-sm">{message.text}</p>
                     </div>
                     <span className="text-xs text-gray-500 mt-1">{message.timestamp}</span>
                   </div>
@@ -126,8 +129,8 @@ const ChatWindow = ({ onClose }) => {
                 animate={{ opacity: 1 }}
                 className="flex items-center space-x-2"
               >
-                <div className="bg-gray-200 p-2 rounded-full">
-                  <Bot size={16} />
+                <div className="bg-gray-200 p-1.5 sm:p-2 rounded-full flex-shrink-0">
+                  <Bot size={14} />
                 </div>
                 <div className="flex space-x-1">
                   <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
@@ -141,7 +144,7 @@ const ChatWindow = ({ onClose }) => {
         )}
       </AnimatePresence>
 
-      <form onSubmit={handleSend} className="p-4 border-t bg-white rounded-b-lg">
+      <form onSubmit={handleSend} className="p-3 sm:p-4 border-t bg-white rounded-b-lg">
         <div className="flex items-center space-x-2">
           <div className="flex-grow relative">
             <input
@@ -149,22 +152,23 @@ const ChatWindow = ({ onClose }) => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message..."
-              className="w-full border rounded-full px-4 py-2 pr-12 focus:outline-none focus:ring-2 focus:ring-blue-600 bg-gray-50"
+              className="w-full border rounded-full px-3 py-1.5 sm:px-4 sm:py-2 pr-12 focus:outline-none focus:ring-2 focus:ring-blue-600 bg-gray-50 text-sm"
             />
             <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center space-x-1">
-              <button type="button" className="text-gray-400 hover:text-gray-600 transition-colors">
-                <Paperclip size={18} />
+              <button type="button" className="text-gray-400 hover:text-gray-600 transition-colors p-1">
+                <Paperclip size={16} />
               </button>
-              <button type="button" className="text-gray-400 hover:text-gray-600 transition-colors">
-                <Smile size={18} />
+              <button type="button" className="text-gray-400 hover:text-gray-600 transition-colors p-1">
+                <Smile size={16} />
               </button>
             </div>
           </div>
           <button 
             type="submit" 
-            className="bg-gradient-to-r from-blue-600 to-violet-600 text-white p-2 rounded-full hover:opacity-90 transition-opacity shadow-lg"
+            className="bg-gradient-to-r from-blue-600 to-violet-600 text-white p-1.5 sm:p-2 rounded-full hover:opacity-90 transition-opacity shadow-lg flex-shrink-0"
+            aria-label="Send message"
           >
-            <Send size={20} />
+            <Send size={18} />
           </button>
         </div>
       </form>
