@@ -13,46 +13,44 @@ import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
 import LiveChat from '../components/LiveChat/LiveChat';
 import SEOMetadata from '../components/SEOMetadata';
-
 const Index = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace('#', '');
       const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({
+          behavior: 'smooth'
+        });
       }
     }
   }, [location]);
-
-  const testimonials = [
-    {
-      quote: "ZaidiStudio helped us cut manual tasks by 80%. Our team now focuses on growth, not repetitive work.",
-      author: "Sarah Kimani",
-      role: "CEO, TechVentures Kenya",
-      company: "TechVentures Kenya",
-      image: "/vince.png"
-    },
-    {
-      quote: "Within 3 months, we saw a 40% reduction in operational costs. The AI solutions are game-changing.",
-      author: "James Maina",
-      role: "Operations Director",
-      company: "Innovate Labs",
-      image: "/juma.png"
-    }
-  ];
-
-  const partners = [
-    { name: "iHub", logo: "/placeholder.svg" },
-    { name: "Nairobi Garage", logo: "/placeholder.svg" },
-    { name: "KenyaTech", logo: "/placeholder.svg" }
-  ];
-
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+  const testimonials = [{
+    quote: "ZaidiStudio helped us cut manual tasks by 80%. Our team now focuses on growth, not repetitive work.",
+    author: "Sarah Kimani",
+    role: "CEO, TechVentures Kenya",
+    company: "TechVentures Kenya",
+    image: "/vince.png"
+  }, {
+    quote: "Within 3 months, we saw a 40% reduction in operational costs. The AI solutions are game-changing.",
+    author: "James Maina",
+    role: "Operations Director",
+    company: "Innovate Labs",
+    image: "/juma.png"
+  }];
+  const partners = [{
+    name: "iHub",
+    logo: "/placeholder.svg"
+  }, {
+    name: "Nairobi Garage",
+    logo: "/placeholder.svg"
+  }, {
+    name: "KenyaTech",
+    logo: "/placeholder.svg"
+  }];
+  return <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOMetadata />
       <Header />
       
@@ -69,12 +67,7 @@ const Index = () => {
             We Help Kenyan Businesses Slash Costs and Boost Profits with AI Automation
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center mb-12">
-            <Button 
-              size="lg" 
-              variant="secondary"
-              className="text-lg px-8 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white border-0"
-              onClick={() => navigate('/starter-kit')}
-            >
+            <Button size="lg" variant="secondary" className="text-lg px-8 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white border-0" onClick={() => navigate('/starter-kit')}>
               <Gift className="mr-2 h-5 w-5" />
               Get Your Free AI Starter Kit
             </Button>
@@ -97,10 +90,7 @@ const Index = () => {
               <h3 className="text-3xl font-bold text-blue-600 mb-2">3X</h3>
               <p className="text-gray-600">Average Revenue Growth</p>
             </Card>
-            <Card className="p-6">
-              <h3 className="text-3xl font-bold text-blue-600 mb-2">40%</h3>
-              <p className="text-gray-600">Cost Savings in 3 Months</p>
-            </Card>
+            
           </div>
         </div>
       </section>
@@ -112,14 +102,7 @@ const Index = () => {
             <p className="text-gray-600">Trusted By Industry Leaders</p>
           </div>
           <div className="flex justify-center items-center gap-8 flex-wrap opacity-70">
-            {partners.map((partner) => (
-              <img 
-                key={partner.name}
-                src={partner.logo} 
-                alt={partner.name}
-                className="h-12 object-contain"
-              />
-            ))}
+            {partners.map(partner => <img key={partner.name} src={partner.logo} alt={partner.name} className="h-12 object-contain" />)}
           </div>
         </div>
       </section>
@@ -210,8 +193,6 @@ const Index = () => {
 
       <Footer />
       <LiveChat />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
