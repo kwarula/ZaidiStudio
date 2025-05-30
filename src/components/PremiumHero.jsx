@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import ConsultationForm from './ConsultationForm';
 import { Sparkles, Zap, ArrowRight, CheckCircle } from 'lucide-react';
@@ -18,12 +17,12 @@ const PremiumHero = () => {
     localStorage.setItem('hasRequestedConsultation', 'true');
   };
 
-  const trustedCompanies = [
-    { name: "iHub", logo: "/placeholder.svg" },
-    { name: "Nairobi Garage", logo: "/placeholder.svg" },
-    { name: "KenyaTech", logo: "/placeholder.svg" },
-    { name: "TechVentures", logo: "/placeholder.svg" },
-    { name: "Innovate Labs", logo: "/placeholder.svg" }
+  const techStack = [
+    { name: "OpenAI", logo: "/logos/OpenAI-Logo.png" },
+    { name: "Anthropic", logo: "/logos/Anthropic_logo.svg.png" },
+    { name: "Google Gemini", logo: "/logos/gemini-brand-color.png" },
+    { name: "CrewAI", logo: "/logos/crewai-brand-color.png" },
+    { name: "n8n", logo: "/logos/N8n-logo-new.svg.png" }
   ];
 
   return (
@@ -102,27 +101,25 @@ const PremiumHero = () => {
             </button>
           </div>
 
-          {/* Trust Indicators */}
+          {/* Tech Stack */}
           <div className="pt-12 space-y-6">
             <p className="text-feature font-medium text-gray-700">
-              Trusted by Growth-Driven Companies
+              Powered by Industry-Leading AI Technology
             </p>
             
-            <div className="flex flex-wrap justify-center items-center gap-8 opacity-60 hover:opacity-80 transition-opacity">
-              {trustedCompanies.map((company, index) => (
+            <div className="flex flex-wrap justify-center items-center gap-8 opacity-80 hover:opacity-100 transition-opacity">
+              {techStack.map((tech) => (
                 <div 
-                  key={company.name}
+                  key={tech.name}
                   className="flex flex-col items-center space-y-2 p-3 hover:scale-110 transition-transform duration-300"
-                  style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center border border-gray-100">
+                  <div className="h-12 flex items-center justify-center">
                     <img 
-                      src={company.logo} 
-                      alt={company.name}
-                      className="w-8 h-8 object-contain filter grayscale hover:grayscale-0 transition-all"
+                      src={tech.logo} 
+                      alt={tech.name}
+                      className="h-8 object-contain filter hover:brightness-110 transition-all"
                     />
                   </div>
-                  <span className="text-caption text-gray-500 font-medium">{company.name}</span>
                 </div>
               ))}
             </div>
