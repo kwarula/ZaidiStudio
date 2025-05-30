@@ -113,11 +113,11 @@ const PremiumHero = () => {
                   key={tech.name}
                   className="flex flex-col items-center space-y-2 p-3 hover:scale-110 transition-transform duration-300"
                 >
-                  <div className="h-12 flex items-center justify-center">
+                  <div className="h-12 w-32 flex items-center justify-center bg-white rounded">
                     <img 
                       src={tech.logo} 
                       alt={tech.name}
-                      className="h-8 object-contain filter hover:brightness-110 transition-all"
+                      className="h-10 w-28 object-contain"
                     />
                   </div>
                 </div>

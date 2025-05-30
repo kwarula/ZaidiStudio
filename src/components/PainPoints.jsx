@@ -1,7 +1,7 @@
 
 import React from 'react';
 import PremiumCard from './PremiumCard';
-import { Clock, Target, AlertTriangle, TrendingUp, DollarSign } from 'lucide-react';
+import { Clock, Target, AlertTriangle, TrendingUp, DollarSign, Lightbulb } from 'lucide-react';
 
 const PainPoints = () => {
   const painPoints = [
@@ -9,7 +9,8 @@ const PainPoints = () => {
     { text: "Thousands in wasted payroll on manual processes", icon: DollarSign },
     { text: "Deals lost to faster competitors using automation", icon: TrendingUp },
     { text: "Employee burnout from repetitive tasks", icon: AlertTriangle },
-    { text: "Inconsistent service quality due to human error", icon: Target }
+    { text: "Inconsistent service quality due to human error", icon: Target },
+    { text: "Missed opportunities for innovation", icon: Lightbulb }
   ];
 
   return (

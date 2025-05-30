@@ -10,7 +10,12 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           <div>
-            <h3 className="text-2xl font-bold mb-4 sm:mb-6">ZaidiStudio</h3>
+            <img
+              src="/logos/ZaidiStudio_white_logo.png"
+              alt="ZaidiStudio logo"
+              className="h-10 w-auto mb-4 sm:mb-6"
+              style={{ maxWidth: 180 }}
+            />
             <p className="text-gray-400 mb-4 sm:mb-6">AI automation solutions for ambitious Kenyan businesses</p>
             <div className="flex space-x-4">
               <a href="https://twitter.com/zaidistudio" className="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">

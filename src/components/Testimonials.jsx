@@ -1,6 +1,7 @@
 
 import React from 'react';
 import PremiumCard from './PremiumCard';
+import { Avatar, AvatarFallback } from './ui/avatar';
 
 const Testimonials = () => {
   const testimonials = [
@@ -53,11 +54,11 @@ const Testimonials = () => {
                 "{testimonial.quote}"
               </blockquote>
               <div className="flex items-center">
-                <img 
-                  src={testimonial.image} 
-                  alt={testimonial.author}
-                  className="w-12 h-12 rounded-full mr-4 object-cover"
-                />
+                <Avatar className="w-12 h-12 mr-4">
+                  <AvatarFallback className="bg-black text-white font-bold">
+                    {testimonial.author.split(' ').map(n => n[0]).join('').toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
                 <div>
                   <p className="font-medium text-gray-900">{testimonial.author}</p>
                   <p className="text-caption text-gray-600">

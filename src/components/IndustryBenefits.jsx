@@ -3,7 +3,7 @@ import React from 'react';
 import PremiumCard from './PremiumCard';
 import { Button } from './ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { CheckCircle2, BarChart2, LineChart, Users, Shield } from 'lucide-react';
+import { CheckCircle2, BarChart2, LineChart, Users, Shield, Hotel, Dumbbell, Gavel, Briefcase } from 'lucide-react';
 
 const IndustryBenefits = () => {
   const industryBenefits = [
@@ -26,6 +26,42 @@ const IndustryBenefits = () => {
       industry: "Financial Services",
       benefits: ["Automated compliance checks that never miss a deadline", "Client onboarding that takes minutes instead of days", "Risk assessment that catches issues humans would miss"],
       icon: <Shield className="h-8 w-8 text-orange-500" />
+    },
+    {
+      industry: "Hospitality",
+      benefits: [
+        "Automated guest check-in and booking management",
+        "Personalized guest recommendations powered by AI",
+        "Instant feedback collection and sentiment analysis"
+      ],
+      icon: <Hotel className="h-8 w-8 text-pink-500" />
+    },
+    {
+      industry: "Coaches/Trainers",
+      benefits: [
+        "Personalized training plans generated in seconds",
+        "Automated scheduling and client reminders",
+        "Progress tracking and analytics for every client"
+      ],
+      icon: <Dumbbell className="h-8 w-8 text-yellow-500" />
+    },
+    {
+      industry: "Law Firms",
+      benefits: [
+        "Contract review and summarization in minutes",
+        "Automated legal research and case law discovery",
+        "Client intake and document automation"
+      ],
+      icon: <Gavel className="h-8 w-8 text-red-500" />
+    },
+    {
+      industry: "Small Businesses",
+      benefits: [
+        "Automated invoicing and payment reminders",
+        "Customer support chatbots available 24/7",
+        "Marketing and social media automation"
+      ],
+      icon: <Briefcase className="h-8 w-8 text-gray-700" />
     }
   ];
 

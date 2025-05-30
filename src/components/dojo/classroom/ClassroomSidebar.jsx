@@ -23,8 +23,18 @@ const ClassroomSidebar = () => {
   return (
     <div className="space-y-6">
       <Card>
+        <CardContent className="p-4 flex flex-col items-center text-center space-y-2">
+          <img src="/logos/ZaidiStudio_white_logo.png" alt="ZaidiStudio Dojo" className="h-10 w-10 mb-2" />
+          <h2 className="font-bold text-xl">ZaidiStudio Dojo</h2>
+          <p className="text-gray-600 text-sm">
+            Welcome to the ZaidiStudio Dojo community! Connect with AI builders, access exclusive templates, get tech support, and join our weekly calls and build-togethers.
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card>
         <CardContent className="p-4 space-y-4">
-          <h2 className="font-semibold text-lg">Your Progress</h2>
+          <h2 className="font-semibold text-lg">Your Dojo Progress</h2>
           
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
@@ -59,7 +69,7 @@ const ClassroomSidebar = () => {
 
       <Card>
         <CardContent className="p-4">
-          <h2 className="font-semibold text-lg mb-4">Achievements</h2>
+          <h2 className="font-semibold text-lg mb-4">Dojo Achievements</h2>
           <ScrollArea className="h-[200px]">
             <div className="space-y-4">
               {achievements.map((achievement, index) => (
