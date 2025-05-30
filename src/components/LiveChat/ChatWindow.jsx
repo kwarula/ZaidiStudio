@@ -1,177 +1,250 @@
-
-import React, { useState, useEffect, useRef } from 'react';
-import { Send, User, Bot, X, Image, Paperclip, Smile } from 'lucide-react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useChatState } from './hooks/useChatState';
+import { sendMessageToAI, simulateTypingDelay, formatMessageForDisplay } from './utils/chatAPI';
+import ChatHeader from './components/ChatHeader';
+import MessageBubble from './components/MessageBubble';
+import TypingIndicator from './components/TypingIndicator';
+import MessageInput from './components/MessageInput';
+import QuickReplies from './components/QuickReplies';
 
 const ChatWindow = ({ onClose }) => {
-  const [messages, setMessages] = useState([
-    { text: "Hello! How can I help you today?", sender: "bot" }
-  ]);
-  const [input, setInput] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const messagesEndRef = useRef(null);
+  const {
+    messages,
+    sessionId,
+    userContext,
+    isTyping,
+    isConnected,
+    setIsTyping,
+    setIsConnected,
+    addMessage,
+    updateUserContext,
+    clearChat,
+    getRecentMessages
+  } = useChatState();
+
   const [isExpanded, setIsExpanded] = useState(true);
+  const [showQuickReplies, setShowQuickReplies] = useState(true);
+  const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
 
-  const handleSend = async (e) => {
-    e.preventDefault();
-    if (input.trim()) {
-      const userMessage = { text: input, sender: "user", timestamp: new Date().toLocaleTimeString() };
-      setMessages(prev => [...prev, userMessage]);
-      setInput('');
-      setIsTyping(true);
+  // Auto-scroll to bottom when new messages arrive
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ 
+        behavior: "smooth",
+        block: "end"
+      });
+    }
+  }, [messages, isTyping]);
 
-      try {
-        const response = await fetch('https://hook.eu2.make.com/7u74c3kmr7esrqsywh8c4bv8f9kmytii', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ message: input }),
-        });
+  // Hide quick replies after first user message
+  useEffect(() => {
+    const userMessages = messages.filter(msg => msg.sender === 'user');
+    if (userMessages.length > 0) {
+      setShowQuickReplies(false);
+    }
+  }, [messages]);
 
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+  const handleSendMessage = async (messageData) => {
+    // Add user message immediately
+    const userMessage = addMessage({
+      text: messageData.text,
+      sender: 'user',
+      files: messageData.files || [],
+      quickAction: messageData.quickAction,
+      metadata: messageData.metadata
+    });
 
-        const text = await response.text();
-        setMessages(prev => [...prev, { 
-          text, 
-          sender: "bot", 
-          timestamp: new Date().toLocaleTimeString() 
-        }]);
-      } catch (error) {
-        console.error('Error calling webhook:', error);
-        setMessages(prev => [...prev, { 
-          text: "Sorry, I'm having trouble connecting. Please try again later.", 
-          sender: "bot",
-          timestamp: new Date().toLocaleTimeString()
-        }]);
-      } finally {
-        setIsTyping(false);
+    setIsTyping(true);
+    setIsConnected(true);
+
+    try {
+      // Prepare data for AI
+      const aiRequestData = {
+        text: messageData.text,
+        sessionId,
+        timestamp: userMessage.timestamp,
+        userContext,
+        recentMessages: getRecentMessages(),
+        quickAction: messageData.quickAction,
+        files: messageData.files
+      };
+
+      // Send to AI with realistic delay
+      const response = await sendMessageToAI(aiRequestData);
+      
+      if (response.success) {
+        const formattedResponse = formatMessageForDisplay(response.data);
+        
+        // Simulate typing delay based on response length
+        const typingDelay = simulateTypingDelay(formattedResponse.text);
+        
+        setTimeout(() => {
+          addMessage({
+            text: formattedResponse.text,
+            sender: 'bot',
+            type: formattedResponse.type,
+            quickReplies: formattedResponse.quickReplies,
+            buttons: formattedResponse.buttons,
+            metadata: formattedResponse.metadata
+          });
+          setIsTyping(false);
+        }, typingDelay);
+      } else {
+        // Handle error with fallback message
+        setTimeout(() => {
+          addMessage({
+            text: response.fallbackMessage,
+            sender: 'bot',
+            type: 'error'
+          });
+          setIsTyping(false);
+          setIsConnected(false);
+        }, 1000);
       }
+    } catch (error) {
+      console.error('Error in handleSendMessage:', error);
+      setTimeout(() => {
+        addMessage({
+          text: "I'm experiencing technical difficulties. Please try again or contact us at hello@zaidistudio.com",
+          sender: 'bot',
+          type: 'error'
+        });
+        setIsTyping(false);
+        setIsConnected(false);
+      }, 1000);
     }
   };
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  const handleQuickReply = (replyData) => {
+    handleSendMessage(replyData);
+  };
+
+  const handleClearChat = () => {
+    clearChat();
+    setShowQuickReplies(true);
+  };
+
+  const handleExportChat = () => {
+    const chatData = {
+      sessionId,
+      timestamp: new Date().toISOString(),
+      messages: messages.map(msg => ({
+        text: msg.text,
+        sender: msg.sender,
+        timestamp: msg.timestamp
+      }))
+    };
+
+    const blob = new Blob([JSON.stringify(chatData, null, 2)], {
+      type: 'application/json'
+    });
+    
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `zaidistudio-chat-${sessionId}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleReplyToMessage = (message) => {
+    // Focus input and add reply context
+    const replyText = `Regarding: "${message.text.substring(0, 50)}${message.text.length > 50 ? '...' : ''}"\n\n`;
+    // This would need to be implemented in MessageInput component
+  };
 
   return (
     <motion.div
-      initial={{ scale: 0.9, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      exit={{ scale: 0.9, opacity: 0 }}
-      transition={{ duration: 0.2 }}
-      className="bg-white rounded-lg shadow-2xl w-full sm:w-80 md:w-96 h-[28rem] flex flex-col max-w-[calc(100vw-2rem)]"
-      style={{ maxHeight: 'calc(100vh - 6rem)' }}
+      initial={{ scale: 0.9, opacity: 0, y: 20 }}
+      animate={{ scale: 1, opacity: 1, y: 0 }}
+      exit={{ scale: 0.9, opacity: 0, y: 20 }}
+      transition={{ 
+        duration: 0.3,
+        type: "spring",
+        stiffness: 400,
+        damping: 25
+      }}
+      className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 w-full sm:w-96 md:w-[420px] flex flex-col max-w-[calc(100vw-2rem)] dark:bg-gray-900/95 dark:border-gray-700/50"
+      style={{ 
+        height: isExpanded ? '600px' : '60px',
+        maxHeight: 'calc(100vh - 6rem)',
+        transition: 'height 0.3s ease-in-out'
+      }}
     >
-      <div className="bg-gradient-to-r from-blue-600 to-violet-600 text-white p-3 sm:p-4 rounded-t-lg flex justify-between items-center">
-        <div className="flex items-center space-x-2">
-          <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-          <h3 className="font-bold text-base sm:text-lg">Live Chat</h3>
-        </div>
-        <div className="flex items-center space-x-2">
-          <button 
-            onClick={() => setIsExpanded(!isExpanded)} 
-            className="text-white hover:text-gray-200 transition-colors p-1"
-            aria-label="Toggle chat view"
-          >
-            <Image size={18} />
-          </button>
-          <button 
-            onClick={onClose} 
-            className="text-white hover:text-gray-200 transition-colors p-1"
-            aria-label="Close chat"
-          >
-            <X size={18} />
-          </button>
-        </div>
-      </div>
+      {/* Header */}
+      <ChatHeader
+        onClose={onClose}
+        onToggleSize={() => setIsExpanded(!isExpanded)}
+        isExpanded={isExpanded}
+        isConnected={isConnected}
+        onClearChat={handleClearChat}
+        onExportChat={handleExportChat}
+        messageCount={messages.length}
+      />
 
+      {/* Chat Content */}
       <AnimatePresence>
         {isExpanded && (
-          <motion.div 
-            initial={{ height: 0 }}
-            animate={{ height: "auto" }}
-            exit={{ height: 0 }}
-            className="flex-grow overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 bg-gradient-to-b from-gray-50 to-white"
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="flex-1 flex flex-col min-h-0"
           >
-            {messages.map((message, index) => (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                key={index}
-                className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div className={`flex items-start space-x-1 sm:space-x-2 max-w-[85%] ${message.sender === 'user' ? 'flex-row-reverse space-x-reverse sm:space-x-reverse' : ''}`}>
-                  <div className={`rounded-full p-1.5 sm:p-2 ${
-                    message.sender === 'user' ? 'bg-blue-100' : 'bg-gray-200'
-                  } transition-all duration-300 hover:scale-110 flex-shrink-0`}>
-                    {message.sender === 'user' ? <User size={14} /> : <Bot size={14} />}
-                  </div>
-                  <div className={`flex flex-col ${message.sender === 'user' ? 'items-end' : 'items-start'}`}>
-                    <div className={`p-2 sm:p-3 rounded-lg ${
-                      message.sender === 'user' 
-                        ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white' 
-                        : 'bg-gray-100 text-gray-800'
-                    } shadow-sm`}>
-                      <p className="text-xs sm:text-sm">{message.text}</p>
-                    </div>
-                    <span className="text-xs text-gray-500 mt-1">{message.timestamp}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-            {isTyping && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex items-center space-x-2"
-              >
-                <div className="bg-gray-200 p-1.5 sm:p-2 rounded-full flex-shrink-0">
-                  <Bot size={14} />
-                </div>
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                  <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
-                </div>
-              </motion.div>
-            )}
-            <div ref={messagesEndRef} />
+            {/* Messages Area */}
+            <div 
+              ref={messagesContainerRef}
+              className="flex-1 overflow-y-auto p-4 space-y-1 bg-gradient-to-b from-gray-50/50 to-white/50 dark:from-gray-800/50 dark:to-gray-900/50"
+              style={{
+                scrollbarWidth: 'thin',
+                scrollbarColor: '#cbd5e1 transparent'
+              }}
+            >
+              {/* Welcome message and quick replies */}
+              {showQuickReplies && messages.length <= 1 && (
+                <QuickReplies 
+                  onQuickReply={handleQuickReply}
+                  disabled={isTyping}
+                />
+              )}
+
+              {/* Messages */}
+              <AnimatePresence mode="popLayout">
+                {messages.map((message, index) => (
+                  <MessageBubble
+                    key={message.id}
+                    message={message}
+                    isLast={index === messages.length - 1}
+                    onReply={handleReplyToMessage}
+                  />
+                ))}
+              </AnimatePresence>
+
+              {/* Typing Indicator */}
+              <TypingIndicator isVisible={isTyping} />
+
+              {/* Scroll anchor */}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input Area */}
+            <MessageInput
+              onSendMessage={handleSendMessage}
+              disabled={isTyping}
+              placeholder={
+                !isConnected 
+                  ? "Reconnecting..." 
+                  : "Ask about our AI solutions..."
+              }
+            />
           </motion.div>
         )}
       </AnimatePresence>
-
-      <form onSubmit={handleSend} className="p-3 sm:p-4 border-t bg-white rounded-b-lg">
-        <div className="flex items-center space-x-2">
-          <div className="flex-grow relative">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your message..."
-              className="w-full border rounded-full px-3 py-1.5 sm:px-4 sm:py-2 pr-12 focus:outline-none focus:ring-2 focus:ring-blue-600 bg-gray-50 text-sm"
-            />
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center space-x-1">
-              <button type="button" className="text-gray-400 hover:text-gray-600 transition-colors p-1">
-                <Paperclip size={16} />
-              </button>
-              <button type="button" className="text-gray-400 hover:text-gray-600 transition-colors p-1">
-                <Smile size={16} />
-              </button>
-            </div>
-          </div>
-          <button 
-            type="submit" 
-            className="bg-gradient-to-r from-blue-600 to-violet-600 text-white p-1.5 sm:p-2 rounded-full hover:opacity-90 transition-opacity shadow-lg flex-shrink-0"
-            aria-label="Send message"
-          >
-            <Send size={18} />
-          </button>
-        </div>
-      </form>
     </motion.div>
   );
 };

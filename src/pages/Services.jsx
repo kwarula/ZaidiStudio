@@ -104,16 +104,18 @@ const Services = () => {
         </div>
       </main>
       <Footer />
-      <ConsultationForm 
-        open={isConsultationFormOpen} 
-        onOpenChange={setIsConsultationFormOpen}
-        onConsultationRequested={() => {
-          toast({
-            title: "Success!",
-            description: "Your consultation request has been submitted. We'll be in touch soon!",
-          });
-        }}
-      />
+      {isConsultationFormOpen && (
+        <ConsultationForm 
+          open={true}
+          onOpenChange={setIsConsultationFormOpen}
+          onConsultationRequested={() => {
+            toast({
+              title: "Success!",
+              description: "Your consultation request has been submitted. We'll be in touch soon!",
+            });
+          }}
+        />
+      )}
     </div>
   );
 };
