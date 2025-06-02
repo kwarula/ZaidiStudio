@@ -2,47 +2,49 @@ import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import ConsultationForm from './ConsultationForm';
 import { Sparkles, Zap, ArrowRight, CheckCircle, TrendingUp, Users, Clock } from 'lucide-react';
+
 const PremiumHero = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [hasRequestedConsultation, setHasRequestedConsultation] = useState(false);
+
   useEffect(() => {
     const requested = localStorage.getItem('hasRequestedConsultation') === 'true';
     setHasRequestedConsultation(requested);
   }, []);
+
   const handleConsultationRequested = () => {
     setHasRequestedConsultation(true);
     localStorage.setItem('hasRequestedConsultation', 'true');
   };
-  const techStack = [{
-    name: "OpenAI",
-    logo: "/logos/OpenAI-Logo.png"
-  }, {
-    name: "Anthropic",
-    logo: "/logos/Anthropic_logo.svg.png"
-  }, {
-    name: "Google Gemini",
-    logo: "/logos/gemini-brand-color.png"
-  }, {
-    name: "CrewAI",
-    logo: "/logos/crewai-brand-color.png"
-  }, {
-    name: "n8n",
-    logo: "/logos/N8n-logo-new.svg.png"
-  }];
-  const liveResults = [{
-    icon: Clock,
-    metric: "72%",
-    description: "Sales cycle time reduced for a Nairobi real estate firm"
-  }, {
-    icon: TrendingUp,
-    metric: "340%",
-    description: "Lead conversion improvement for an e-commerce startup"
-  }, {
-    icon: Users,
-    metric: "85%",
-    description: "Customer service automation for a logistics company"
-  }];
-  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
+
+  const techStack = [
+    { name: "OpenAI", logo: "/logos/OpenAI-Logo.png" },
+    { name: "Anthropic", logo: "/logos/Anthropic_logo.svg.png" },
+    { name: "Google Gemini", logo: "/logos/gemini-brand-color.png" },
+    { name: "CrewAI", logo: "/logos/crewai-brand-color.png" },
+    { name: "n8n", logo: "/logos/N8n-logo-new.svg.png" }
+  ];
+
+  const liveResults = [
+    {
+      icon: Clock,
+      metric: "72%",
+      description: "Sales cycle time reduced for a Nairobi real estate firm"
+    },
+    {
+      icon: TrendingUp,
+      metric: "340%",
+      description: "Lead conversion improvement for an e-commerce startup"
+    },
+    {
+      icon: Users,
+      metric: "85%",
+      description: "Customer service automation for a logistics company"
+    }
+  ];
+
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
       {/* AI-inspired Background Pattern */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-green-500/5"></div>
@@ -97,15 +99,23 @@ const PremiumHero = () => {
 
           {/* CTA Button */}
           <div className="pt-4">
-            <button className="btn btn-primary ai-glow text-lg px-8 py-4 inline-flex items-center gap-3 group" onClick={() => setIsFormOpen(true)} disabled={hasRequestedConsultation}>
-              {hasRequestedConsultation ? <>
+            <button
+              className="btn btn-primary ai-glow text-lg px-8 py-4 inline-flex items-center gap-3 group"
+              onClick={() => setIsFormOpen(true)}
+              disabled={hasRequestedConsultation}
+            >
+              {hasRequestedConsultation ? (
+                <>
                   <CheckCircle className="w-5 h-5" />
                   Strategy Session Booked
-                </> : <>
+                </>
+              ) : (
+                <>
                   <Zap className="w-5 h-5 group-hover:scale-110 transition-transform" />
                   Get Your Free Strategy Session
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </>}
+                </>
+              )}
             </button>
           </div>
 
@@ -115,12 +125,41 @@ const PremiumHero = () => {
               Powered by Industry-Leading AI Technology
             </p>
             
-            <div className="flex flex-wrap justify-center items-center gap-8 opacity-80 hover:opacity-100 transition-opacity">
-              {techStack.map(tech => <div key={tech.name} className="flex flex-col items-center space-y-2 p-3 hover:scale-110 transition-transform duration-300">
-                  <div className="h-12 w-32 flex items-center justify-center bg-white rounded">
-                    <img src={tech.logo} alt={tech.name} className="h-10 w-28 object-contain" />
+            <div className="relative w-full overflow-hidden py-4">
+              <div className="flex whitespace-nowrap animate-logo-scroll">
+                {/* First set of logos */}
+                {techStack.map((tech, index) => (
+                  <div
+                    key={`first-${index}`}
+                    className="flex flex-col items-center space-y-2 p-3 flex-shrink-0"
+                    style={{ width: '200px' }}
+                  >
+                    <div className="h-12 w-32 flex items-center justify-center bg-white rounded">
+                      <img
+                        src={tech.logo}
+                        alt={tech.name}
+                        className="h-10 w-28 object-contain"
+                      />
+                    </div>
                   </div>
-                </div>)}
+                ))}
+                {/* Duplicate set for seamless loop */}
+                {techStack.map((tech, index) => (
+                  <div
+                    key={`second-${index}`}
+                    className="flex flex-col items-center space-y-2 p-3 flex-shrink-0"
+                    style={{ width: '200px' }}
+                  >
+                    <div className="h-12 w-32 flex items-center justify-center bg-white rounded">
+                      <img
+                        src={tech.logo}
+                        alt={tech.name}
+                        className="h-10 w-28 object-contain"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -131,7 +170,13 @@ const PremiumHero = () => {
         </div>
       </div>
 
-      <ConsultationForm open={isFormOpen} onOpenChange={setIsFormOpen} onConsultationRequested={handleConsultationRequested} />
-    </section>;
+      <ConsultationForm 
+        open={isFormOpen} 
+        onOpenChange={setIsFormOpen} 
+        onConsultationRequested={handleConsultationRequested} 
+      />
+    </section>
+  );
 };
+
 export default PremiumHero;

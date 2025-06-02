@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
@@ -477,4 +476,23 @@ body {
   .gradient-animated {
     background: var(--gray-100);
   }
+}
+
+/* Logo scroll animation */
+@keyframes logo-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-logo-scroll {
+  animation: logo-scroll 20s linear infinite;
+}
+
+/* Pause animation on hover */
+.animate-logo-scroll:hover {
+  animation-play-state: paused;
 }
