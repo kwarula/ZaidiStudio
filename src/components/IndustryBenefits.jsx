@@ -77,37 +77,86 @@ const IndustryBenefits = () => {
           </p>
         </div>
         
-        <Carousel className="w-full max-w-6xl mx-auto">
-          <CarouselContent>
-            {industryBenefits.map((industry, index) => (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <PremiumCard className="h-full p-6" glow={true}>
-                  <div className="flex flex-col h-full">
-                    <div className="mb-6">{industry.icon}</div>
-                    <h3 className="text-subsection text-gray-900 mb-6">
-                      {industry.industry}
-                    </h3>
-                    <ul className="space-y-3 mb-8 flex-grow">
-                      {industry.benefits.map((benefit, i) => (
-                        <li key={i} className="flex items-start">
-                          <CheckCircle2 className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                          <span className="text-body text-gray-700">{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <Button variant="outline" className="mt-auto">
-                      See {industry.industry} Solutions
-                    </Button>
+        {/* Enhanced Carousel with better responsiveness */}
+        <div className="relative">
+          <Carousel 
+            className="w-full max-w-7xl mx-auto"
+            opts={{
+              align: "start",
+              loop: true,
+              skipSnaps: false,
+              dragFree: true,
+            }}
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {industryBenefits.map((industry, index) => (
+                <CarouselItem 
+                  key={index} 
+                  className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                >
+                  <div className="h-full">
+                    <PremiumCard className="h-full p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1" glow={true}>
+                      <div className="flex flex-col h-full">
+                        <div className="mb-6 flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-50 to-purple-50 mx-auto">
+                          {industry.icon}
+                        </div>
+                        <h3 className="text-subsection text-gray-900 mb-6 text-center">
+                          {industry.industry}
+                        </h3>
+                        <ul className="space-y-3 mb-8 flex-grow">
+                          {industry.benefits.map((benefit, i) => (
+                            <li key={i} className="flex items-start">
+                              <CheckCircle2 className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
+                              <span className="text-body text-gray-700 leading-relaxed">{benefit}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        <Button 
+                          variant="outline" 
+                          className="mt-auto w-full transition-all duration-200 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700"
+                        >
+                          See {industry.industry} Solutions
+                        </Button>
+                      </div>
+                    </PremiumCard>
                   </div>
-                </PremiumCard>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <div className="hidden md:flex justify-center mt-8 gap-4">
-            <CarouselPrevious />
-            <CarouselNext />
-          </div>
-        </Carousel>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            
+            {/* Enhanced Navigation Controls */}
+            <div className="flex items-center justify-center mt-8 gap-4">
+              {/* Navigation Buttons - Always visible on larger screens */}
+              <div className="hidden md:flex items-center gap-4">
+                <CarouselPrevious className="relative top-0 left-0 translate-x-0 translate-y-0 h-10 w-10 border-2 border-blue-200 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200" />
+                <CarouselNext className="relative top-0 right-0 translate-x-0 translate-y-0 h-10 w-10 border-2 border-blue-200 hover:border-blue-400 hover:bg-blue-50 transition-all duration-200" />
+              </div>
+              
+              {/* Mobile swipe hint */}
+              <div className="md:hidden text-sm text-gray-500 flex items-center gap-2">
+                <div className="flex gap-1">
+                  <div className="w-2 h-2 rounded-full bg-blue-300 animate-pulse"></div>
+                  <div className="w-2 h-2 rounded-full bg-blue-200 animate-pulse delay-100"></div>
+                  <div className="w-2 h-2 rounded-full bg-blue-100 animate-pulse delay-200"></div>
+                </div>
+                <span>Swipe to explore</span>
+              </div>
+            </div>
+          </Carousel>
+          
+          {/* Gradient overlays for better visual indication */}
+          <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
+          <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
+        </div>
+        
+        {/* Additional responsive indicators */}
+        <div className="text-center mt-8">
+          <p className="text-sm text-gray-500">
+            <span className="hidden sm:inline">Use arrow keys or click the buttons to navigate • </span>
+            <span className="sm:hidden">Swipe left or right to see more industries • </span>
+            {industryBenefits.length} industries covered
+          </p>
+        </div>
       </div>
     </section>
   );
