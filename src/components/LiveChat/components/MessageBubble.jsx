@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { User, Bot, Copy, Check, MoreVertical, Reply } from 'lucide-react';
@@ -75,7 +76,15 @@ const MessageBubble = ({ message, isLast, onReply }) => {
           whileHover={{ scale: 1.1 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
-          {isUser ? <User size={16} /> : <Bot size={16} />}
+          {isUser ? (
+            <User size={16} />
+          ) : (
+            <img 
+              src="/logos/ZaidiStudio_icon.png" 
+              alt="ZaidiStudio" 
+              className="w-4 h-4 object-contain"
+            />
+          )}
         </motion.div>
 
         {/* Message Content */}
