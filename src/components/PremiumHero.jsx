@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import ConsultationForm from './ConsultationForm';
 import { Sparkles, Zap, ArrowRight, CheckCircle, TrendingUp, Users, Clock } from 'lucide-react';
@@ -129,13 +129,13 @@ const PremiumHero = () => {
               Powered by Industry-Leading AI Technology
             </p>
             
-            <div className="relative w-full overflow-hidden py-4">
-              <div className="flex whitespace-nowrap animate-logo-scroll">
+            <div className="relative w-full overflow-hidden">
+              <div className="flex min-w-max animate-logo-scroll">
                 {/* First set of logos */}
                 {techStack.map((tech, index) => (
                   <div
                     key={`first-${index}`}
-                    className="flex flex-col items-center space-y-2 p-3 flex-shrink-0"
+                    className="flex flex-col items-center space-x-8 p-4 flex-shrink-0"
                     style={{ width: '200px' }}
                   >
                     <div className="h-12 w-32 flex items-center justify-center bg-white rounded">
@@ -151,7 +151,7 @@ const PremiumHero = () => {
                 {techStack.map((tech, index) => (
                   <div
                     key={`second-${index}`}
-                    className="flex flex-col items-center space-y-2 p-3 flex-shrink-0"
+                    className="flex flex-col items-center space-x-8 p-4 flex-shrink-0"
                     style={{ width: '200px' }}
                   >
                     <div className="h-12 w-32 flex items-center justify-center bg-white rounded">
