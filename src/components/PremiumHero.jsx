@@ -1,7 +1,8 @@
+
 import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import ConsultationForm from './ConsultationForm';
-import { Sparkles, Zap, ArrowRight, CheckCircle } from 'lucide-react';
+import { Sparkles, Zap, ArrowRight, CheckCircle, TrendingUp, Users, Clock } from 'lucide-react';
 
 const PremiumHero = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -23,6 +24,24 @@ const PremiumHero = () => {
     { name: "Google Gemini", logo: "/logos/gemini-brand-color.png" },
     { name: "CrewAI", logo: "/logos/crewai-brand-color.png" },
     { name: "n8n", logo: "/logos/N8n-logo-new.svg.png" }
+  ];
+
+  const liveResults = [
+    {
+      icon: Clock,
+      metric: "72%",
+      description: "Sales cycle time reduced for a Nairobi real estate firm"
+    },
+    {
+      icon: TrendingUp,
+      metric: "340%",
+      description: "Lead conversion improvement for an e-commerce startup"
+    },
+    {
+      icon: Users,
+      metric: "85%",
+      description: "Customer service automation for a logistics company"
+    }
   ];
 
   return (
@@ -125,16 +144,43 @@ const PremiumHero = () => {
             </div>
           </div>
 
-          {/* Success Metric Ticker */}
-          <div className="pt-8">
-            <div className="bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-2xl p-6 max-w-3xl mx-auto">
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mb-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span>Live Results</span>
+          {/* Enhanced Live Results Section */}
+          <div className="pt-16">
+            <div className="space-y-6">
+              {/* Section Header */}
+              <div className="text-center space-y-2">
+                <div className="inline-flex items-center gap-2 text-sm text-gray-600 mb-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="font-medium">Live Results from Kenyan Businesses</span>
+                </div>
+                <p className="text-feature font-medium text-gray-800">
+                  Real transformations happening right now
+                </p>
               </div>
-              <p className="text-feature font-medium text-gray-800 animate-pulse">
-                "Sales cycle time reduced by 72% for a Nairobi real estate firm."
-              </p>
+
+              {/* Results Grid */}
+              <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                {liveResults.map((result, index) => (
+                  <div 
+                    key={index}
+                    className="bg-white/70 backdrop-blur-sm border border-gray-200/50 rounded-xl p-6 hover:bg-white/80 hover:border-blue-200/50 transition-all duration-300 group"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
+                        <result.icon className="w-5 h-5 text-blue-600" />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <div className="text-2xl font-bold text-blue-600 mb-1">
+                          {result.metric}
+                        </div>
+                        <p className="text-sm text-gray-700 leading-relaxed">
+                          {result.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
