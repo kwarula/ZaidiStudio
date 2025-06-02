@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { getCalApi } from "@calcom/embed-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
@@ -25,7 +24,8 @@ const CTA = () => {
   };
 
   const handleJoinDojo = () => {
-    setIsInviteDialogOpen(true);
+    // Navigate to the dedicated AI Dojo landing page
+    window.location.href = '/starter-kit';
   };
 
   const handleInviteSubmit = (e) => {
@@ -69,8 +69,8 @@ const CTA = () => {
   return (
     <section className="py-20 px-6 md:px-12 text-center bg-blue-600 text-white">
       <h2 className="text-3xl font-bold mb-6">Ready to Crush Your Targets?</h2>
-      <p className="text-xl mb-8 max-w-2xl mx-auto">
-        Stop letting outdated processes hold you back. Leverage the power of AI to automate, scale, and dominate your market.
+      <p className="text-xl mb-8 max-w-3xl mx-auto">
+        Let us build your AI solutions, or empower yourself to build them in our AI Dojo.
       </p>
       <div className="flex flex-col md:flex-row justify-center gap-4">
         <button
