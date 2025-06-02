@@ -61,7 +61,7 @@ const ConsultationForm = ({ open, onOpenChange, onConsultationRequested }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://hook.eu1.make.com/etm93nfchq66gch52trjh5vgrb2pmj7h', {
+      const response = await fetch('https://hook.eu2.make.com/mq8hyvhb0psb4mh2er2ctx0ao6hf6ym7', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
