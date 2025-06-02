@@ -22,7 +22,11 @@ const PremiumHero = () => {
     { name: "Anthropic", logo: "/logos/Anthropic_logo.svg.png" },
     { name: "Google Gemini", logo: "/logos/gemini-brand-color.png" },
     { name: "CrewAI", logo: "/logos/crewai-brand-color.png" },
-    { name: "n8n", logo: "/logos/N8n-logo-new.svg.png" }
+    { name: "n8n", logo: "/logos/N8n-logo-new.svg.png" },
+    { name: "Make.com", logo: "/logos/Make.com.webp" },
+    { name: "Lovable", logo: "/logos/Lovable.jpeg" },
+    { name: "Pinecone", logo: "/logos/Pinecone.jpg" },
+    { name: "Supabase", logo: "/logos/Supabase.png" }
   ];
 
   const liveResults = [
@@ -163,9 +167,19 @@ const PremiumHero = () => {
             </div>
           </div>
 
-          {/* Enhanced Live Results Section */}
+          {/* Live Results Section */}
           <div className="pt-16">
-            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {liveResults.map((result, index) => (
+                <div key={index} className="bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-2xl p-6">
+                  <div className="flex items-center justify-center gap-2 mb-4">
+                    <result.icon className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div className="text-3xl font-bold text-blue-900 mb-2">{result.metric}</div>
+                  <p className="text-sm text-gray-600">{result.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
