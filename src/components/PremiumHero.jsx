@@ -129,41 +129,21 @@ const PremiumHero = () => {
               Powered by Industry-Leading AI Technology
             </p>
             
-            <div className="relative w-full overflow-hidden">
-              <div className="flex min-w-max animate-logo-scroll">
-                {/* First set of logos */}
-                {techStack.map((tech, index) => (
-                  <div
-                    key={`first-${index}`}
-                    className="flex flex-col items-center space-x-8 p-4 flex-shrink-0"
-                    style={{ width: '200px' }}
-                  >
-                    <div className="h-12 w-32 flex items-center justify-center bg-white rounded">
-                      <img
-                        src={tech.logo}
-                        alt={tech.name}
-                        className="h-10 w-28 object-contain"
-                      />
-                    </div>
+            <div className="flex flex-wrap justify-center items-center gap-4">
+              {techStack.map((tech) => (
+                <div 
+                  key={tech.name}
+                  className="flex flex-col items-center space-y-2 p-2 hover:scale-110 transition-transform duration-300"
+                >
+                  <div className="h-12 w-24 flex items-center justify-center bg-white rounded">
+                    <img 
+                      src={tech.logo} 
+                      alt={tech.name}
+                      className="h-8 w-20 object-contain"
+                    />
                   </div>
-                ))}
-                {/* Duplicate set for seamless loop */}
-                {techStack.map((tech, index) => (
-                  <div
-                    key={`second-${index}`}
-                    className="flex flex-col items-center space-x-8 p-4 flex-shrink-0"
-                    style={{ width: '200px' }}
-                  >
-                    <div className="h-12 w-32 flex items-center justify-center bg-white rounded">
-                      <img
-                        src={tech.logo}
-                        alt={tech.name}
-                        className="h-10 w-28 object-contain"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
 
