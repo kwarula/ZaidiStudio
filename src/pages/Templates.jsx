@@ -7,8 +7,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import TemplateCard from '../components/TemplateCard';
-import PaymentDialog from '../components/PaymentDialog';
 import ConsultationForm from '../components/ConsultationForm';
+import FlutterwavePayment from '../components/FlutterwavePayment';
 import { templates } from '../data/templates';
 import { Helmet } from 'react-helmet';
 
@@ -16,7 +16,7 @@ const Templates = () => {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [userInfo, setUserInfo] = useState({ name: '', email: '', phone: '' });
   const [isUserInfoDialogOpen, setIsUserInfoDialogOpen] = useState(false);
-  const [isPaymentDialogOpen, setIsPaymentDialogOpen] = useState(false);
+  const [showFlutterwavePayment, setShowFlutterwavePayment] = useState(false);
   const [isConsultationFormOpen, setIsConsultationFormOpen] = useState(false);
   const { toast } = useToast();
 
@@ -41,12 +41,11 @@ const Templates = () => {
       return;
     }
     setIsUserInfoDialogOpen(false);
-    setIsPaymentDialogOpen(true);
+    setShowFlutterwavePayment(true);
   };
 
-  const handlePaymentVerified = () => {
-    console.log("User info:", userInfo);
-    console.log("Downloading template:", selectedTemplate);
+  const handlePaymentSuccess = (response) => {
+    console.log("Payment successful:", response);
     
     // Track template download for dojo eligibility
     const existingDownloads = localStorage.getItem('templateDownloads');
@@ -56,7 +55,8 @@ const Templates = () => {
       templateId: selectedTemplate.id,
       templateName: selectedTemplate.name,
       userEmail: userInfo.email,
-      downloadDate: new Date().toISOString()
+      downloadDate: new Date().toISOString(),
+      transactionId: response.transaction_id
     };
     
     downloads.push(downloadRecord);
@@ -70,6 +70,16 @@ const Templates = () => {
     
     setUserInfo({ name: '', email: '', phone: '' });
     setSelectedTemplate(null);
+    setShowFlutterwavePayment(false);
+  };
+
+  const handlePaymentFailure = () => {
+    toast({
+      title: "Payment Failed",
+      description: "There was an error processing your payment. Please try again.",
+      variant: "destructive",
+    });
+    setShowFlutterwavePayment(false);
   };
 
   const structuredData = {
@@ -117,8 +127,6 @@ const Templates = () => {
         </div>
       </section>
       <main className="flex-grow container mx-auto px-4 py-24">
-        {/* <h1 className="text-5xl font-bold mb-12 text-center text-blue-900">Automation Templates</h1> */}
-        
         <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-8 mb-16 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold mb-4">Need a Custom Workflow?</h2>
           <p className="text-lg mb-6">We can create bespoke templates tailored to your specific business needs.</p>
@@ -141,7 +149,6 @@ const Templates = () => {
                 boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15), 0 2px 16px 0 rgba(59,130,246,0.1), inset 0 1px 0 rgba(255,255,255,0.3)"
               }}
             >
-              {/* Featured badge for first template */}
               {idx === 0 && (
                 <div className="absolute top-4 right-4 z-20">
                   <span className="bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg animate-pulse">
@@ -150,27 +157,24 @@ const Templates = () => {
                 </div>
               )}
               
-              {/* Gradient border effect */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-green-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               
               <div className="relative z-10 p-6 flex flex-col h-full">
-                {/* Icon/avatar */}
                 <div className="flex justify-center mb-4">
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg border-2 border-white/30 group-hover:scale-110 transition-transform duration-300">
                     <span className="text-2xl filter drop-shadow-sm">
-                      {/* AI Automation Template Icons */}
-                      {idx === 0 && "🤖"} {/* Lead-to-Client Auto-Converter */}
-                      {idx === 1 && "🔄"} {/* Content Multiplier Machine */}
-                      {idx === 2 && "🎯"} {/* Zero-Touch Client Onboarding */}
-                      {idx === 3 && "💬"} {/* AI-Powered Social DM Sales Bot */}
-                      {idx === 4 && "📦"} {/* Live Order Fulfillment Tracker */}
-                      {idx === 5 && "📋"} {/* Proposal Generator & Sender */}
-                      {idx === 6 && "👥"} {/* AI-Enhanced Job Application Screener */}
-                      {idx === 7 && "📊"} {/* Client Feedback Analyzer */}
-                      {idx === 8 && "📈"} {/* Sales Dashboard with Daily Email Digest */}
-                      {idx === 9 && "📧"} {/* AI-Powered Cold Email Engine */}
-                      {idx === 10 && "🎬"} {/* Clone Viral TikToks */}
-                      {idx === 11 && "🎥"} {/* AI-Powered Short-Form Video Generator */}
+                      {idx === 0 && "🤖"}
+                      {idx === 1 && "🔄"}
+                      {idx === 2 && "🎯"}
+                      {idx === 3 && "💬"}
+                      {idx === 4 && "📦"}
+                      {idx === 5 && "📋"}
+                      {idx === 6 && "👥"}
+                      {idx === 7 && "📊"}
+                      {idx === 8 && "📈"}
+                      {idx === 9 && "📧"}
+                      {idx === 10 && "🎬"}
+                      {idx === 11 && "🎥"}
                     </span>
                   </div>
                 </div>
@@ -186,7 +190,6 @@ const Templates = () => {
                     {template.useCase}
                   </p>
                   
-                  {/* Tech Stack */}
                   {template.stack && (
                     <div className="mb-4">
                       <h4 className="text-xs font-semibold text-gray-700 mb-2">Tech Stack:</h4>
@@ -196,7 +199,6 @@ const Templates = () => {
                     </div>
                   )}
                   
-                  {/* Key Actions */}
                   {template.keyActions && template.keyActions.length > 0 && (
                     <div className="mb-4">
                       <h4 className="text-xs font-semibold text-gray-700 mb-2">Key Actions:</h4>
@@ -226,7 +228,6 @@ const Templates = () => {
                 </div>
               </div>
               
-              {/* Subtle background pattern */}
               <div className="absolute inset-0 pointer-events-none opacity-5">
                 <svg width="100%" height="100%" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
@@ -282,17 +283,22 @@ const Templates = () => {
               />
             </div>
             <DialogFooter>
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Continue to Payment</Button>
             </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>
 
-      <PaymentDialog 
-        open={isPaymentDialogOpen} 
-        onOpenChange={setIsPaymentDialogOpen}
-        onPaymentVerified={handlePaymentVerified}
-      />
+      {showFlutterwavePayment && (
+        <FlutterwavePayment
+          amount={4999}
+          customerEmail={userInfo.email}
+          customerPhone={userInfo.phone}
+          customerName={userInfo.name}
+          onSuccess={handlePaymentSuccess}
+          onFailure={handlePaymentFailure}
+        />
+      )}
 
       <ConsultationForm 
         open={isConsultationFormOpen} 
