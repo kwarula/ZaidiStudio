@@ -66,7 +66,7 @@ const CTA = () => {
           onClick={() => navigate('/express')}
           className="bg-white text-blue-600 font-bold py-3 px-6 rounded-lg text-lg hover:bg-blue-100 transition-colors duration-300"
         >
-          Free Strategy Session
+          GET EXPRESS PACKAGE
         </Button>
         <button
           onClick={handleJoinDojo}
