@@ -33,8 +33,6 @@ const Express = () => {
     minutes: 0,
     seconds: 0
   });
-  const [isPaymentInfoDialogOpen, setIsPaymentInfoDialogOpen] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState(null);
 
   // Calculate campaign end date
   useEffect(() => {
@@ -57,17 +55,15 @@ const Express = () => {
   }, []);
 
   const handlePayment = useFlutterwavePayment({
-    amount: selectedPackage?.price ? parseInt(selectedPackage.price.replace(/[^0-9]/g, '')) : 0,
-    customerEmail: "",
-    customerPhone: "",
-    customerName: "",
+    amount: 25000, // Will be dynamic based on package
+    customerEmail: "user@example.com", // Will come from form
+    customerPhone: "+254700000000", // Will come from form
+    customerName: "Test User", // Will come from form
     onSuccess: (response) => {
       toast({
         title: "Payment Successful!",
         description: "Your transformation slot has been secured. We'll contact you within 24 hours to begin.",
       });
-      setIsPaymentInfoDialogOpen(false);
-      setSelectedPackage(null);
     },
     onFailure: () => {
       toast({
@@ -77,15 +73,6 @@ const Express = () => {
       });
     }
   });
-
-  const handlePaymentInfoSubmitted = (formData) => {
-    handlePayment({
-      amount: parseInt(formData.package.price.replace(/[^0-9]/g, '')),
-      customerEmail: formData.email,
-      customerPhone: formData.phone,
-      customerName: formData.name
-    });
-  };
 
   const packages = [
     {
@@ -289,10 +276,7 @@ const Express = () => {
                       <Button 
                         className="w-full" 
                         size="lg"
-                        onClick={() => {
-                          setSelectedPackage(pkg);
-                          setIsPaymentInfoDialogOpen(true);
-                        }}
+                        onClick={handlePayment}
                       >
                         Secure Your Slot ({pkg.deposit} Deposit)
                       </Button>
@@ -375,13 +359,6 @@ const Express = () => {
       </section>
 
       <Footer />
-
-      <PaymentInfoDialog
-        open={isPaymentInfoDialogOpen}
-        onOpenChange={setIsPaymentInfoDialogOpen}
-        onSuccess={handlePaymentInfoSubmitted}
-        selectedPackage={selectedPackage}
-      />
     </div>
   );
 };
