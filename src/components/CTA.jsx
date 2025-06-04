@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { getCalApi } from "@calcom/embed-react";
+import React, { useState } from 'react';
+import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from 'react-router-dom';
 
 const CTA = () => {
   const [isInviteDialogOpen, setIsInviteDialogOpen] = useState(false);
   const [inviteCode, setInviteCode] = useState('');
   const { toast } = useToast();
-
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({"namespace":"20-minute-consulting-call"});
-      cal("ui", {"styles":{"branding":{"brandColor":"#000000"}},"hideEventTypeDetails":false,"layout":"month_view"});
-    })();
-  }, []);
+  const navigate = useNavigate();
 
   const checkTemplateDownloads = () => {
     const downloads = localStorage.getItem('templateDownloads');
@@ -24,22 +18,18 @@ const CTA = () => {
   };
 
   const handleJoinDojo = () => {
-    // Navigate to the dedicated AI Dojo landing page
     window.location.href = '/starter-kit';
   };
 
   const handleInviteSubmit = (e) => {
     e.preventDefault();
     
-    // Valid invite codes (you can modify these)
     const validCodes = ['DOJO2024', 'AIDOJO', 'ZAIDI2024', 'PREMIUM'];
     
     if (validCodes.includes(inviteCode.toUpperCase())) {
-      // Valid invite code
       localStorage.setItem('dojoAccess', 'true');
       window.location.href = '/dojo';
     } else {
-      // Invalid invite code - check if user has downloaded templates
       const hasDownloads = checkTemplateDownloads();
       
       if (hasDownloads) {
@@ -55,7 +45,6 @@ const CTA = () => {
           variant: "destructive",
         });
         
-        // Redirect to templates page after a short delay
         setTimeout(() => {
           window.location.href = '/templates';
         }, 3000);
@@ -73,14 +62,12 @@ const CTA = () => {
         Let us build your AI solutions, or empower yourself to build them in our AI Dojo.
       </p>
       <div className="flex flex-col md:flex-row justify-center gap-4">
-        <button
-          data-cal-namespace="20-minute-consulting-call"
-          data-cal-link="vincent-omondi/20-minute-consulting-call"
-          data-cal-config='{"layout":"month_view"}'
+        <Button
+          onClick={() => navigate('/express')}
           className="bg-white text-blue-600 font-bold py-3 px-6 rounded-lg text-lg hover:bg-blue-100 transition-colors duration-300"
         >
-          Free 30-Minute Strategy
-        </button>
+          Free Strategy Session
+        </Button>
         <button
           onClick={handleJoinDojo}
           className="bg-orange-500 text-white font-bold py-3 px-6 rounded-lg text-lg hover:bg-orange-600 transition-colors duration-300"
