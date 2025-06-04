@@ -7,6 +7,7 @@ import { useFlutterwavePayment } from '../hooks/useFlutterwavePayment';
 import { Helmet } from 'react-helmet';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { PaymentInfoDialog } from '../components/PaymentInfoDialog';
 import { 
   Clock, 
   CheckCircle2, 
@@ -33,6 +34,8 @@ const Express = () => {
     minutes: 0,
     seconds: 0
   });
+  const [isPaymentInfoDialogOpen, setIsPaymentInfoDialogOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState(null);
 
   // Calculate campaign end date
   useEffect(() => {
@@ -55,15 +58,17 @@ const Express = () => {
   }, []);
 
   const handlePayment = useFlutterwavePayment({
-    amount: 25000, // Will be dynamic based on package
-    customerEmail: "user@example.com", // Will come from form
-    customerPhone: "+254700000000", // Will come from form
-    customerName: "Test User", // Will come from form
+    amount: selectedPackage?.price ? parseInt(selectedPackage.price.replace(/[^0-9]/g, '')) : 0,
+    customerEmail: "",
+    customerPhone: "",
+    customerName: "",
     onSuccess: (response) => {
       toast({
         title: "Payment Successful!",
         description: "Your transformation slot has been secured. We'll contact you within 24 hours to begin.",
       });
+      setIsPaymentInfoDialogOpen(false);
+      setSelectedPackage(null);
     },
     onFailure: () => {
       toast({
@@ -73,6 +78,15 @@ const Express = () => {
       });
     }
   });
+
+  const handlePaymentInfoSubmitted = (formData) => {
+    handlePayment({
+      amount: parseInt(formData.package.price.replace(/[^0-9]/g, '')),
+      customerEmail: formData.email,
+      customerPhone: formData.phone,
+      customerName: formData.name
+    });
+  };
 
   const packages = [
     {
@@ -276,7 +290,10 @@ const Express = () => {
                       <Button 
                         className="w-full" 
                         size="lg"
-                        onClick={handlePayment}
+                        onClick={() => {
+                          setSelectedPackage(pkg);
+                          setIsPaymentInfoDialogOpen(true);
+                        }}
                       >
                         Secure Your Slot ({pkg.deposit} Deposit)
                       </Button>
@@ -359,6 +376,13 @@ const Express = () => {
       </section>
 
       <Footer />
+
+      <PaymentInfoDialog
+        open={isPaymentInfoDialogOpen}
+        onOpenChange={setIsPaymentInfoDialogOpen}
+        onSuccess={handlePaymentInfoSubmitted}
+        selectedPackage={selectedPackage}
+      />
     </div>
   );
 };
