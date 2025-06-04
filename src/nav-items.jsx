@@ -1,5 +1,4 @@
-
-import { HomeIcon, CreditCardIcon, LayoutListIcon, InfoIcon, FileJsonIcon, LayoutDashboardIcon, BrainCircuitIcon, GiftIcon } from "lucide-react";
+import { HomeIcon, CreditCardIcon, LayoutListIcon, InfoIcon, FileJsonIcon, LayoutDashboardIcon, BrainCircuitIcon, GiftIcon, Zap } from "lucide-react";
 import Index from "./pages/Index.jsx";
 import Pricing from "./pages/Pricing.jsx";
 import Services from "./pages/Services.jsx";
@@ -9,6 +8,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import AIDojo from "./pages/AIDojo.jsx";
 import Classroom from "./pages/dojo/Classroom.jsx";
 import AIStarterKit from "./pages/AIStarterKit.jsx";
+import Express from "./pages/Express.jsx";
 
 export const navItems = [
   {
@@ -16,6 +16,12 @@ export const navItems = [
     to: "/",
     icon: <HomeIcon className="h-4 w-4" />,
     page: <Index />,
+  },
+  {
+    title: "Express",
+    to: "/express",
+    icon: <Zap className="h-4 w-4" />,
+    page: <Express />,
   },
   {
     title: "AI Starter Kit",
