@@ -7,7 +7,6 @@ import { useFlutterwavePayment } from '../hooks/useFlutterwavePayment';
 import { Helmet } from 'react-helmet';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { PaymentInfoDialog } from '../components/PaymentInfoDialog';
 import { 
   Clock, 
   CheckCircle2, 
