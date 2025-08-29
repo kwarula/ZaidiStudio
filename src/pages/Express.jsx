@@ -22,6 +22,7 @@ import {
 
 const Express = () => {
   const { toast } = useToast();
+  const [selectedPackage, setSelectedPackage] = useState(null);
   const [remainingSlots, setRemainingSlots] = useState({
     foundation: 4,
     growth: 3,
@@ -54,30 +55,36 @@ const Express = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const handlePayment = useFlutterwavePayment({
-    amount: 25000, // Will be dynamic based on package
-    customerEmail: "user@example.com", // Will come from form
-    customerPhone: "+254700000000", // Will come from form
-    customerName: "Test User", // Will come from form
-    onSuccess: (response) => {
-      toast({
-        title: "Payment Successful!",
-        description: "Your transformation slot has been secured. We'll contact you within 24 hours to begin.",
-      });
-    },
-    onFailure: () => {
-      toast({
-        title: "Payment Failed",
-        description: "There was an error processing your payment. Please try again.",
-        variant: "destructive",
-      });
-    }
-  });
+  const handlePackagePayment = (pkg) => {
+    const paymentHandler = useFlutterwavePayment({
+      amount: pkg.amount,
+      customerEmail: "user@example.com", // Will come from form
+      customerPhone: "+254700000000", // Will come from form
+      customerName: "Test User", // Will come from form
+      onSuccess: (response) => {
+        toast({
+          title: "Payment Successful!",
+          description: `Your ${pkg.name} slot has been secured. We'll contact you within 24 hours to begin.`,
+        });
+      },
+      onFailure: () => {
+        toast({
+          title: "Payment Failed",
+          description: "There was an error processing your payment. Please try again.",
+          variant: "destructive",
+        });
+      }
+    });
+    
+    paymentHandler();
+  };
 
   const packages = [
     {
+      id: 'foundation',
       name: "FOUNDATION EXPRESS",
       price: "KES 25,000",
+      amount: 25000,
       description: "Perfect for small businesses ready to automate core processes",
       features: [
         "Automated lead collection system",
@@ -97,8 +104,10 @@ const Express = () => {
       deposit: "30%"
     },
     {
+      id: 'growth',
       name: "GROWTH EXPRESS",
       price: "KES 45,000",
+      amount: 45000,
       description: "Perfect for growing businesses ready to scale operations",
       features: [
         "Everything in Foundation +",
@@ -120,8 +129,10 @@ const Express = () => {
       popular: true
     },
     {
+      id: 'enterprise',
       name: "ENTERPRISE EXPRESS",
       price: "KES 85,000",
+      amount: 85000,
       description: "Perfect for established businesses ready for complete transformation",
       features: [
         "Everything in Growth +",
@@ -176,7 +187,7 @@ const Express = () => {
             <Button 
               size="lg" 
               className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700"
-              onClick={handlePayment}
+              onClick={() => document.getElementById('packages').scrollIntoView({ behavior: 'smooth' })}
             >
               CLAIM YOUR TRANSFORMATION SLOT
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -224,7 +235,7 @@ const Express = () => {
       </section>
 
       {/* Packages Section */}
-      <section className="py-16 px-4 bg-gray-50">
+      <section id="packages" className="py-16 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             {packages.map((pkg, index) => (
@@ -276,7 +287,7 @@ const Express = () => {
                       <Button 
                         className="w-full" 
                         size="lg"
-                        onClick={handlePayment}
+                        onClick={() => handlePackagePayment(pkg)}
                       >
                         Secure Your Slot ({pkg.deposit} Deposit)
                       </Button>
