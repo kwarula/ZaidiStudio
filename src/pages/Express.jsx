@@ -55,28 +55,81 @@ const Express = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Create payment handlers for each package
+  const foundationPayment = useFlutterwavePayment({
+    amount: 25000,
+    customerEmail: "user@example.com",
+    customerPhone: "+254700000000",
+    customerName: "Test User",
+    onSuccess: (response) => {
+      toast({
+        title: "Payment Successful!",
+        description: "Your FOUNDATION EXPRESS slot has been secured. We'll contact you within 24 hours to begin.",
+      });
+    },
+    onFailure: () => {
+      toast({
+        title: "Payment Failed",
+        description: "There was an error processing your payment. Please try again.",
+        variant: "destructive",
+      });
+    }
+  });
+
+  const growthPayment = useFlutterwavePayment({
+    amount: 45000,
+    customerEmail: "user@example.com",
+    customerPhone: "+254700000000",
+    customerName: "Test User",
+    onSuccess: (response) => {
+      toast({
+        title: "Payment Successful!",
+        description: "Your GROWTH EXPRESS slot has been secured. We'll contact you within 24 hours to begin.",
+      });
+    },
+    onFailure: () => {
+      toast({
+        title: "Payment Failed",
+        description: "There was an error processing your payment. Please try again.",
+        variant: "destructive",
+      });
+    }
+  });
+
+  const enterprisePayment = useFlutterwavePayment({
+    amount: 85000,
+    customerEmail: "user@example.com",
+    customerPhone: "+254700000000",
+    customerName: "Test User",
+    onSuccess: (response) => {
+      toast({
+        title: "Payment Successful!",
+        description: "Your ENTERPRISE EXPRESS slot has been secured. We'll contact you within 24 hours to begin.",
+      });
+    },
+    onFailure: () => {
+      toast({
+        title: "Payment Failed",
+        description: "There was an error processing your payment. Please try again.",
+        variant: "destructive",
+      });
+    }
+  });
+
   const handlePackagePayment = (pkg) => {
-    const paymentHandler = useFlutterwavePayment({
-      amount: pkg.amount,
-      customerEmail: "user@example.com", // Will come from form
-      customerPhone: "+254700000000", // Will come from form
-      customerName: "Test User", // Will come from form
-      onSuccess: (response) => {
-        toast({
-          title: "Payment Successful!",
-          description: `Your ${pkg.name} slot has been secured. We'll contact you within 24 hours to begin.`,
-        });
-      },
-      onFailure: () => {
-        toast({
-          title: "Payment Failed",
-          description: "There was an error processing your payment. Please try again.",
-          variant: "destructive",
-        });
-      }
-    });
-    
-    paymentHandler();
+    switch(pkg.id) {
+      case 'foundation':
+        foundationPayment();
+        break;
+      case 'growth':
+        growthPayment();
+        break;
+      case 'enterprise':
+        enterprisePayment();
+        break;
+      default:
+        console.error('Unknown package:', pkg.id);
+    }
   };
 
   const packages = [
