@@ -42,12 +42,14 @@ const About = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <Helmet>
-        <title>About ZaidiStudio - AI-Powered Business Solutions</title>
-        <meta name="description" content="Learn about ZaidiStudio's mission to empower businesses with cutting-edge AI solutions. Meet our team of experts dedicated to transforming your business through AI innovation." />
+        <title>About ZaidiStudio - Leading AI Services Kenya Provider | AI Agents & Automation Experts</title>
+        <meta name="description" content="Meet Kenya's premier AI services team. ZaidiStudio leads AI agents, chatbots & automation solutions in Kenya. Based in Nairobi, serving businesses nationwide since 2020." />
+        <meta name="keywords" content="AI services Kenya team, AI experts Nairobi, AI consulting Kenya, AI agents specialists Kenya, automation experts Kenya, ZaidiStudio about" />
+        <link rel="canonical" href="https://zaidistudio.co.ke/about" />
       </Helmet>
       <Header />
       <main className="flex-grow container mx-auto px-4 py-24 md:py-32 max-w-5xl">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-blue-900 mb-8 md:mb-12">About ZaidiStudio</h1>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-blue-900 mb-8 md:mb-12">About ZaidiStudio - Kenya's Leading AI Services Provider</h1>
         
         <section className="mb-12 bg-white p-6 md:p-8 rounded-lg shadow-lg">
           <div className="flex items-center mb-4">
@@ -55,10 +57,10 @@ const About = () => {
             <h2 className="text-2xl font-semibold text-blue-800">Our Story</h2>
           </div>
           <p className="text-base mb-4 leading-relaxed">
-            At ZaidiStudio, we are pioneering the future of AI-powered business solutions. With a passion for innovation and a drive for excellence, we empower companies across diverse industries to harness the transformative potential of artificial intelligence.
+            At ZaidiStudio, we are Kenya's premier AI services provider, pioneering the future of AI-powered business solutions across East Africa. Based in Nairobi and serving businesses from Mombasa to Kisumu, we empower Kenyan companies across diverse industries to harness the transformative potential of artificial intelligence.
           </p>
           <p className="text-base leading-relaxed">
-            From automation and machine learning to AI-driven insights, ZaidiStudio delivers practical solutions that give businesses a competitive edge in an increasingly digital world.
+            From AI agents and chatbots to business automation and machine learning, ZaidiStudio delivers practical AI solutions that give Kenyan businesses a competitive edge in an increasingly digital world. Our expertise in AI services Kenya has helped over 500 businesses transform their operations.
           </p>
         </section>
 
@@ -68,7 +70,7 @@ const About = () => {
             <h2 className="text-2xl font-semibold text-blue-800">Our Mission</h2>
           </div>
           <p className="text-base">
-            To empower businesses of all sizes with advanced, cutting-edge AI solutions that simplify processes, drive growth, and unlock new opportunities. We believe that by democratizing AI, we can help companies thrive in a rapidly changing business landscape.
+            To empower Kenyan businesses of all sizes with advanced, cutting-edge AI solutions that simplify processes, drive growth, and unlock new opportunities. We believe that by democratizing AI services in Kenya, we can help local companies thrive and compete globally in a rapidly changing business landscape.
           </p>
         </section>
 

@@ -1,0 +1,32 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://zaidistudio.co.ke/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Specific directives for search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot  
+Allow: /
+Crawl-delay: 1
+
+# Block access to admin areas (if any)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.env
+Disallow: /api/keys/
+
+# Allow important pages for SEO
+Allow: /services
+Allow: /pricing
+Allow: /about
+Allow: /templates
+Allow: /dojo
+Allow: /express
+Allow: /starter-kit

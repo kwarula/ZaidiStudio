@@ -27,13 +27,13 @@ const Hero = () => {
       </div>
       <div className="relative z-10 max-w-4xl mx-auto">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 text-blue-900 leading-tight">
-          Stop Wasting Time—Scale Your Business with AI & Automation
+          Kenya's #1 AI Services Provider—Scale Your Business with AI Agents & Automation
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4 text-blue-900 font-semibold">
-          Get Real Results, Not Excuses.
+          Trusted by 500+ Kenyan Businesses. Get Real Results, Not Excuses.
         </p>
         <p className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-gray-700">
-          If you're still doing things the old way, you're leaving money on the table.
+          Leading AI services in Kenya - From Nairobi to Mombasa, we're transforming businesses with AI agents and automation.
         </p>
         <Button 
           size="lg" 

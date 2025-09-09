@@ -22,8 +22,10 @@ const Pricing = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>
-        <title>ZaidiStudio Pricing - Choose Your AI Automation Plan</title>
-        <meta name="description" content="Explore ZaidiStudio's flexible pricing plans for AI-powered business automation. Find the perfect package to boost your productivity and streamline your operations, tailored to your business size and needs." />
+        <title>AI Services Kenya Pricing | AI Agents & Automation Plans | ZaidiStudio</title>
+        <meta name="description" content="Affordable AI services Kenya pricing. Compare AI agents, chatbots & automation plans. Transparent pricing for Kenyan businesses. Free consultation included." />
+        <meta name="keywords" content="AI services Kenya pricing, AI agents Kenya cost, AI automation pricing Kenya, AI chatbots Kenya price, AI solutions Nairobi pricing" />
+        <link rel="canonical" href="https://zaidistudio.co.ke/pricing" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
