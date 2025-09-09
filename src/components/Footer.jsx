@@ -63,7 +63,7 @@ const Footer = () => {
             <h3 className="font-semibold text-lg mb-4 mt-6 sm:mt-0">Contact</h3>
             <ul className="space-y-2">
               <li className="text-gray-400 text-sm sm:text-base">Nairobi, Kenya</li>
-              <li className="text-gray-400 text-sm sm:text-base">info@zaidilabstudio.com</li>
+              <li className="text-gray-400 text-sm sm:text-base">info@zaidistudio.co.ke</li>
               <li className="text-gray-400 text-sm sm:text-base">+254 722 135 913</li>
             </ul>
           </div>

@@ -413,7 +413,7 @@ const Express = () => {
             <Button 
               variant="outline"
               className="border-white/30 text-white hover:bg-white/10"
-              onClick={() => window.location.href = "mailto:vince@zaidilabstudio.com"}
+              onClick={() => window.location.href = "mailto:vince@zaidistudio.co.ke"}
             >
               <Mail className="mr-2 h-5 w-5" />
               Email Us

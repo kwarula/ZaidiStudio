@@ -49,7 +49,7 @@ export const sendMessageToAI = async (messageData) => {
     return {
       success: false,
       error: error.message,
-      fallbackMessage: "I'm having trouble connecting right now. Please try again in a moment, or feel free to email us at hello@zaidistudio.com for immediate assistance."
+      fallbackMessage: "I'm having trouble connecting right now. Please try again in a moment, or feel free to email us at hello@zaidistudio.co.ke for immediate assistance."
     };
   }
 };

@@ -107,7 +107,7 @@ const ChatWindow = ({ onClose }) => {
       console.error('Error in handleSendMessage:', error);
       setTimeout(() => {
         addMessage({
-          text: "I'm experiencing technical difficulties. Please try again or contact us at hello@zaidistudio.com",
+          text: "I'm experiencing technical difficulties. Please try again or contact us at hello@zaidistudio.co.ke",
           sender: 'bot',
           type: 'error'
         });

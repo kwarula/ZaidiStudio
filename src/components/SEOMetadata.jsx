@@ -7,8 +7,8 @@ const SEOMetadata = () => {
     "@type": "Organization",
     "name": "ZaidiStudio",
     "description": "AI-powered business automation solutions to double your conversion rate in 30 days.",
-    "url": "https://zaidistudio.com",
-    "logo": "https://zaidistudio.com/logo.png",
+    "url": "https://zaidistudio.co.ke",
+    "logo": "https://zaidistudio.co.ke/logo.png",
     "sameAs": [
       "https://www.facebook.com/zaidistudio",
       "https://www.twitter.com/zaidistudio",
@@ -22,13 +22,13 @@ const SEOMetadata = () => {
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://zaidistudio.com"
+      "@id": "https://zaidistudio.co.ke"
     },
     "potentialAction": {
       "@type": "ConsultAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://zaidistudio.com/#consultation",
+        "urlTemplate": "https://zaidistudio.co.ke/#consultation",
         "actionPlatform": [
           "http://schema.org/DesktopWebPlatform",
           "http://schema.org/MobileWebPlatform"
@@ -46,7 +46,7 @@ const SEOMetadata = () => {
       <title>ZaidiStudio - AI-Powered Business Automation</title>
       <meta name="description" content="ZaidiStudio offers AI-powered business automation solutions to double your conversion rate in 30 days. Streamline operations and boost efficiency with our customized AI strategies." />
       <meta name="keywords" content="AI automation, business automation, conversion optimization, AI solutions, business efficiency" />
-      <link rel="canonical" href="https://zaidistudio.com" />
+      <link rel="canonical" href="https://zaidistudio.co.ke" />
       <script type="application/ld+json">
         {JSON.stringify(structuredData)}
       </script>
