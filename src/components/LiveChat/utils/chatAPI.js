@@ -1,4 +1,4 @@
-const WEBHOOK_URL = 'https://hook.eu2.make.com/7u74c3kmr7esrqsywh8c4bv8f9kmytii';
+const WEBHOOK_URL = 'https://hook.eu1.make.com/blu5npwyywsl17i1mqbtfw466nq7ssqu';
 
 export const sendMessageToAI = async (messageData) => {
   try {
