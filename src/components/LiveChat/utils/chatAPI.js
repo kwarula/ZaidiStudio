@@ -2,6 +2,9 @@ const WEBHOOK_URL = 'https://hook.eu1.make.com/blu5npwyywsl17i1mqbtfw466nq7ssqu'
 
 export const sendMessageToAI = async (messageData) => {
   try {
+    // Debug: Log the webhook URL to ensure we're using the correct one
+    console.log('Sending message to webhook:', WEBHOOK_URL);
+    
     const payload = {
       message: messageData.text,
       sessionId: messageData.sessionId,
