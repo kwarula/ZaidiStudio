@@ -2,6 +2,7 @@ import React from 'react';
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import { Button } from './ui/button';
 import { useToast } from './ui/use-toast';
+import { trackPixelEvent } from '@/lib/utils';
 
 const FlutterwavePayment = ({ 
   amount, 
@@ -35,12 +36,17 @@ const FlutterwavePayment = ({
   const handleFlutterPayment = useFlutterwave(config);
 
   const handlePayment = () => {
+    trackPixelEvent('AddPaymentInfo');
     handleFlutterPayment({
       callback: (response) => {
         console.log(response);
         closePaymentModal();
         
         if (response.status === "successful") {
+          trackPixelEvent('Purchase', {
+            value: amount,
+            currency: 'KES',
+          });
           toast({
             title: "Payment Successful! 🎉",
             description: "Thank you for your payment. Your transaction has been completed.",

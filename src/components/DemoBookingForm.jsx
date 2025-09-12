@@ -7,6 +7,7 @@ import { useToast } from './ui/use-toast';
 import { format } from 'date-fns';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
+import { trackPixelEvent } from '@/lib/utils';
 import DatePicker from './DatePicker';
 import TimePicker from './TimePicker';
 
@@ -72,6 +73,8 @@ const DemoBookingForm = ({ open, onOpenChange }) => {
     e.preventDefault();
     if (validateStep(3)) {
       console.log('Booking submitted:', formData);
+      trackPixelEvent('Lead');
+      trackPixelEvent('Schedule');
       toast({
         title: "Demo Booked!",
         description: `Your demo is scheduled for ${format(formData.date, 'MMMM d, yyyy')} at ${formData.time}.`,

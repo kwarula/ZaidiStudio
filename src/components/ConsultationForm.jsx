@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { parsePhoneNumberFromString, isValidPhoneNumber } from 'libphonenumber-js';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
+import { trackPixelEvent } from '@/lib/utils';
 import { ArrowRight, ArrowLeft, Building2, Briefcase, Mail, Phone, Globe, User } from 'lucide-react';
 
 const companyTypes = [
@@ -94,6 +95,7 @@ const ConsultationForm = ({ open, onOpenChange, onConsultationRequested }) => {
       }
 
       onConsultationRequested();
+      trackPixelEvent('Lead');
       toast({
         title: "Congratulations! 🎉",
         description: "You've taken the first step towards transforming your business. Our team will contact you within 24 hours to schedule your consultation.",
