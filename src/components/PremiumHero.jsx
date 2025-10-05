@@ -48,63 +48,51 @@ const PremiumHero = () => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20">
-      {/* AI-inspired Background Pattern */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-green-500/5"></div>
-        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="ai-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <circle cx="20" cy="20" r="1" fill="currentColor" className="text-blue-300/20">
-                <animate attributeName="r" values="1;2;1" dur="4s" repeatCount="indefinite" />
-              </circle>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#ai-grid)" />
-        </svg>
-      </div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
+      {/* Minimal Background Accent */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 via-transparent to-transparent pointer-events-none"></div>
+      
+      {/* Subtle Floating Orbs */}
+      <div className="absolute top-20 right-20 w-72 h-72 bg-blue-50/30 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-40 left-20 w-96 h-96 bg-purple-50/20 rounded-full blur-3xl pointer-events-none"></div>
 
-      {/* Floating AI Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400/30 rounded-full animate-pulse"></div>
-        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-purple-400/40 rounded-full animate-pulse delay-1000"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-green-400/20 rounded-full animate-pulse delay-2000"></div>
-      </div>
-
-      <div className="container relative z-10 text-center px-4 py-20">
+      <div className="container relative z-10 px-6 py-24 md:py-32">
         {/* Hero Content */}
-        <div className="max-w-4xl mx-auto space-y-8">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm border border-blue-200/50 rounded-full text-sm font-medium text-blue-700 mb-6">
-            <Sparkles className="w-4 h-4" />
-            <span>AI-Powered Business Transformation</span>
+        <div className="max-w-5xl mx-auto">
+          {/* Badge - Subtle and Clean */}
+          <div className="flex justify-center mb-8 fade-in">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full text-sm font-medium text-gray-700">
+              <Sparkles className="w-4 h-4 text-blue-600" />
+              <span>AI-Powered Business Transformation</span>
+            </div>
           </div>
 
-          {/* Main Headline */}
-          <h1 className="text-hero text-gray-900 leading-tight">
+          {/* Main Headline - Large, Bold, Clean */}
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-[1.1] tracking-tight text-center mb-6 fade-in" style={{ animationDelay: '0.1s' }}>
             Stop Wasting Time—
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <br />
+            <span className="bg-gradient-to-r from-blue-600 via-blue-700 to-purple-600 bg-clip-text text-transparent">
               Scale Your Business
             </span>
             <br />
             with AI & Automation
           </h1>
 
-          {/* Sub-headline */}
-          <div className="space-y-4">
-            <p className="text-xl md:text-2xl font-semibold text-blue-800">
+          {/* Sub-headline - Clear Hierarchy */}
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-12 fade-in" style={{ animationDelay: '0.2s' }}>
+            <p className="text-2xl md:text-3xl font-semibold text-gray-900">
               Get Real Results, Not Excuses.
             </p>
-            <p className="text-body text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
               If you're still doing things the old way, you're leaving money on the table. 
               Transform your operations with intelligent automation that works 24/7.
             </p>
           </div>
 
-          {/* CTA Button */}
-          <div className="pt-4">
+          {/* CTA Button - Clean and Prominent */}
+          <div className="flex justify-center mb-16 fade-in" style={{ animationDelay: '0.3s' }}>
             <button
-              className="btn btn-primary ai-glow text-lg px-8 py-4 inline-flex items-center gap-3 group"
+              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gray-900 text-white text-lg font-semibold rounded-xl hover:bg-gray-800 transition-all duration-200 hover:shadow-lg hover:shadow-gray-900/20 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
               onClick={() => setIsFormOpen(true)}
               disabled={hasRequestedConsultation}
             >
@@ -123,40 +111,43 @@ const PremiumHero = () => {
             </button>
           </div>
 
-          {/* Tech Stack */}
-          <div className="pt-12 space-y-6">
-            <p className="text-feature font-medium text-gray-700">
-              Powered by Industry-Leading AI Technology
-            </p>
-            
-            <div className="flex flex-wrap justify-center items-center gap-4">
-              {techStack.map((tech) => (
+          {/* Live Results - Card-based, Clean */}
+          <div className="mb-20 fade-in" style={{ animationDelay: '0.4s' }}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              {liveResults.map((result, index) => (
                 <div 
-                  key={tech.name}
-                  className="flex flex-col items-center space-y-2 p-2 hover:scale-110 transition-transform duration-300"
+                  key={index} 
+                  className="bg-white border border-gray-200 rounded-2xl p-8 hover:border-gray-300 hover:shadow-lg transition-all duration-200"
                 >
-                  <div className="h-12 w-24 flex items-center justify-center bg-white rounded">
-                    <img 
-                      src={tech.logo} 
-                      alt={tech.name}
-                      className="h-8 w-20 object-contain"
-                    />
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center">
+                      <result.icon className="w-6 h-6 text-blue-600" />
+                    </div>
                   </div>
+                  <div className="text-4xl font-bold text-gray-900 mb-2 text-center">{result.metric}</div>
+                  <p className="text-sm text-gray-600 text-center leading-relaxed">{result.description}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Live Results Section */}
-          <div className="pt-16">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {liveResults.map((result, index) => (
-                <div key={index} className="bg-white/60 backdrop-blur-sm border border-gray-200/50 rounded-2xl p-6">
-                  <div className="flex items-center justify-center gap-2 mb-4">
-                    <result.icon className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div className="text-3xl font-bold text-blue-900 mb-2">{result.metric}</div>
-                  <p className="text-sm text-gray-600">{result.description}</p>
+          {/* Tech Stack - Subtle and Professional */}
+          <div className="fade-in" style={{ animationDelay: '0.5s' }}>
+            <p className="text-sm font-medium text-gray-500 text-center mb-8 uppercase tracking-wide">
+              Powered by Industry-Leading AI Technology
+            </p>
+            
+            <div className="flex flex-wrap justify-center items-center gap-8 opacity-60 hover:opacity-100 transition-opacity duration-300">
+              {techStack.map((tech) => (
+                <div 
+                  key={tech.name}
+                  className="grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110"
+                >
+                  <img 
+                    src={tech.logo} 
+                    alt={tech.name}
+                    className="h-8 w-auto object-contain"
+                  />
                 </div>
               ))}
             </div>
