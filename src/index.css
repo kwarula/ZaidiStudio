@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -57,18 +57,19 @@
   --space-16: 8rem;    /* 128px */
   --space-20: 10rem;   /* 160px */
 
-  /* Typography Scale */
-  --text-hero-xl: 4rem;      /* 64px */
-  --text-hero-lg: 3rem;      /* 48px */
-  --text-hero-md: 2.25rem;   /* 36px */
-  --text-section-xl: 2.5rem; /* 40px */
-  --text-section-lg: 2rem;   /* 32px */
-  --text-section-md: 1.75rem; /* 28px */
-  --text-subsection: 1.75rem; /* 28px */
-  --text-feature: 1.25rem;   /* 20px */
-  --text-body: 1.125rem;     /* 18px */
-  --text-caption: 0.875rem;  /* 14px */
-  --text-label: 1rem;        /* 16px */
+  /* Typography Scale - Refined for better hierarchy */
+  --text-hero-xl: 4.5rem;      /* 72px */
+  --text-hero-lg: 3.5rem;      /* 56px */
+  --text-hero-md: 2.5rem;      /* 40px */
+  --text-section-xl: 3rem;     /* 48px */
+  --text-section-lg: 2.25rem;  /* 36px */
+  --text-section-md: 1.875rem; /* 30px */
+  --text-subsection: 1.5rem;   /* 24px */
+  --text-feature: 1.25rem;     /* 20px */
+  --text-body-lg: 1.125rem;    /* 18px */
+  --text-body: 1rem;           /* 16px */
+  --text-caption: 0.875rem;    /* 14px */
+  --text-small: 0.8125rem;     /* 13px */
 
   /* Border Radius */
   --radius-sm: 0.5rem;   /* 8px */
@@ -99,6 +100,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  font-size: 16px;
 }
 
 body {
@@ -106,55 +108,77 @@ body {
   padding: 0;
   overflow-x: hidden;
   background-color: var(--gray-50);
-  color: var(--gray-700);
-  line-height: 1.6;
+  color: var(--gray-900);
+  line-height: 1.7;
+  font-size: var(--text-body);
 }
 
-/* Typography System */
+/* Typography System - Airbnb-inspired */
 .text-hero {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
   font-size: var(--text-hero-md);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.text-section {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: var(--text-section-md);
   line-height: 1.2;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
-.text-section {
-  font-size: var(--text-section-md);
+.text-subsection {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: var(--text-subsection);
   line-height: 1.3;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 
-.text-subsection {
-  font-size: var(--text-subsection);
-  line-height: 1.4;
-  font-weight: 600;
-}
-
 .text-feature {
   font-size: var(--text-feature);
-  line-height: 1.4;
+  line-height: 1.5;
   font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.text-body-lg {
+  font-size: var(--text-body-lg);
+  line-height: 1.7;
+  font-weight: 400;
+  color: var(--gray-600);
 }
 
 .text-body {
   font-size: var(--text-body);
-  line-height: 1.6;
+  line-height: 1.7;
   font-weight: 400;
+  color: var(--gray-600);
 }
 
 .text-caption {
   font-size: var(--text-caption);
-  line-height: 1.4;
+  line-height: 1.5;
   font-weight: 400;
+  color: var(--gray-500);
+}
+
+.text-small {
+  font-size: var(--text-small);
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--gray-500);
 }
 
 .text-label {
-  font-size: var(--text-label);
+  font-size: var(--text-caption);
   line-height: 1.5;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 /* Responsive Typography */
@@ -337,38 +361,44 @@ body {
   color: var(--gray-400);
 }
 
-/* Layout Utilities */
+/* Layout Utilities - Generous Spacing */
 .container {
-  max-width: 1440px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 var(--space-2);
+  padding: 0 1.5rem;
 }
 
 @media (min-width: 768px) {
   .container {
-    padding: 0 var(--space-4);
+    padding: 0 2rem;
   }
 }
 
 @media (min-width: 1024px) {
   .container {
-    padding: 0 var(--space-6);
+    padding: 0 3rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    padding: 0 4rem;
   }
 }
 
 .section-padding {
-  padding: var(--space-8) 0;
+  padding: 4rem 0;
 }
 
 @media (min-width: 768px) {
   .section-padding {
-    padding: var(--space-12) 0;
+    padding: 6rem 0;
   }
 }
 
 @media (min-width: 1024px) {
   .section-padding {
-    padding: var(--space-16) 0;
+    padding: 8rem 0;
   }
 }
 

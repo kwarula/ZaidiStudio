@@ -14,33 +14,32 @@ const PainPoints = () => {
   ];
 
   return (
-    <section className="section-padding bg-gradient-to-br from-red-50 to-orange-50">
+    <section className="py-24 md:py-32 bg-white">
       <div className="container">
-        <div className="text-center mb-16">
-          <h2 className="text-section text-gray-900 mb-4">
+        <div className="text-center mb-20">
+          <h2 className="text-section text-gray-900 mb-6">
             Without ZaidiStudio, You're Losing
           </h2>
-          <p className="text-body text-gray-600 max-w-2xl mx-auto">
+          <p className="text-body-lg text-gray-600 max-w-2xl mx-auto">
             Every day without automation costs your business time, money, and competitive advantage
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {painPoints.map((point, index) => {
             const Icon = point.icon;
             return (
-              <PremiumCard 
-                key={index} 
-                variant="warning" 
-                className="p-6 text-center"
+              <div
+                key={index}
+                className="bg-red-50/50 border border-red-100 rounded-2xl p-8 text-center hover:shadow-lg hover:border-red-200 transition-all duration-200"
               >
-                <div className="text-red-500 mb-4 flex justify-center">
-                  <Icon className="w-8 h-8" />
+                <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-5">
+                  <Icon className="w-7 h-7 text-red-600" />
                 </div>
-                <p className="text-feature font-medium text-red-700">
+                <p className="text-lg font-medium text-gray-900 leading-relaxed">
                   {point.text}
                 </p>
-              </PremiumCard>
+              </div>
             );
           })}
         </div>

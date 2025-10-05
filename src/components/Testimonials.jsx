@@ -36,37 +36,43 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="section-padding bg-gray-50">
+    <section className="py-24 md:py-32 bg-white">
       <div className="container">
-        <div className="text-center mb-16">
-          <h2 className="text-section text-gray-900 mb-4">
+        <div className="text-center mb-20">
+          <h2 className="text-section text-gray-900 mb-6">
             What Our Clients Say
           </h2>
-          <p className="text-body text-gray-600 max-w-2xl mx-auto">
+          <p className="text-body-lg text-gray-600 max-w-2xl mx-auto">
             Real feedback from real businesses that transformed with AI
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {testimonials.map((testimonial, index) => (
-            <PremiumCard key={index} className="p-6 h-full flex flex-col">
-              <blockquote className="text-body text-gray-700 italic mb-6 flex-grow">
+            <div 
+              key={index} 
+              className="bg-gray-50 border border-gray-200 rounded-2xl p-8 hover:shadow-lg hover:border-gray-300 transition-all duration-200 flex flex-col"
+            >
+              <blockquote className="text-base text-gray-700 leading-relaxed mb-8 flex-grow">
                 "{testimonial.quote}"
               </blockquote>
-              <div className="flex items-center">
-                <Avatar className="w-12 h-12 mr-4">
-                  <AvatarFallback className="bg-black text-white font-bold">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-white font-semibold text-sm">
                     {testimonial.author.split(' ').map(n => n[0]).join('').toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
+                  </span>
+                </div>
                 <div>
-                  <p className="font-medium text-gray-900">{testimonial.author}</p>
-                  <p className="text-caption text-gray-600">
-                    {testimonial.role}, {testimonial.company}
+                  <p className="font-semibold text-gray-900 text-sm">{testimonial.author}</p>
+                  <p className="text-sm text-gray-600">
+                    {testimonial.role}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {testimonial.company}
                   </p>
                 </div>
               </div>
-            </PremiumCard>
+            </div>
           ))}
         </div>
       </div>
