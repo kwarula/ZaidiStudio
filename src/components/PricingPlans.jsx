@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Check } from 'lucide-react';
 import Toggle from './Toggle';
+import { trackPixelEvent } from '@/lib/utils';
 
 const plans = [
   {
@@ -81,7 +82,19 @@ const PricingPlans = () => {
               <p className="mt-1 text-sm text-gray-500">
                 {plan.monthlyPrice === null ? 'Contact us for pricing' : 'per month'}
               </p>
-              <Button className="mt-6 w-full text-lg py-2">
+              <Button
+                className="mt-6 w-full text-lg py-2"
+                onClick={() => {
+                  if (plan.monthlyPrice !== null) {
+                    trackPixelEvent('InitiateCheckout', {
+                      value: isAnnual ? plan.monthlyPrice * 12 * 0.8 : plan.monthlyPrice,
+                      currency: 'KES',
+                      content_name: plan.name,
+                    });
+                  }
+                  // TODO: Add navigation to checkout or contact form
+                }}
+              >
                 {plan.monthlyPrice === null ? 'Contact Sales' : 'Get Started'}
               </Button>
             </div>
