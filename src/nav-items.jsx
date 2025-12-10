@@ -1,4 +1,4 @@
-import { HomeIcon, CreditCardIcon, LayoutListIcon, InfoIcon, FileJsonIcon, LayoutDashboardIcon, BrainCircuitIcon, GiftIcon, Zap } from "lucide-react";
+import { HomeIcon, CreditCardIcon, LayoutListIcon, InfoIcon, FileJsonIcon, LayoutDashboardIcon, BrainCircuitIcon, GiftIcon, Zap, ShieldIcon, FileTextIcon } from "lucide-react";
 import Index from "./pages/Index.jsx";
 import Pricing from "./pages/Pricing.jsx";
 import Services from "./pages/Services.jsx";
@@ -9,6 +9,8 @@ import AIDojo from "./pages/AIDojo.jsx";
 import Classroom from "./pages/dojo/Classroom.jsx";
 import AIStarterKit from "./pages/AIStarterKit.jsx";
 import Express from "./pages/Express.jsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
+import TermsOfService from "./pages/TermsOfService.jsx";
 
 export const navItems = [
   {
@@ -70,5 +72,17 @@ export const navItems = [
     to: "/templates",
     icon: <FileJsonIcon className="h-4 w-4" />,
     page: <Templates />,
+  },
+  {
+    title: "Privacy Policy",
+    to: "/privacy",
+    icon: <ShieldIcon className="h-4 w-4" />,
+    page: <PrivacyPolicy />,
+  },
+  {
+    title: "Terms of Service",
+    to: "/terms",
+    icon: <FileTextIcon className="h-4 w-4" />,
+    page: <TermsOfService />,
   },
 ];
